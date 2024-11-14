@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.mainWrapper {
+  height: 100vh;
+}
+
+html {
+  font-family: 'Ropa Sans', sans-serif;
+}

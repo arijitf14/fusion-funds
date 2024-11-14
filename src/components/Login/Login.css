@@ -1,0 +1,32 @@
+/* .login-container {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('../../assets/images/FusionBg.png') no-repeat center center/cover;
+  } */
+  .login-container {
+    position: relative;
+    width: 100%; /* Full width of the viewport */
+    max-width: 1600px; /* Maximum width for larger screens */
+    height: 100vh; /* Full height of the viewport */
+    max-height: 900px; /* Maximum height for larger screens */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    mix-blend-mode: darken;
+    background: url('../../assets/images/FusionBg.jpg') no-repeat center center/cover;
+  }
+  
+  .login-form {
+    position: relative;
+    z-index: 2; /* Ensure the form appears above the overlay */
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 400px;
+    margin-top: 8%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
