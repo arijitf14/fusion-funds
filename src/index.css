@@ -6,6 +6,7 @@
   height: 100vh;
 }
 
-html {
-  font-family: 'Ropa Sans', sans-serif;
+html, body {
+  font-family: 'Ropa Sans', sans-serif !important;
 }
+

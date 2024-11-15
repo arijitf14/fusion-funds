@@ -1,0 +1,7 @@
+.custom-button {
+    background-color: #d1d4e1 !important; /* Custom background color */
+    color: #0f1e60 !important;            /* Text color */
+    border: none !important;                 /* No border */
+    padding: 6px 20px !important;         /* Padding inside the button */
+    border-radius: 6px !important;        /* Rounded corners */
+  }

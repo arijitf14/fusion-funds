@@ -6,27 +6,70 @@
     align-items: center;
     background: url('../../assets/images/FusionBg.png') no-repeat center center/cover;
   } */
-  .login-container {
-    position: relative;
-    width: 100%; /* Full width of the viewport */
-    max-width: 1600px; /* Maximum width for larger screens */
-    height: 100vh; /* Full height of the viewport */
-    max-height: 900px; /* Maximum height for larger screens */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    mix-blend-mode: darken;
-    background: url('../../assets/images/FusionBg.jpg') no-repeat center center/cover;
-  }
-  
-  .login-form {
-    position: relative;
-    z-index: 2; /* Ensure the form appears above the overlay */
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    width: 400px;
-    margin-top: 8%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
+
+.login-container {
+  position: relative;
+  width: 100%; /* Full width of the viewport */
+  height: 100vh; /* Full height of the viewport */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("../../assets/images/FusionBg.jpg") no-repeat center center/cover;
+  background-size: cover; /* Ensures the background expands */
+  overflow: hidden; /* Prevents scrolling from showing extra space */
+  min-height: 100%; /* Makes sure the container always covers the full height */
+}
+
+.login-form {
+  position: relative;
+  z-index: 2; /* Ensure the form appears above the overlay */
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 400px;
+  margin-top: 8%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Input Field Styling */
+.form-control {
+  border: 1px solid #ccc !important; /* Light grey border */
+  border-radius: 8px !important; /* Rounded corners */
+  padding: 12px !important; /* Add some padding */
+  background-color: white !important; /* White background */
+  box-shadow: none !important; /* Remove inner shadow if any */
+  font-size: 16px !important; /* Adjust font size */
+}
+
+/* Placeholder Text Styling */
+.form-control::placeholder {
+  color: #b0b0b0 !important; /* Light grey for placeholder text */
+  opacity: 1 !important; /* Ensure the color shows */
+}
+
+/* On Focus */
+.form-control:focus {
+  outline: none !important;
+  border-color: #999 !important; /* Slightly darker border on focus */
+  box-shadow: none !important; /* Remove Bootstrap default box shadow */
+}
+
+/* Error Styling (Bootstrap uses the "is-invalid" class) */
+.is-invalid {
+  border-color: #dc3545; /* Red border for invalid fields */
+}
+
+.is-invalid:focus {
+  border-color: #dc3545;
+  box-shadow: none;
+}
+
+label {
+  font-weight: 400 !important;
+}
+
+.btn-primary {
+  background-color: #1C2971 !important;
+  border-color: #1C2971 !important;
+  border-radius: 8px;
+}
