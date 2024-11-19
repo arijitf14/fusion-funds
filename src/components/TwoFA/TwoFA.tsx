@@ -1,107 +1,127 @@
-import { Formik, Field, Form } from "formik";
-import { Row, Col, Form as BsForm, Button } from "react-bootstrap";
-import logo from "@assets/images/FusionLogo.png";
+import { Formik, Field, FormikHelpers } from "formik";
+import { Form } from "react-bootstrap";
+import CloseIcon from "@assets/svg/close.svg?react";
+import ClockIcon from "@assets/svg/clock.svg?react";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
-import { ROUTES } from "@utils/Utils";
+import { useState } from "react";
 
-const TwoFA = () => {
+interface TwoFAProps {
+  onHide: () => void; // Function to close the modal
+  onSuccess: () => void; // Function to handle success
+}
 
-  const navigate = useNavigate();
+const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
+  const [selectedCheckbox, setSelectedCheckbox] = useState<string>("");
 
   const initialValues = {
     code: "",
   };
 
-  const handleSubmit = () => {
-    navigate(ROUTES.DASHBOARD);
-  };
-
   const validationSchema = Yup.object().shape({
-    email: Yup.string().email("Invalid email"),
-    password: Yup.string()
-      .min(1, "Password must be at least 8 characters"),
+    code: Yup.string()
+      .length(6, "Code must be exactly 6 digits")
+      .required("Verification code is required"),
   });
 
+  const handleSubmit = (
+    values: { code: string },
+    { setSubmitting }: FormikHelpers<{ code: string }>
+  ) => {
+    setSubmitting(false);
+    onHide();
+    onSuccess();
+  };
+
   return (
-    <div className="login-container d-flex justify-content-center align-items-center">
-      <div className="rounded-lg p-4 p-md-5 w-100 w-md-50">
-        <Row className="h-100">
-          <Col
-            xs={12}
-            lg={12} // Full width on large screens
-            className="d-flex flex-column justify-center align-items-center h-100"
-          >
-            <div className="d-flex justify-content-center align-items-center mb-4">
-              <img
-                src={logo}
-                alt="Logo"
-                style={{ height: "140px", maxWidth: "300px" }} // Adjust the logo to be responsive
-              />
-            </div>
-
-            <div className="login-form mt-4">
-              <h2 className="text-start text-lg font-semibold mb-2">
-                2 Factor Authentication
-              </h2>
-              <label className="mb-4">
-                A verification code will be sent to your registered email ID and
-                mobile number
-              </label>
-              <Formik
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={handleSubmit}
-              >
-                {({ isSubmitting, touched, errors }) => (
-                  <Form>
-                    <div className="form-group mb-3">
-                      <label className="mb-2">
-                        Enter 6 digit verification code
-                      </label>
-                      <Field
-                        type="text"
-                        id="code"
-                        name="code"
-                        className={`form-control ${
-                          touched.code && errors.code ? "is-invalid" : ""
-                        }`}
-                      />
-                      {touched.code && errors.code && (
-                        <BsForm.Control.Feedback type="invalid">
-                          {errors.code}
-                        </BsForm.Control.Feedback>
-                      )}
-                    </div>
-
-                    <div className="d-flex align-items-center justify-content-between mb-4">
-                      <div className="d-flex align-items-center">
-                        {/* <BsClock
-                          style={{ fontSize: "1.5rem", marginRight: "8px" }}
-                        /> */}
-                        <span>Time left: 3 mins 00 secs</span>
-                      </div>
-
-                      <button className="btn btn-primary">Resend Code</button>
-                    </div>
-
-                    <div className="d-grid">
-                      <button
-                        type="submit"
-                        className="btn btn-primary"
-                        // disabled={isSubmitting}
-                      >
-                        Confirm
-                      </button>
-                    </div>
-                  </Form>
-                )}
-              </Formik>
-            </div>
-          </Col>
-        </Row>
+    <>
+      <div className="d-flex align-items-center justify-content-between">
+        <div>
+          <h1 className="mb-0">2 Factor Authentication</h1>
+        </div>
+        <div onClick={onHide} className="d-flex align-items-center">
+          <CloseIcon />
+        </div>
       </div>
-    </div>
+      <p>
+        A verification code will be sent to your registered email ID and mobile
+        number
+      </p>
+
+      <p>Get Verification Code</p>
+
+      <Form.Group className="mb-3">
+        <div>
+          <Form.Check
+            inline
+            label="SMS"
+            type="radio"
+            id="sms"
+            name="selectedCheckbox"
+            value="sms"
+            checked={selectedCheckbox === "sms"}
+            onChange={() => setSelectedCheckbox("sms")}
+          />
+          <Form.Check
+            inline
+            label="Email"
+            type="radio"
+            id="email"
+            name="selectedCheckbox"
+            value="email"
+            checked={selectedCheckbox === "email"}
+            onChange={() => setSelectedCheckbox("email")}
+          />
+
+          {selectedCheckbox !== "" && (
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
+            >
+              {({ touched, errors, handleSubmit }) => (
+                <form onSubmit={handleSubmit}>
+                  <div className="form-group my-3">
+                    <label className="mb-2">
+                      Enter 6 digit verification code
+                    </label>
+                    <Field
+                      type="text"
+                      id="code"
+                      name="code"
+                      className={`form-control ${
+                        touched.code && errors.code ? "is-invalid" : ""
+                      }`}
+                    />
+                    {touched.code && errors.code && (
+                      <div className="invalid-feedback">{errors.code}</div>
+                    )}
+                  </div>
+
+                  <div className="d-flex align-items-center justify-content-between mb-4">
+                    <div className="d-flex align-items-center">
+                      <div className="mx-2">
+                        <ClockIcon />
+                      </div>
+                      <span>Time left: 3 mins 00 secs</span>
+                    </div>
+
+                    <button type="button" className="btn btn-primary">
+                      Resend Code
+                    </button>
+                  </div>
+
+                  <div className="d-grid">
+                    <button type="submit" className="btn btn-primary">
+                      Confirm
+                    </button>
+                  </div>
+                </form>
+              )}
+            </Formik>
+          )}
+        </div>
+      </Form.Group>
+    </>
   );
 };
 

@@ -10,11 +10,11 @@
 .login-container {
   position: relative;
   width: 100%; /* Full width of the viewport */
-  height: 100vh; /* Full height of the viewport */
+  /* height: 100vh; Full height of the viewport */
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url("../../assets/images/FusionBg.jpg") no-repeat center center/cover;
+  background: url("../../assets/images/FusionBg.png") no-repeat center center/cover;
   background-size: cover; /* Ensures the background expands */
   overflow: hidden; /* Prevents scrolling from showing extra space */
   min-height: 100%; /* Makes sure the container always covers the full height */
@@ -26,7 +26,7 @@
   background: white;
   padding: 2rem;
   border-radius: 8px;
-  width: 400px;
+  width: 500px;
   margin-top: 8%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

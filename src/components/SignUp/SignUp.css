@@ -1,0 +1,14 @@
+.signup-form {
+  position: relative;
+  z-index: 2; /* Ensure the form appears above the overlay */
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 500px;
+  margin-top: 30% !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.custom-width {
+  width: 210px !important;
+}
