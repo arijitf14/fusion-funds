@@ -9,67 +9,76 @@
 
 .login-container {
   position: relative;
-  width: 100%; /* Full width of the viewport */
-  /* height: 100vh; Full height of the viewport */
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   background: url("../../assets/images/FusionBg.png") no-repeat center center/cover;
-  background-size: cover; /* Ensures the background expands */
-  overflow: hidden; /* Prevents scrolling from showing extra space */
-  min-height: 100%; /* Makes sure the container always covers the full height */
+  background-size: cover;
+  overflow: hidden;
+  min-height: 100vh; /* Ensures the container always covers the full height */
 }
-
-.login-form {
-  position: relative;
-  z-index: 2; /* Ensure the form appears above the overlay */
-  background: white;
+ 
+.login-logo {
+  max-width: 100%;
+  height: auto;
+}
+ 
+.login-form-container {
+  width: 100%;
   padding: 2rem;
+  background: white;
   border-radius: 8px;
-  width: 500px;
-  margin-top: 8%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
-/* Input Field Styling */
+ 
+.login-form {
+  width: 100%;
+}
+ 
 .form-control {
-  border: 1px solid #ccc !important; /* Light grey border */
-  border-radius: 8px !important; /* Rounded corners */
-  padding: 12px !important; /* Add some padding */
-  background-color: white !important; /* White background */
-  box-shadow: none !important; /* Remove inner shadow if any */
-  font-size: 16px !important; /* Adjust font size */
+  border: 1px solid #ccc !important;
+  border-radius: 8px !important;
+  padding: 12px !important;
+  background-color: white !important;
+  box-shadow: none !important;
+  font-size: 16px !important;
 }
-
-/* Placeholder Text Styling */
+ 
 .form-control::placeholder {
-  color: #b0b0b0 !important; /* Light grey for placeholder text */
-  opacity: 1 !important; /* Ensure the color shows */
+  color: #b0b0b0 !important;
+  opacity: 1 !important;
 }
-
-/* On Focus */
+ 
 .form-control:focus {
   outline: none !important;
-  border-color: #999 !important; /* Slightly darker border on focus */
-  box-shadow: none !important; /* Remove Bootstrap default box shadow */
+  border-color: #999 !important;
+  box-shadow: none !important;
 }
-
-/* Error Styling (Bootstrap uses the "is-invalid" class) */
+ 
 .is-invalid {
-  border-color: #dc3545; /* Red border for invalid fields */
+  border-color: #dc3545;
 }
-
+ 
 .is-invalid:focus {
   border-color: #dc3545;
   box-shadow: none;
 }
-
+ 
 label {
   font-weight: 400 !important;
 }
-
+ 
 .btn-primary {
   background-color: #1C2971 !important;
   border-color: #1C2971 !important;
   border-radius: 8px;
 }
+ 
+.signup-link {
+  color: inherit;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+

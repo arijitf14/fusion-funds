@@ -122,10 +122,7 @@ const SignUp = () => {
                     </div>
 
                     <div className="d-grid mb-2">
-                      <button
-                        type="submit"
-                        className="btn btn-primary"
-                      >
+                      <button type="submit" className="btn btn-primary">
                         Verify
                       </button>
                     </div>
@@ -153,7 +150,12 @@ const SignUp = () => {
           </Col>
         </Row>
         <MyCustomModal show={modalShow} onHide={() => setModalShow(false)}>
-          <TwoFA onHide={() => setModalShow(false)} onSuccess={() => {}} />
+          <TwoFA
+            onHide={() => setModalShow(false)}
+            onSuccess={() => {
+              navigate(ROUTES.CREATE_ACCOUNT);
+            }}
+          />
         </MyCustomModal>
       </div>
     </div>
