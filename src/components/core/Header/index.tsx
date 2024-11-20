@@ -15,7 +15,7 @@ const Header = () => {
               <Nav.Link href="#search">
                 <Search />
               </Nav.Link>
-              <Nav.Link className="my-1" href="#notifications">
+              <Nav.Link className="my-1 mx-2" href="#notifications">
                 <Notification />
               </Nav.Link>
               <Nav.Link href="#profile">
