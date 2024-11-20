@@ -32,12 +32,12 @@ const Login = () => {
   return (
     <div className="login-container d-flex justify-content-center align-items-center">
       <div className="rounded-lg p-4 p-md-5 w-100 w-md-50">
-        <Row className="w-100 h-100">
+        <Row className="w-100 h-100 ms-0">
           {/* Left Side: Image */}
           <Col
             xs={12}
             md={6}
-            className="d-none d-md-flex justify-content-center align-items-center"
+            className="d-flex justify-content-center align-items-center flex-column flex-md-row"
           >
             <img
               src={logo}
@@ -66,7 +66,7 @@ const Login = () => {
                     <Form>
                       {/* Email Field */}
                       <div className="form-group mb-3">
-                        <label>Enter Email Id</label>
+                        <label htmlFor="email">Enter Email Id</label>
                         <Field
                           type="email"
                           id="email"
@@ -86,7 +86,7 @@ const Login = () => {
  
                       {/* Password Field */}
                       <div className="form-group mb-3">
-                        <label>Password</label>
+                        <label htmlFor="password">Password</label>
                         <Field
                           type="password"
                           id="password"
@@ -108,7 +108,7 @@ const Login = () => {
  
                       {/* Security Check Field */}
                       <div className="form-group mb-3">
-                        <label>Security Check</label>
+                        <label htmlFor="security">Security Check</label>
                         <Field
                           type="text"
                           id="security"
@@ -129,7 +129,7 @@ const Login = () => {
  
                       {/* Captcha Field */}
                       <div className="form-group mb-3">
-                        <label>Type the word above</label>
+                        <label htmlFor="captcha">Type the word above</label>
                         <Field
                           type="text"
                           id="captcha"

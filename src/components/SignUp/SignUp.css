@@ -1,14 +1,86 @@
-.signup-form {
+.login-container {
   position: relative;
-  z-index: 2; /* Ensure the form appears above the overlay */
-  background: white;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("../../assets/images/FusionBg.png") no-repeat center center/cover;
+  background-size: cover;
+  overflow: hidden;
+  min-height: 100vh; /* Ensures the container always covers the full height */
+}
+
+.signup-logo {
+  max-width: 80%; /* Limit the size of the logo */
+  height: auto;
+  display: block;
+  margin-bottom: 20px; /* For mobile spacing */
+}
+ 
+@media (max-width: 767px) {
+  .signup-logo {
+    max-width: 60%; /* Make the logo smaller on small screens */
+  }
+}
+
+.signup-form-container {
+  width: 100%;
   padding: 2rem;
+  background: white;
   border-radius: 8px;
-  width: 500px;
-  margin-top: 30% !important;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.signup-form {
+  width: 100%;
 }
 
 .custom-width {
   width: 210px !important;
+}
+
+.form-control {
+  border: 1px solid #ccc !important;
+  border-radius: 8px !important;
+  padding: 12px !important;
+  background-color: white !important;
+  box-shadow: none !important;
+  font-size: 16px !important;
+}
+ 
+.form-control::placeholder {
+  color: #b0b0b0 !important;
+  opacity: 1 !important;
+}
+ 
+.form-control:focus {
+  outline: none !important;
+  border-color: #999 !important;
+  box-shadow: none !important;
+}
+
+.is-invalid {
+  border-color: #dc3545;
+}
+ 
+.is-invalid:focus {
+  border-color: #dc3545;
+  box-shadow: none;
+}
+ 
+label {
+  font-weight: 400 !important;
+}
+
+.btn-primary {
+  background-color: #1C2971 !important;
+  border-color: #1C2971 !important;
+  border-radius: 8px;
+}
+
+.login-link {
+  color: inherit;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
 }

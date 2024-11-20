@@ -20,10 +20,18 @@
 }
  
 .login-logo {
-  max-width: 100%;
+  max-width: 80%; /* Limit the size of the logo */
   height: auto;
+  display: block;
+  margin-bottom: 20px; /* For mobile spacing */
 }
  
+@media (max-width: 767px) {
+  .login-logo {
+    max-width: 60%; /* Make the logo smaller on small screens */
+  }
+}
+
 .login-form-container {
   width: 100%;
   padding: 2rem;

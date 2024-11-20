@@ -30,27 +30,28 @@ const SignUp = () => {
 
   return (
     <div className="login-container d-flex justify-content-center align-items-center">
-      <div className="rounded-lg p-4 p-md-5 w-100 w-md-50">
-        <Row className="w-100 h-100">
+    <div className="rounded-lg p-4 p-md-5 w-100 w-md-50">
+      <Row className="w-100 h-100 ms-0">
           {/* Left Side: Image */}
           <Col
             xs={12}
             md={6}
-            className="d-none d-md-flex justify-content-center align-items-center"
+            className="d-flex justify-content-center align-items-center flex-column flex-md-row"
           >
             <img
               src={logo}
               alt="Side Graphic"
-              style={{ maxWidth: "578px", maxHeight: "90%" }}
+              className="login-logo"
             />
           </Col>
 
           {/* Right Side: Form */}
           <Col
             xs={12}
-            lg={5} // Full width on large screens
-            className="d-flex flex-column justify-content-center align-items-center"
+            md={6}
+            className="d-flex justify-content-center align-items-center"
           >
+            <div className="signup-form-container">
             <div className="signup-form mt-4">
               <h2 className="text-start text-lg font-semibold mb-4">Sign Up</h2>
               <Formik
@@ -61,7 +62,7 @@ const SignUp = () => {
                 {({ isSubmitting, touched, errors }) => (
                   <Form>
                     <div className="form-group mb-3">
-                      <label>Full Name</label>
+                      <label htmlFor="name">Full Name</label>
                       <Field
                         type="text" // Changed to password field
                         id="name"
@@ -81,9 +82,9 @@ const SignUp = () => {
                       )}
                     </div>
 
-                    <div className="d-flex align-items-center justify-content-between mb-4">
-                      <div className="form-group mb-3">
-                        <label>Mobile Number</label>
+                    <div className="row">
+                      <div className="form-group col-md-6 mb-3">
+                        <label htmlFor="mobile">Mobile Number</label>
                         <Field
                           type="text" // Changed to password field
                           name="mobile"
@@ -92,7 +93,7 @@ const SignUp = () => {
                             touched.password && errors.password
                               ? "is-invalid"
                               : ""
-                          } custom-width`}
+                          }`}
                         />
                         {touched.password && errors.password && (
                           <BsForm.Control.Feedback type="invalid">
@@ -101,8 +102,8 @@ const SignUp = () => {
                         )}
                       </div>
 
-                      <div className="form-group mb-3">
-                        <label>Email</label>
+                      <div className="form-group col-md-6 mb-3">
+                        <label htmlFor="email">Email</label>
                         <Field
                           type="email"
                           id="email"
@@ -111,7 +112,7 @@ const SignUp = () => {
                           autoComplete="off"
                           className={`form-control ${
                             touched.email && errors.email ? "is-invalid" : ""
-                          } custom-width`}
+                          }`}
                         />
                         {touched.email && errors.email && (
                           <BsForm.Control.Feedback type="invalid">
@@ -127,17 +128,12 @@ const SignUp = () => {
                       </button>
                     </div>
 
-                    <div className="d-flex justify-content-center align-items-center mb-0">
+                    <div className="text-center mt-3">
                       <span>
                         Already have an account?{" "}
                         <Link
                           to={"/"}
-                          style={{
-                            color: "inherit",
-                            fontWeight: "bold",
-                            textDecoration: "none",
-                            cursor: "pointer",
-                          }}
+                           className="login-link"
                         >
                           Login
                         </Link>
@@ -146,6 +142,7 @@ const SignUp = () => {
                   </Form>
                 )}
               </Formik>
+            </div>
             </div>
           </Col>
         </Row>
