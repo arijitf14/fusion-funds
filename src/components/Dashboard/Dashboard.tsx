@@ -1,11 +1,13 @@
-import React from 'react'
+import LayoutHOC from '@components/core/CommonLayout';
+import Header from '@components/core/Header';
+import React from 'react';
 
-function Dashboard() {
+const Dashboard: React.FC = () => {
   return (
     <div>
-      <span>Dashboard</span>
+      <Header />
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default LayoutHOC(Dashboard);

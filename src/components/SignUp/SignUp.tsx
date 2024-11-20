@@ -59,7 +59,7 @@ const SignUp = () => {
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
               >
-                {({ isSubmitting, touched, errors }) => (
+                {({ touched, errors }) => (
                   <Form>
                     <div className="form-group mb-3">
                       <label htmlFor="name">Full Name</label>

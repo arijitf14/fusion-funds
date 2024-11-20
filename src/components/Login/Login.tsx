@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Row, Col, Form as BsForm } from "react-bootstrap";
 import logo from "@assets/images/FusionLogo.png";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "@utils/Utils";
-import { ModalSize, MyCustomModal } from "@components/core/Modal";
+import { MyCustomModal } from "@components/core/Modal";
 import TwoFA from "@components/TwoFA/TwoFA";
 import "./Login.css";
  
