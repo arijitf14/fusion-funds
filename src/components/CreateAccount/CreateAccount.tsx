@@ -10,6 +10,7 @@ import TwoFA from "@components/TwoFA/TwoFA";
 import ReactSelect, { StylesConfig } from "react-select";
 import { TReactSelectOption } from "src/models";
 import { customStyles } from "src/customStyles";
+import CustomField from "@components/core/Input/CustomFieldProps";
 
 const CreateAccount = () => {
   const navigate = useNavigate();
@@ -21,20 +22,43 @@ const CreateAccount = () => {
   ];
 
   const initialValues = {
+    username: "",
+    mobile: "",
     email: "",
-    password: "",
-    captcha: "",
-    security: "",
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    country: "",
+    city: "",
+    province: "",
+    zipCode: "",
+    addressLine1: "",
+    addressLine2: "",
+    ssn: "",
   };
 
-  const handleSubmit = () => {
-    setModalShow(true);
+  const handleSubmit = (data: any) => {
+    console.log('Form Data:', data);
+    // setModalShow(true);
   };
 
   const validationSchema = Yup.object().shape({
-    email: Yup.string().email("Invalid email"),
-    password: Yup.string().min(1, "Password must be at least 8 characters"),
+    username: Yup.string().required('Please enter a username'),
+    mobile: Yup.string().required('Please enter a mobile number').matches(/^\d{10}$/, 'Mobile number must be exactly 10 digits'),
+    email: Yup.string().email('Invalid email format').required('Please enter an email'),
+    firstName: Yup.string().required('Please enter your first name'),
+    middleName: Yup.string().required('Please enter your Middle Name'),
+    lastName: Yup.string().required('Please enter your last name'),
+    country: Yup.string().required('Please select a country'),
+    city: Yup.string().required('Please enter your city'),
+    province: Yup.string().required('Please enter your province'),
+    zipCode: Yup.string().required('Please enter a zip code').matches(/^\d{5}$/, 'Zip code must be exactly 5 digits'),
+    addressLine1: Yup.string().required('Please enter address line 1'),
+    addressLine2: Yup.string().required(),
+    ssn: Yup.string().required('Please enter your SSN'),
+    // .matches(/^\d{3}-\d{2}-\d{4}$/, 'SSN must be in the format XXX-XX-XXXX'),
   });
+
 
   return (
     <div className="login-container d-flex justify-content-center align-items-center">
@@ -65,157 +89,88 @@ const CreateAccount = () => {
                   validationSchema={validationSchema}
                   onSubmit={handleSubmit}
                 >
-                  {({ touched, errors }) => (
+                  {({ touched, setFieldValue, errors }) => (
                     <Form>
                       {/* Email Field */}
-                      <div className="form-group mb-3">
-                        <label htmlFor="email">Username</label>
-                        <Field
-                          type="text"
-                          id="username"
-                          name="username"
-                          placeholder="Username"
-                          autoComplete="off"
-                          className={`form-control ${
-                            touched.email && errors.email ? "is-invalid" : ""
-                          }`}
-                        />
-                        {touched.email && errors.email && (
-                          <BsForm.Control.Feedback type="invalid">
-                            {errors.email}
-                          </BsForm.Control.Feedback>
-                        )}
-                      </div>
+                      <CustomField
+                        type="text"
+                        name="username"
+                        label="Username"
+                        placeholder="Enter Username"
+                        touched={touched}
+                        errors={errors}
+                      />
                       <div className="row">
-                        <div className="form-group col-md-6 mb-3">
-                          <label htmlFor="mobile">Mobile Number</label>
-                          <Field
-                            type="text" // Changed to password field
-                            name="mobile"
-                            placeholder="Mobile Number"
-                            className={`form-control ${
-                              touched.password && errors.password
-                                ? "is-invalid"
-                                : ""
-                            }`}
-                          />
-                          {touched.password && errors.password && (
-                            <BsForm.Control.Feedback type="invalid">
-                              {errors.password}
-                            </BsForm.Control.Feedback>
-                          )}
-                        </div>
-
-                        <div className="form-group col-md-6 mb-3">
-                          <label htmlFor="email">Email</label>
-                          <Field
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="example@gmail.com"
-                            autoComplete="off"
-                            className={`form-control ${
-                              touched.email && errors.email ? "is-invalid" : ""
-                            }`}
-                          />
-                          {touched.email && errors.email && (
-                            <BsForm.Control.Feedback type="invalid">
-                              {errors.email}
-                            </BsForm.Control.Feedback>
-                          )}
-                        </div>
+                        <CustomField
+                          type="text"
+                          name="mobile"
+                          label="Mobile Number"
+                          placeholder="Mobile Number"
+                          className='col-md-6'
+                          touched={touched}
+                          errors={errors}
+                        />
+                        <CustomField
+                          type="email"
+                          name="email"
+                          label="Email"
+                          placeholder="example@gmail.com"
+                          className='col-md-6'
+                          touched={touched}
+                          errors={errors}
+                        />
                       </div>
 
                       <hr className="my-2" />
 
                       <div className="row">
-                        <div className="form-group col-md-4 mb-3">
-                          <label htmlFor="mobile">First Name</label>
-                          <Field
-                            type="text" // Changed to password field
-                            name="mobile"
-                            placeholder="First Name"
-                            className={`form-control ${
-                              touched.password && errors.password
-                                ? "is-invalid"
-                                : ""
-                            }`}
-                          />
-                          {touched.password && errors.password && (
-                            <BsForm.Control.Feedback type="invalid">
-                              {errors.password}
-                            </BsForm.Control.Feedback>
-                          )}
-                        </div>
-
-                        <div className="form-group col-md-4 mb-3">
-                          <label htmlFor="email">Middle Name</label>
-                          <Field
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="Middle Name"
-                            autoComplete="off"
-                            className={`form-control ${
-                              touched.email && errors.email ? "is-invalid" : ""
-                            }`}
-                          />
-                          {touched.email && errors.email && (
-                            <BsForm.Control.Feedback type="invalid">
-                              {errors.email}
-                            </BsForm.Control.Feedback>
-                          )}
-                        </div>
-
-                        <div className="form-group col-md-4 mb-3">
-                          <label htmlFor="email">Last Name</label>
-                          <Field
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="Last Name"
-                            autoComplete="off"
-                            className={`form-control ${
-                              touched.email && errors.email ? "is-invalid" : ""
-                            }`}
-                          />
-                          {touched.email && errors.email && (
-                            <BsForm.Control.Feedback type="invalid">
-                              {errors.email}
-                            </BsForm.Control.Feedback>
-                          )}
-                        </div>
+                        <CustomField
+                          type="text"
+                          name="firstName"
+                          label="First Name"
+                          placeholder="First Name"
+                          className='col-md-4'
+                          touched={touched}
+                          errors={errors}
+                        />
+                        <CustomField
+                          type="text"
+                          name="middleName"
+                          label="Middle Name"
+                          placeholder="Middle Name"
+                          className='col-md-4'
+                          touched={touched}
+                          errors={errors}
+                        />
+                        <CustomField
+                          type="text"
+                          name="lastName"
+                          label="Last Name"
+                          placeholder="Last Name"
+                          className='col-md-4'
+                          touched={touched}
+                          errors={errors}
+                        />
                       </div>
-
                       <div className="row">
-                        <div className="form-group col-md-6 mb-3">
-                          <label htmlFor="mobile">Country</label>
-                          <Field
-                            type="text" // Changed to password field
-                            name="mobile"
-                            placeholder="Country"
-                            className={`form-control ${
-                              touched.password && errors.password
-                                ? "is-invalid"
-                                : ""
-                            }`}
-                          />
-                          {touched.password && errors.password && (
-                            <BsForm.Control.Feedback type="invalid">
-                              {errors.password}
-                            </BsForm.Control.Feedback>
-                          )}
-                        </div>
+                        <CustomField
+                          type="text"
+                          name="country"
+                          label="Country"
+                          placeholder="Country"
+                          className='col-md-6'
+                          touched={touched}
+                          errors={errors}
+                        />
 
                         <div className="col-md-6 mb-3">
-                          <label htmlFor="email">City</label>
+                          <label htmlFor="city">City</label>
                           <ReactSelect
-                            className={`form-control
-                            }`}
-                            inputId="curriculum"
+                            className={`form-control ${touched.city && errors.city ? "is-invalid" : ""}`}
+                            inputId="city"
                             // value={}
                             onChange={(e) => {
-                              console.log("EACH ITEM", e);
+                              setFieldValue('city', e?.value)
                             }}
                             options={options}
                             hideSelectedOptions={false}
@@ -229,111 +184,58 @@ const CreateAccount = () => {
                               >
                             }
                           />
-                          {touched.email && errors.email && (
+                          {touched.city && errors.city && (
                             <BsForm.Control.Feedback type="invalid">
-                              {errors.email}
+                              {errors.city}
                             </BsForm.Control.Feedback>
                           )}
                         </div>
                       </div>
 
                       <div className="row">
-                        <div className="form-group col-md-6 mb-3">
-                          <label htmlFor="mobile">Province</label>
-                          <Field
-                            type="text" // Changed to password field
-                            name="mobile"
-                            placeholder="Province"
-                            className={`form-control ${
-                              touched.password && errors.password
-                                ? "is-invalid"
-                                : ""
-                            }`}
-                          />
-                          {touched.password && errors.password && (
-                            <BsForm.Control.Feedback type="invalid">
-                              {errors.password}
-                            </BsForm.Control.Feedback>
-                          )}
-                        </div>
-
-                        <div className="form-group col-md-6 mb-3">
-                          <label htmlFor="email">Zip Code</label>
-                          <Field
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="Zip Code"
-                            autoComplete="off"
-                            className={`form-control ${
-                              touched.email && errors.email ? "is-invalid" : ""
-                            }`}
-                          />
-                          {touched.email && errors.email && (
-                            <BsForm.Control.Feedback type="invalid">
-                              {errors.email}
-                            </BsForm.Control.Feedback>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className="form-group mb-3">
-                        <label htmlFor="email">Address Line 1</label>
-                        <Field
+                        <CustomField
                           type="text"
-                          id="username"
-                          name="username"
-                          placeholder="Address Line 1"
-                          autoComplete="off"
-                          className={`form-control ${
-                            touched.email && errors.email ? "is-invalid" : ""
-                          }`}
+                          name="province"
+                          label="Province"
+                          placeholder="Province"
+                          className='col-md-6'
+                          touched={touched}
+                          errors={errors}
                         />
-                        {touched.email && errors.email && (
-                          <BsForm.Control.Feedback type="invalid">
-                            {errors.email}
-                          </BsForm.Control.Feedback>
-                        )}
-                      </div>
-
-                      <div className="form-group mb-3">
-                        <label htmlFor="email">Address Line 2</label>
-                        <Field
+                        <CustomField
                           type="text"
-                          id="username"
-                          name="username"
-                          placeholder="Address Line 2"
-                          autoComplete="off"
-                          className={`form-control ${
-                            touched.email && errors.email ? "is-invalid" : ""
-                          }`}
+                          name="zipCode"
+                          label="Zip Code"
+                          placeholder="Zip Code"
+                          className='col-md-6'
+                          touched={touched}
+                          errors={errors}
                         />
-                        {touched.email && errors.email && (
-                          <BsForm.Control.Feedback type="invalid">
-                            {errors.email}
-                          </BsForm.Control.Feedback>
-                        )}
                       </div>
-
-                      <div className="form-group mb-3">
-                        <label htmlFor="email">SSN</label>
-                        <Field
-                          type="text"
-                          id="username"
-                          name="username"
-                          placeholder="SSN"
-                          autoComplete="off"
-                          className={`form-control ${
-                            touched.email && errors.email ? "is-invalid" : ""
-                          }`}
-                        />
-                        {touched.email && errors.email && (
-                          <BsForm.Control.Feedback type="invalid">
-                            {errors.email}
-                          </BsForm.Control.Feedback>
-                        )}
-                      </div>
-
+                      <CustomField
+                        type="text"
+                        name="addressLine1"
+                        label="Address Line 1"
+                        placeholder="Address Line 1"
+                        touched={touched}
+                        errors={errors}
+                      />
+                      <CustomField
+                        type="text"
+                        name="addressLine2"
+                        label="Address Line 2"
+                        placeholder="Address Line 2"
+                        touched={touched}
+                        errors={errors}
+                      />
+                      <CustomField
+                        type="text"
+                        name="ssn"
+                        label="SSN"
+                        placeholder="SSN"
+                        touched={touched}
+                        errors={errors}
+                      />
                       {/* Submit Button */}
                       <div className="d-flex justify-content-center">
                         <div className="d-grid col-md-5 mb-2">
