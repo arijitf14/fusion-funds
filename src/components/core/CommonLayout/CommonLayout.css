@@ -29,4 +29,17 @@
       width: 100px; /* Even smaller size for mobile devices */
     }
   }
+
+  
+/* Sidebar custom styling */
+.sidebar-custom {
+  width: 250px; /* Default width when sidebar is open */
+  background-color: #1C2971;
+  transition: width 0.3s ease-in-out; /* Smooth transition for width */
+}
+
+/* Sidebar collapsed (closed) */
+.sidebar-custom.collapsed {
+  width: 0; 
+}
   

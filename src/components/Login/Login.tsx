@@ -8,6 +8,7 @@ import { ROUTES } from "@utils/Utils";
 import { MyCustomModal } from "@components/core/Modal";
 import TwoFA from "@components/TwoFA/TwoFA";
 import "./Login.css";
+import CustomField from "@components/core/Input/CustomFieldProps";
  
 const Login = () => {
   const navigate = useNavigate();
@@ -25,8 +26,10 @@ const Login = () => {
   };
  
   const validationSchema = Yup.object().shape({
-    email: Yup.string().email("Invalid email"),
-    password: Yup.string().min(1, "Password must be at least 8 characters"),
+    email: Yup.string().email("Invalid email").required('Please enter the email'),
+    password: Yup.string().min(1, "Password must be at least 8 characters").required('Please enter the password'),
+    security: Yup.string().required('Please enter the security code'),
+    captcha: Yup.string().required('Please enter the captcha'),
   });
  
   return (
@@ -65,88 +68,44 @@ const Login = () => {
                   {({ touched, errors }) => (
                     <Form>
                       {/* Email Field */}
-                      <div className="form-group mb-3">
-                        <label htmlFor="email">Enter Email Id</label>
-                        <Field
-                          type="email"
-                          id="email"
-                          name="email"
-                          placeholder="example@gmail.com"
-                          autoComplete="off"
-                          className={`form-control ${
-                            touched.email && errors.email ? "is-invalid" : ""
-                          }`}
-                        />
-                        {touched.email && errors.email && (
-                          <BsForm.Control.Feedback type="invalid">
-                            {errors.email}
-                          </BsForm.Control.Feedback>
-                        )}
-                      </div>
+                      <CustomField
+                        type="email"
+                        name="email"
+                        label="Enter Email Id"
+                        placeholder="example@gmail.com"
+                        touched={touched}
+                        errors={errors}
+                      />
  
                       {/* Password Field */}
-                      <div className="form-group mb-3">
-                        <label htmlFor="password">Password</label>
-                        <Field
-                          type="password"
-                          id="password"
-                          name="password"
-                          autoComplete="off"
-                          placeholder="At least 6 characters"
-                          className={`form-control ${
-                            touched.password && errors.password
-                              ? "is-invalid"
-                              : ""
-                          }`}
-                        />
-                        {touched.password && errors.password && (
-                          <BsForm.Control.Feedback type="invalid">
-                            {errors.password}
-                          </BsForm.Control.Feedback>
-                        )}
-                      </div>
+                      <CustomField
+                        type="password"
+                        name="password"
+                        label="Password"
+                        placeholder="At least 6 characters"
+                        touched={touched}
+                        errors={errors}
+                      />
  
                       {/* Security Check Field */}
-                      <div className="form-group mb-3">
-                        <label htmlFor="security">Security Check</label>
-                        <Field
-                          type="text"
-                          id="security"
-                          name="security"
-                          placeholder="Enter security code"
-                          className={`form-control ${
-                            touched.security && errors.security
-                              ? "is-invalid"
-                              : ""
-                          }`}
-                        />
-                        {touched.security && errors.security && (
-                          <BsForm.Control.Feedback type="invalid">
-                            {errors.security}
-                          </BsForm.Control.Feedback>
-                        )}
-                      </div>
+                      <CustomField
+                        type="text"
+                        name="security"
+                        label="Security Check"
+                        placeholder="Enter security code"
+                        touched={touched}
+                        errors={errors}
+                      />
  
                       {/* Captcha Field */}
-                      <div className="form-group mb-3">
-                        <label htmlFor="captcha">Type the word above</label>
-                        <Field
-                          type="text"
-                          id="captcha"
-                          name="captcha"
-                          placeholder="Enter captcha"
-                          className={`form-control ${
-                            touched.captcha && errors.captcha
-                              ? "is-invalid"
-                              : ""
-                          }`}
-                        />
-                        {touched.captcha && errors.captcha && (
-                          <BsForm.Control.Feedback type="invalid">
-                            {errors.captcha}
-                          </BsForm.Control.Feedback>
-                        )}
-                      </div>
+                      <CustomField
+                        type="text"
+                        name="captcha"
+                        label="Type the word above"
+                        placeholder="Enter captcha"
+                        touched={touched}
+                        errors={errors}
+                      />
  
                       {/* Submit Button */}
                       <div className="d-grid mb-2">
