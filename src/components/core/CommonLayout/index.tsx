@@ -35,7 +35,7 @@ const LayoutHOC = <P extends object>(
           {/* Sidebar */}
           <nav
             className={`text-white p-3 flex-shrink-0 ${
-              isSidebarVisible ? "d-block" : "d-none d-md-block"
+              isSidebarVisible ? "d-block" : "transition-drawer"
             } sidebar-custom`}
           >
             <ul className="nav d-flex justify-content-center">

@@ -35,11 +35,18 @@
 .sidebar-custom {
   width: 250px; /* Default width when sidebar is open */
   background-color: #1C2971;
-  transition: width 0.3s ease-in-out; /* Smooth transition for width */
+  height: 100vh;
+  transition: all 0.25s ease-out; /* Smooth transition for width */
 }
 
 /* Sidebar collapsed (closed) */
 .sidebar-custom.collapsed {
   width: 0; 
+}
+
+@media (max-width: 768px) {
+  .transition-drawer{
+    margin-left: -250px;
+  }
 }
   

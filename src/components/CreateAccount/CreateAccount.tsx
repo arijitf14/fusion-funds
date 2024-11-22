@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Row, Col, Form as BsForm } from "react-bootstrap";
+import { Row, Col, Form as BsForm, Accordion } from "react-bootstrap";
 import logo from "@assets/images/FusionLogo.png";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
@@ -11,6 +11,7 @@ import ReactSelect, { StylesConfig } from "react-select";
 import { TReactSelectOption } from "src/models";
 import { customStyles } from "src/customStyles";
 import CustomField from "@components/core/Input/CustomFieldProps";
+import './CreateAccount.css';
 
 const CreateAccount = () => {
   const navigate = useNavigate();
@@ -33,32 +34,33 @@ const CreateAccount = () => {
     province: "",
     zipCode: "",
     addressLine1: "",
-    addressLine2: "",
-    ssn: "",
   };
 
   const handleSubmit = (data: any) => {
-    console.log('Form Data:', data);
+    console.log("Form Data:", data);
     // setModalShow(true);
   };
 
   const validationSchema = Yup.object().shape({
-    username: Yup.string().required('Please enter a username'),
-    mobile: Yup.string().required('Please enter a mobile number').matches(/^\d{10}$/, 'Mobile number must be exactly 10 digits'),
-    email: Yup.string().email('Invalid email format').required('Please enter an email'),
-    firstName: Yup.string().required('Please enter your first name'),
-    middleName: Yup.string().required('Please enter your Middle Name'),
-    lastName: Yup.string().required('Please enter your last name'),
-    country: Yup.string().required('Please select a country'),
-    city: Yup.string().required('Please enter your city'),
-    province: Yup.string().required('Please enter your province'),
-    zipCode: Yup.string().required('Please enter a zip code').matches(/^\d{5}$/, 'Zip code must be exactly 5 digits'),
-    addressLine1: Yup.string().required('Please enter address line 1'),
-    addressLine2: Yup.string().required(),
-    ssn: Yup.string().required('Please enter your SSN'),
+    username: Yup.string().required("Please enter a username"),
+    mobile: Yup.string()
+      .required("Please enter a mobile number")
+      .matches(/^\d{10}$/, "Mobile number must be exactly 10 digits"),
+    email: Yup.string()
+      .email("Invalid email format")
+      .required("Please enter an email"),
+    firstName: Yup.string().required("Please enter your first name"),
+    middleName: Yup.string().required("Please enter your Middle Name"),
+    lastName: Yup.string().required("Please enter your last name"),
+    country: Yup.string().required("Please select a country"),
+    city: Yup.string().required("Please enter your city"),
+    province: Yup.string().required("Please enter your province"),
+    zipCode: Yup.string()
+      .required("Please enter a zip code")
+      .matches(/^\d{5}$/, "Zip code must be exactly 5 digits"),
+    addressLine1: Yup.string().required("Please enter address line 1")
     // .matches(/^\d{3}-\d{2}-\d{4}$/, 'SSN must be in the format XXX-XX-XXXX'),
   });
-
 
   return (
     <div className="login-container d-flex justify-content-center align-items-center">
@@ -91,169 +93,168 @@ const CreateAccount = () => {
                 >
                   {({ touched, setFieldValue, errors }) => (
                     <Form>
-                      {/* Email Field */}
-                      <CustomField
-                        type="text"
-                        name="username"
-                        label="Username"
-                        placeholder="Enter Username"
-                        touched={touched}
-                        errors={errors}
-                      />
-                      <div className="row">
-                        <CustomField
-                          type="text"
-                          name="mobile"
-                          label="Mobile Number"
-                          placeholder="Mobile Number"
-                          className='col-md-6'
-                          touched={touched}
-                          errors={errors}
-                        />
-                        <CustomField
-                          type="email"
-                          name="email"
-                          label="Email"
-                          placeholder="example@gmail.com"
-                          className='col-md-6'
-                          touched={touched}
-                          errors={errors}
-                        />
-                      </div>
+                      <Accordion defaultActiveKey="1">
+                        <Accordion.Item eventKey="0" className="mb-4">
+                          <Accordion.Header className="custom-header">Profile & Contact Details</Accordion.Header>
+                          <Accordion.Body>
+                            <CustomField
+                              type="text"
+                              name="username"
+                              label="Username"
+                              placeholder="Enter Username"
+                              touched={touched}
+                              errors={errors}
+                            />
+                            <div className="row">
+                              <CustomField
+                                type="text"
+                                name="mobile"
+                                label="Mobile Number"
+                                placeholder="Mobile Number"
+                                className="col-md-6"
+                                touched={touched}
+                                errors={errors}
+                              />
+                              <CustomField
+                                type="email"
+                                name="email"
+                                label="Email"
+                                placeholder="example@gmail.com"
+                                className="col-md-6"
+                                touched={touched}
+                                errors={errors}
+                              />
+                            </div>
+                          </Accordion.Body>
+                        </Accordion.Item>
+                        <Accordion.Item eventKey="1">
+                          <Accordion.Header className="custom-header">Personal & Address Details</Accordion.Header>
+                          <Accordion.Body>
+                            <div className="row">
+                              <CustomField
+                                type="text"
+                                name="firstName"
+                                label="First Name"
+                                placeholder="First Name"
+                                className="col-md-4"
+                                touched={touched}
+                                errors={errors}
+                              />
+                              <CustomField
+                                type="text"
+                                name="middleName"
+                                label="Middle Name"
+                                placeholder="Middle Name"
+                                className="col-md-4"
+                                touched={touched}
+                                errors={errors}
+                              />
+                              <CustomField
+                                type="text"
+                                name="lastName"
+                                label="Last Name"
+                                placeholder="Last Name"
+                                className="col-md-4"
+                                touched={touched}
+                                errors={errors}
+                              />
+                            </div>
+                            <div className="row">
+                              <CustomField
+                                type="text"
+                                name="country"
+                                label="Country"
+                                placeholder="Country"
+                                className="col-md-6"
+                                touched={touched}
+                                errors={errors}
+                              />
 
-                      <hr className="my-2" />
+                              <div className="col-md-6 mb-3">
+                                <label htmlFor="city">City</label>
+                                <ReactSelect
+                                  className={`form-control ${
+                                    touched.city && errors.city
+                                      ? "is-invalid"
+                                      : ""
+                                  }`}
+                                  inputId="city"
+                                  // value={}
+                                  onChange={(e) => {
+                                    setFieldValue("city", e?.value);
+                                  }}
+                                  options={options}
+                                  hideSelectedOptions={false}
+                                  components={{
+                                    IndicatorSeparator: () => null,
+                                  }}
+                                  styles={
+                                    customStyles as StylesConfig<
+                                      TReactSelectOption,
+                                      false
+                                    >
+                                  }
+                                />
+                                {touched.city && errors.city && (
+                                  <BsForm.Control.Feedback type="invalid">
+                                    {errors.city}
+                                  </BsForm.Control.Feedback>
+                                )}
+                              </div>
+                            </div>
 
-                      <div className="row">
-                        <CustomField
-                          type="text"
-                          name="firstName"
-                          label="First Name"
-                          placeholder="First Name"
-                          className='col-md-4'
-                          touched={touched}
-                          errors={errors}
-                        />
-                        <CustomField
-                          type="text"
-                          name="middleName"
-                          label="Middle Name"
-                          placeholder="Middle Name"
-                          className='col-md-4'
-                          touched={touched}
-                          errors={errors}
-                        />
-                        <CustomField
-                          type="text"
-                          name="lastName"
-                          label="Last Name"
-                          placeholder="Last Name"
-                          className='col-md-4'
-                          touched={touched}
-                          errors={errors}
-                        />
-                      </div>
-                      <div className="row">
-                        <CustomField
-                          type="text"
-                          name="country"
-                          label="Country"
-                          placeholder="Country"
-                          className='col-md-6'
-                          touched={touched}
-                          errors={errors}
-                        />
+                            <div className="row">
+                              <CustomField
+                                type="text"
+                                name="province"
+                                label="Province"
+                                placeholder="Province"
+                                className="col-md-6"
+                                touched={touched}
+                                errors={errors}
+                              />
+                              <CustomField
+                                type="text"
+                                name="zipCode"
+                                label="Zip Code"
+                                placeholder="Zip Code"
+                                className="col-md-6"
+                                touched={touched}
+                                errors={errors}
+                              />
+                            </div>
+                            <CustomField
+                              type="text"
+                              name="addressLine1"
+                              label="Address Line 1"
+                              placeholder="Address Line 1"
+                              touched={touched}
+                              errors={errors}
+                            />
+                            {/* Submit Button */}
+                            <div className="d-flex justify-content-center">
+                              <div className="d-grid col-md-5 mb-2">
+                                <button
+                                  type="submit"
+                                  className="btn btn-primary"
+                                >
+                                  Continue
+                                </button>
+                              </div>
+                            </div>
 
-                        <div className="col-md-6 mb-3">
-                          <label htmlFor="city">City</label>
-                          <ReactSelect
-                            className={`form-control ${touched.city && errors.city ? "is-invalid" : ""}`}
-                            inputId="city"
-                            // value={}
-                            onChange={(e) => {
-                              setFieldValue('city', e?.value)
-                            }}
-                            options={options}
-                            hideSelectedOptions={false}
-                            components={{
-                              IndicatorSeparator: () => null,
-                            }}
-                            styles={
-                              customStyles as StylesConfig<
-                                TReactSelectOption,
-                                false
-                              >
-                            }
-                          />
-                          {touched.city && errors.city && (
-                            <BsForm.Control.Feedback type="invalid">
-                              {errors.city}
-                            </BsForm.Control.Feedback>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className="row">
-                        <CustomField
-                          type="text"
-                          name="province"
-                          label="Province"
-                          placeholder="Province"
-                          className='col-md-6'
-                          touched={touched}
-                          errors={errors}
-                        />
-                        <CustomField
-                          type="text"
-                          name="zipCode"
-                          label="Zip Code"
-                          placeholder="Zip Code"
-                          className='col-md-6'
-                          touched={touched}
-                          errors={errors}
-                        />
-                      </div>
-                      <CustomField
-                        type="text"
-                        name="addressLine1"
-                        label="Address Line 1"
-                        placeholder="Address Line 1"
-                        touched={touched}
-                        errors={errors}
-                      />
-                      <CustomField
-                        type="text"
-                        name="addressLine2"
-                        label="Address Line 2"
-                        placeholder="Address Line 2"
-                        touched={touched}
-                        errors={errors}
-                      />
-                      <CustomField
-                        type="text"
-                        name="ssn"
-                        label="SSN"
-                        placeholder="SSN"
-                        touched={touched}
-                        errors={errors}
-                      />
-                      {/* Submit Button */}
-                      <div className="d-flex justify-content-center">
-                        <div className="d-grid col-md-5 mb-2">
-                          <button type="submit" className="btn btn-primary">
-                            Continue
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Signup Link */}
-                      <div className="d-flex justify-content-center align-items-center mb-0">
-                        <span>
-                          Already have an account?{" "}
-                          <Link to={"/"} className="signup-link">
-                            Login
-                          </Link>
-                        </span>
-                      </div>
+                            {/* Signup Link */}
+                            <div className="d-flex justify-content-center align-items-center mb-0">
+                              <span>
+                                Already have an account?{" "}
+                                <Link to={"/"} className="signup-link">
+                                  Login
+                                </Link>
+                              </span>
+                            </div>
+                          </Accordion.Body>
+                        </Accordion.Item>
+                      </Accordion>
                     </Form>
                   )}
                 </Formik>

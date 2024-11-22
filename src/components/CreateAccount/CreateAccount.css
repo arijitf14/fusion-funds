@@ -1,0 +1,20 @@
+.custom-header .accordion-button {
+    background-color: #D2D4E3 !important; /* Set background color */
+    color: black !important; /* Ensure text is white */
+    border: none; /* Remove border */
+    box-shadow: none; /* Remove shadow */
+    border-radius: 1px;
+  }
+  
+  .custom-header .accordion-button:not(.collapsed) {
+    background-color: #F0F0F0 !important; /* Optional: Change color when expanded */
+  }
+  
+  .custom-header .accordion-button:focus {
+    box-shadow: none !important; /* Remove focus outline */
+  }
+  
+  .custom-header:hover .accordion-button {
+    background-color: #D2D4E3 !important; /* Optional: Add hover effect */
+  }
+  

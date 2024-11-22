@@ -18,6 +18,8 @@ const SignUp = () => {
     name: "",
     mobile: "",
     email: "",
+    password: "",
+    confirmPassword: "",
   };
 
   const handleSubmit = () => {
@@ -26,9 +28,21 @@ const SignUp = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().min(1, "Please enter a valid name").required('Name is required'),
-    mobile: Yup.string().min(10, "Mobile must be at least 10 characters").required('Mobile   is required'),
-    email: Yup.string().email("Invalid email").required('Please enter the email'),
+    name: Yup.string()
+      .min(1, "Please enter a valid name")
+      .required("Name is required"),
+    mobile: Yup.string()
+      .min(10, "Mobile must be at least 10 characters")
+      .required("Mobile   is required"),
+    email: Yup.string()
+      .email("Invalid email")
+      .required("Please enter the email"),
+    password: Yup.string()
+      .min(6, "At least 6 characters are required")
+      .required("Please enter the password"),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password")], "Passwords must match")
+      .required("Please confirm the password"),
   });
 
   return (
@@ -41,11 +55,7 @@ const SignUp = () => {
             md={6}
             className="d-flex justify-content-center align-items-center flex-column flex-md-row"
           >
-            <img
-              src={logo}
-              alt="Side Graphic"
-              className="login-logo"
-            />
+            <img src={logo} alt="Side Graphic" className="login-logo" />
           </Col>
 
           {/* Right Side: Form */}
@@ -56,7 +66,9 @@ const SignUp = () => {
           >
             <div className="signup-form-container">
               <div className="signup-form mt-4">
-                <h2 className="text-start text-lg font-semibold mb-4">Sign Up</h2>
+                <h2 className="text-start text-lg font-semibold mb-4">
+                  Sign Up
+                </h2>
                 <Formik
                   initialValues={initialValues}
                   validationSchema={validationSchema}
@@ -78,7 +90,7 @@ const SignUp = () => {
                           name="mobile"
                           label="Mobile Number"
                           placeholder="Enter your mobile no"
-                          className='col-md-6'
+                          className="col-md-6"
                           touched={touched}
                           errors={errors}
                         />
@@ -87,26 +99,42 @@ const SignUp = () => {
                           name="email"
                           label="Email"
                           placeholder="example@gmail.com"
-                          className='col-md-6'
+                          className="col-md-6"
                           touched={touched}
                           errors={errors}
                         />
-
                       </div>
 
-                      <div className="d-grid mb-2">
-                        <button type="submit" className="btn btn-primary">
-                          Verify
-                        </button>
+                      <CustomField
+                        type="password"
+                        name="password"
+                        label="Create Password"
+                        placeholder="Atleast 6 characters"
+                        touched={touched}
+                        errors={errors}
+                      />
+
+                      <CustomField
+                        type="password"
+                        name="confirmPassword"
+                        label="Confirm Password"
+                        placeholder="Atleast 6 characters"
+                        touched={touched}
+                        errors={errors}
+                      />
+
+                      <div className="d-flex justify-content-center">
+                        <div className="d-grid col-md-5 mb-2">
+                          <button type="submit" className="btn btn-primary">
+                            Verify
+                          </button>
+                        </div>
                       </div>
 
                       <div className="text-center mt-3">
                         <span>
                           Already have an account?{" "}
-                          <Link
-                            to={"/"}
-                            className="login-link"
-                          >
+                          <Link to={"/"} className="login-link">
                             Login
                           </Link>
                         </span>
