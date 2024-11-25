@@ -2,10 +2,12 @@
 import Notification from "@assets/svg/notification.svg?react";
 import Profile from "@assets/svg/profile.svg?react";
 import Search from "../Search";
+import './Header.css'
+
 
 const Header = () => {
   return (
-    <div className="d-flex flex-column vh-100">
+    <div className="d-flex flex-column custom-header">
       <Navbar className="px-2 pb-0" bg="light" expand="lg">
         <Container fluid>
           <Navbar.Brand href="#">Welcome Back, Richard</Navbar.Brand>
@@ -25,7 +27,7 @@ const Header = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <hr className="my-2" />
+      {/* <hr className="my-2" /> */}
     </div>
   );
 };

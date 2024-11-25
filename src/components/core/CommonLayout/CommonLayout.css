@@ -1,52 +1,86 @@
-/* Adjust sidebar for smaller screens */
-@media (max-width: 768px) {
-  nav {
-    width: 100%;
-    height: auto;
-  }
-
-  nav .nav-link {
-    /* padding: 10px; */
-    text-align: center;
-  }
+/* Main container layout */
+.layout-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden; /* Prevents layout overflow */
 }
 
-.nav-logo {
-    width: 200px; /* Default size for larger screens */
-    height: auto;
-    margin-top: 20px;
-    margin-bottom: 30px;
-  }
-  
-  @media (max-width: 768px) {
-    .nav-logo {
-      width: 150px; /* Smaller size for tablets */
-    }
-  }
-  
-  @media (max-width: 576px) {
-    .nav-logo {
-      width: 100px; /* Even smaller size for mobile devices */
-    }
-  }
-
-  
-/* Sidebar custom styling */
+/* Sidebar styles */
 .sidebar-custom {
-  width: 250px; /* Default width when sidebar is open */
+  width: 250px; /* Default sidebar width */
   background-color: #1C2971;
   height: 100vh;
-  transition: all 0.25s ease-out; /* Smooth transition for width */
+  overflow-y: auto; /* Enable scrolling */
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: all 0.25s ease-out;
+  z-index: 1040;
 }
 
-/* Sidebar collapsed (closed) */
 .sidebar-custom.collapsed {
-  width: 0; 
+  width: 0;
+  overflow: hidden;
+}
+
+.sidebar-custom.visible {
+  width: 250px;
+}
+
+/* Main content area */
+.main-content {
+  flex-grow: 1; /* Takes the rest of the space */
+  margin-left: 250px; /* Offset for the visible sidebar */
+  padding: 1rem;
+  transition: margin-left 0.25s ease-out;
+  background-color: #f8f9fa; /* Light background */
+}
+
+.main-content.collapsed {
+  margin-left: 0; /* Remove offset when sidebar is collapsed */
+}
+
+/* Sidebar Toggle Button */
+.toggle-sidebar {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1050;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .sidebar-custom {
+    width: 100%; /* Full width on small screens */
+    height: auto;
+    position: absolute;
+  }
+
+  .sidebar-custom.collapsed {
+    margin-left: -100%;
+  }
+
+  .main-content {
+    margin-left: 0; /* No offset on smaller screens */
+  }
+}
+
+/* Sidebar logo */
+.nav-logo {
+  width: 200px;
+  height: auto;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
 
 @media (max-width: 768px) {
-  .transition-drawer{
-    margin-left: -250px;
+  .nav-logo {
+    width: 150px;
   }
 }
-  
+
+@media (max-width: 576px) {
+  .nav-logo {
+    width: 100px;
+  }
+}
