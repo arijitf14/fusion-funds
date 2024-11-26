@@ -207,8 +207,8 @@ const CreateAccount = () => {
                               <CustomField
                                 type="text"
                                 name="province"
-                                label="Province"
-                                placeholder="Province"
+                                label="State"
+                                placeholder="State"
                                 className="col-md-6"
                                 touched={touched}
                                 errors={errors}

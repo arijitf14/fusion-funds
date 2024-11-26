@@ -71,10 +71,10 @@ const Login = () => {
                     <Form>
                       {/* Email Field */}
                       <CustomField
-                        type="email"
+                        type="text"
                         name="email"
-                        label="Enter Email Id"
-                        placeholder="example@gmail.com"
+                        label="Enter Username"
+                        placeholder="ABC"
                         touched={touched}
                         errors={errors}
                       />
