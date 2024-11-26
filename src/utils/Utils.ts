@@ -5,3 +5,5 @@ export const ROUTES = {
     DASHBOARD: '/dashboard',
     SIGNUP: '/signup'
   }
+
+export const isBuildMode = import.meta.env.PROD

@@ -1,0 +1,82 @@
+/* Outer container to center all elements */
+.notFound-container {
+  min-height: 100vh; /* Full viewport height */
+  display: flex;
+  flex-direction: column;
+  background: url("../../assets/images/FusionBg.png") no-repeat center
+    center/cover;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Logo responsiveness */
+.responsive-logo img {
+  width: 300px; /* Default size for larger screens */
+  max-width: 100%; /* Prevent overflow */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* Typography styles */
+h1 {
+  font-size: 5rem; /* Large size for 404 */
+  color: #007bff; /* Primary color for 404 */
+}
+
+h2.display-1 {
+  font-size: 2.5rem; /* Default size for title */
+  margin-bottom: 1rem;
+}
+
+p.fs-3 {
+  font-size: 1.25rem; /* Default size for text */
+  margin-bottom: 1.5rem;
+  color: #6c757d; /* Secondary text color */
+}
+
+/* Button styles */
+button.rounded-pill {
+  padding: 0.75rem 2rem; /* Add padding for larger buttons */
+  font-size: 1rem; /* Ensure text is readable */
+}
+
+button.rounded-pill a {
+  text-decoration: none; /* Remove underline */
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 4rem; /* Resize 404 for tablets */
+  }
+
+  h2.display-1 {
+    font-size: 2rem; /* Resize title for tablets */
+  }
+
+  p.fs-3 {
+    font-size: 1rem; /* Resize text for tablets */
+  }
+
+  .responsive-logo img {
+    width: 200px; /* Smaller logo for tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 3rem; /* Resize 404 for mobile */
+  }
+
+  h2.display-1 {
+    font-size: 1.5rem; /* Resize title for mobile */
+  }
+
+  p.fs-3 {
+    font-size: 0.9rem; /* Resize text for mobile */
+  }
+
+  .responsive-logo img {
+    width: 100px; /* Smaller logo for mobile */
+  }
+}

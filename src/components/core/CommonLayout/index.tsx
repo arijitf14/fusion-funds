@@ -16,9 +16,17 @@ const LayoutHOC = <P extends object>(
 ): React.FC<P> => {
   return (props: P) => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
+    const [selected, setSelected] = useState<string>(ROUTES.DASHBOARD); // Default selected route
 
     const toggleSidebar = () => setSidebarVisible((prev) => !prev);
     const hideSidebar = () => setSidebarVisible(false);
+
+    const handleSelection = (route: string) => {
+      setSelected(route);
+      hideSidebar();
+    };
+
+    const isSelected = (route: string) => route === selected;
 
     return (
       <div className="layout-container">
@@ -32,69 +40,120 @@ const LayoutHOC = <P extends object>(
             <img src={logo} alt="Side Graphic" className="nav-logo" />
           </ul>
           <ul className="nav flex-column px-4 mt-6">
-            <li className="nav-item d-flex align-items-center mb-3">
+            <li
+              className={`nav-item d-flex align-items-center mb-3 ${
+                isSelected(ROUTES.DASHBOARD) ? "selected" : ""
+              }`}
+            >
               <Dashboard />
               <a
                 className="nav-link text-white"
                 href={ROUTES.DASHBOARD}
-                onClick={hideSidebar}
+                onClick={() => handleSelection(ROUTES.DASHBOARD)}
               >
                 My Dashboard
               </a>
             </li>
+            <li
+              className={`nav-item d-flex align-items-center mb-3 ${
+                isSelected("#transaction-history") ? "selected" : ""
+              }`}
+            >
+              <Transaction />
+              <a
+                className="nav-link text-white"
+                href="#transaction-history"
+                onClick={() => handleSelection("#transaction-history")}
+              >
+                Transaction History
+              </a>
+            </li>
+            <li
+              className={`nav-item d-flex align-items-center mb-3 ${
+                isSelected("#create-check") ? "selected" : ""
+              }`}
+            >
+              <Echeck />
+              <a
+                className="nav-link text-white"
+                href="#create-check"
+                onClick={() => handleSelection("#create-check")}
+              >
+                Create E-check
+              </a>
+            </li>
             <li className="nav-item d-flex align-items-center mb-3">
-                <Transaction />
-                <a className="nav-link text-white" href="#transaction-history" onClick={hideSidebar}>
-                  Transaction History
-                </a>
-              </li>
-              <li className="nav-item d-flex align-items-center mb-3">
-                <Echeck />
-                <a className="nav-link text-white" href="#create-check" onClick={hideSidebar}>
-                  Create E-check
-                </a>
-              </li>
-              <li className="nav-item d-flex align-items-center mb-3">
-                <Echeck />
-                <a className="nav-link text-white" href="#create-check" onClick={hideSidebar}>
-                  Receive E-check
-                </a>
-              </li>
-              <li className="nav-item d-flex align-items-center mb-3">
-                <Echeck />
-                <a className="nav-link text-white" href="#create-check" onClick={hideSidebar}>
-                  E-check Drafts
-                </a>
-              </li>
-              <li className="nav-item d-flex align-items-center mb-3">
-                <Reports />
-                <a className="nav-link text-white" href="#reports" onClick={hideSidebar}>
-                  Reports
-                </a>
-              </li>
-              <li className="nav-item d-flex align-items-center mb-3">
-                <Bank />
-                <a className="nav-link text-white" href="#manage-sponsor-bank" onClick={hideSidebar}>
-                  Manage Sponsor Bank
-                </a>
-              </li>
-              <li className="nav-item d-flex align-items-center mb-3">
-                <Payee />
-                <a className="nav-link text-white" href="#manage-payee" onClick={hideSidebar}>
-                  Manage Payee
-                </a>
-              </li>
-              <li className="nav-item d-flex align-items-center mb-3">
-                <Reports />
-                <a className="nav-link text-white" href="#manage-subscription" onClick={hideSidebar}>
-                  Manage Subscription
-                </a>
-              </li>
-              <hr style={{ borderTop: "2px solid #2096f3", margin: "20px 0" }} />
-            {/* Additional Sidebar Items */}
+              <Echeck />
+              <a
+                className="nav-link text-white"
+                href="#create-check"
+                onClick={hideSidebar}
+              >
+                Receive E-check
+              </a>
+            </li>
             <li className="nav-item d-flex align-items-center mb-3">
+              <Echeck />
+              <a
+                className="nav-link text-white"
+                href="#create-check"
+                onClick={hideSidebar}
+              >
+                E-check Drafts
+              </a>
+            </li>
+            <li className="nav-item d-flex align-items-center mb-3">
+              <Reports />
+              <a
+                className="nav-link text-white"
+                href="#reports"
+                onClick={hideSidebar}
+              >
+                Reports
+              </a>
+            </li>
+            <li className="nav-item d-flex align-items-center mb-3">
+              <Bank />
+              <a
+                className="nav-link text-white"
+                href="#manage-sponsor-bank"
+                onClick={hideSidebar}
+              >
+                Manage Sponsor Bank
+              </a>
+            </li>
+            <li className="nav-item d-flex align-items-center mb-3">
+              <Payee />
+              <a
+                className="nav-link text-white"
+                href="#manage-payee"
+                onClick={hideSidebar}
+              >
+                Manage Payee
+              </a>
+            </li>
+            <li className="nav-item d-flex align-items-center mb-3">
+              <Reports />
+              <a
+                className="nav-link text-white"
+                href="#manage-subscription"
+                onClick={hideSidebar}
+              >
+                Manage Subscription
+              </a>
+            </li>
+            <hr style={{ borderTop: "2px solid #2096f3", margin: "20px 0" }} />
+            <li
+              className={`nav-item d-flex align-items-center mb-3 ${
+                isSelected("#logout") ? "selected" : ""
+              }`}
+            >
               <Logout />
-              <a className="nav-link text-white" href="#logout" onClick={hideSidebar}>
+              <a
+                className="nav-link text-white"
+                href="#logout"
+                onClick={() => handleSelection("#logout")}
+              >
                 Log Out
               </a>
             </li>

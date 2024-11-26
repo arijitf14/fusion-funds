@@ -29,6 +29,7 @@ export default defineConfig({
       getAlias("@redux", "./src/redux"),
       getAlias("@firebaseConfig/*", "src/firebaseConfig/"),
       getAlias("@context", "./src/context"),
+      getAlias("@axiosConfig", "./src/axiosConfig"),
       getAlias("src", "./src"),
     ],
   },
