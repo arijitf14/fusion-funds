@@ -88,7 +88,7 @@ const LayoutHOC = <P extends object>(
       <div className="layout-container">
         {/* Sidebar */}
         <nav
-          className={`sidebar-custom ${
+          className={`sidebar-custom scrollable  ${
             isSidebarVisible ? "visible" : "collapsed"
           }`}
           aria-hidden={!isSidebarVisible}
@@ -149,8 +149,6 @@ const LayoutHOC = <P extends object>(
               height: `calc(100vh - ${navbarHeight}px)`,
             }}
             className="container-fuild scrollable"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
           >
             <WrappedComponent {...(props as P)} />
           </div>
