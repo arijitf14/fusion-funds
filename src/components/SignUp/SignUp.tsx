@@ -79,7 +79,7 @@ const SignUp = () => {
                       <CustomField
                         type="text"
                         name="name"
-                        label="Full Name"
+                        label="User Name"
                         placeholder="Enter your name"
                         touched={touched}
                         errors={errors}
