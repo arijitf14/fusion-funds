@@ -17,7 +17,6 @@ const LayoutHOC = <P extends object>(
   WrappedComponent: React.ComponentType<P>
 ): React.FC<P> => {
   return (props: P) => {
-    const [selected, setSelected] = useState<string>(); // Default selected route
     const [navbarHeight, setNavbarHeight] = useState(0);
     const [isSidebarVisible, setSidebarVisible] = useState(
       window.innerWidth > 768
@@ -39,26 +38,30 @@ const LayoutHOC = <P extends object>(
       {
         icon: <Echeck />,
         label: "Create E-check",
-        href: "#create-check",
+        href: `${ROUTES.CREATECHECK}`,
       },
       {
         icon: <Echeck />,
         label: "Receive E-check",
-        href: "#create-check",
+        href: `${ROUTES.RECEIVECHECK}`,
       },
       {
         icon: <Echeck />,
         label: "E-check Drafts",
-        href: "#create-check",
+        href: `${ROUTES.CHECKDRAFT}`,
       },
-      { icon: <Reports />, label: "Reports", href: "#reports" },
+      { icon: <Reports />, label: "Reports", href: `${ROUTES.REPORTS}` },
       {
         icon: <Bank />,
         label: "Manage Bank Account",
-        href: "#manage-sponsor-bank",
+        href: `${ROUTES.MANAGEBANK}`,
       },
-      { icon: <Payee />, label: "Manage Payee", href: "#manage-payee" },
-      { icon: <Subscription />, label: "Manage Subscription", href: "#manage-payee" },
+      { icon: <Payee />, label: "Manage Payee", href: `${ROUTES.MANAGEPAYEE}` },
+      {
+        icon: <Subscription />,
+        label: "Manage Subscription",
+        href: `${ROUTES.MANAGESUBSCRIPTION}`,
+      },
     ];
 
     const toggleSidebar = () => setSidebarVisible((prev) => !prev);
@@ -71,12 +74,6 @@ const LayoutHOC = <P extends object>(
       window.addEventListener("resize", handleResize);
       return () => window.removeEventListener("resize", handleResize);
     }, []);
-
-    const handleSelection = (route: string) => {
-      console.log("I HAVE BEEN HIT");
-      setSelected(route);
-      // hideSidebar();
-    };
 
     return (
       <div className="layout-container">
@@ -110,7 +107,7 @@ const LayoutHOC = <P extends object>(
                   {icon}
                   <NavLink
                     to={href}
-                    onClick={() => handleSelection(href)}
+                    // onClick={() => handleSelection(href)}
                     className={({ isActive }) =>
                       `nav-link ${isActive ? "selected" : ""}`
                     }

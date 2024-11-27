@@ -11,7 +11,13 @@ import DashboardRoute from "@routes/dashboard";
 import SignupRoute from "@routes/signup";
 import CreateAccountRoute from "@routes/createAccount";
 import NotFoundRoute from "@routes/notFound";
-import TransactionRoute from "./transactions";
+import TransactionRoute from "@routes/transactions";
+import CreateEcheckRoute from "@routes/createEcheck";
+import ReceiveEcheckRoute from "./receiveEcheck";
+import ReportsRoute from "./reports";
+import ManageBankRoute from "./manageBank";
+import ManagePayeeRoute from "./managePayee";
+import ManageSubscriptionRoute from "./manageSubscription";
 
 const RouterMapping = () => {
   //   const accessToken = useAccessToken();
@@ -25,6 +31,13 @@ const RouterMapping = () => {
         <Route path={ROUTES.SIGNUP} element={<SignupRoute />} />
         <Route path={ROUTES.CREATE_ACCOUNT} element={<CreateAccountRoute />} />
         <Route path={ROUTES.TRANSACTION} element={<TransactionRoute />} />
+        <Route path={ROUTES.CREATECHECK} element={<CreateEcheckRoute />} />
+        <Route path={ROUTES.RECEIVECHECK} element={<ReceiveEcheckRoute />} />
+        <Route path={ROUTES.CHECKDRAFT} element={<ReceiveEcheckRoute />} />
+        <Route path={ROUTES.REPORTS} element={<ReportsRoute />} />
+        <Route path={ROUTES.MANAGEBANK} element={<ManageBankRoute />} />
+        <Route path={ROUTES.MANAGEPAYEE} element={<ManagePayeeRoute />} />
+        <Route path={ROUTES.MANAGESUBSCRIPTION} element={<ManageSubscriptionRoute />} />
         <Route path="*" element={<NotFoundRoute />} />
       </>
     )
