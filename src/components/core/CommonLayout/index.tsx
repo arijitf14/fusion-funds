@@ -21,6 +21,15 @@ const LayoutHOC = <P extends object>(
     const [isSidebarVisible, setSidebarVisible] = useState(
       window.innerWidth > 768
     ); // Default based on screen size
+    const [isHovered, setIsHovered] = useState(false);
+
+    const handleMouseEnter = () => {
+      setIsHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+      setIsHovered(false);
+    };
 
     const location = useLocation();
 
@@ -137,10 +146,11 @@ const LayoutHOC = <P extends object>(
           />
           <div
             style={{
-              overflowY: "auto",
               height: `calc(100vh - ${navbarHeight}px)`,
             }}
-            className="container-fluid" 
+            className="container-fuild scrollable"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
           >
             <WrappedComponent {...(props as P)} />
           </div>
