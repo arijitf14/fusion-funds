@@ -5,6 +5,8 @@ import Profile from "@assets/svg/profile.svg?react";
 import Search from "../Search";
 import MenuIcon from "@assets/svg/menu.svg?react";
 import "./Header.css";
+import { Link } from "react-router-dom";
+import { ROUTES } from "@utils/Utils";
 
 interface HeaderProps {
   navbarHeight: number;
@@ -49,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, navbarHeight, setNavbarH
               <Nav.Link href="#notifications" className="d-flex align-items-center">
                 <Notification />
               </Nav.Link>
-              <Nav.Link href="#profile">
+              <Nav.Link as={Link} to={ROUTES.MANAGEPROFILE}>
                 <Profile />
               </Nav.Link>
             </Nav>

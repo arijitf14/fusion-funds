@@ -148,7 +148,7 @@ const LayoutHOC = <P extends object>(
             style={{
               height: `calc(100vh - ${navbarHeight}px)`,
             }}
-            className="container-fuild scrollable"
+            className="container-fluid px-4 scrollable"
           >
             <WrappedComponent {...(props as P)} />
           </div>

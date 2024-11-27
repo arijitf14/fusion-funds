@@ -12,6 +12,7 @@ export const ROUTES = {
     MANAGEBANK: '/manage-bank',
     MANAGEPAYEE: '/manage-payee',
     MANAGESUBSCRIPTION: '/manage-subscription',
+    MANAGEPROFILE: '/manage-profile',
   }
 
 export const isBuildMode = import.meta.env.PROD

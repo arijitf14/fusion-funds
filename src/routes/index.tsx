@@ -13,11 +13,12 @@ import CreateAccountRoute from "@routes/createAccount";
 import NotFoundRoute from "@routes/notFound";
 import TransactionRoute from "@routes/transactions";
 import CreateEcheckRoute from "@routes/createEcheck";
-import ReceiveEcheckRoute from "./receiveEcheck";
-import ReportsRoute from "./reports";
-import ManageBankRoute from "./manageBank";
-import ManagePayeeRoute from "./managePayee";
-import ManageSubscriptionRoute from "./manageSubscription";
+import ReceiveEcheckRoute from "@routes/receiveEcheck";
+import ReportsRoute from "@routes/reports";
+import ManageBankRoute from "@routes/manageBank";
+import ManagePayeeRoute from "@routes/managePayee";
+import ManageSubscriptionRoute from "@routes/manageSubscription";
+import ManageProfileRoute from "@routes/manageProfile";
 
 const RouterMapping = () => {
   //   const accessToken = useAccessToken();
@@ -37,7 +38,11 @@ const RouterMapping = () => {
         <Route path={ROUTES.REPORTS} element={<ReportsRoute />} />
         <Route path={ROUTES.MANAGEBANK} element={<ManageBankRoute />} />
         <Route path={ROUTES.MANAGEPAYEE} element={<ManagePayeeRoute />} />
-        <Route path={ROUTES.MANAGESUBSCRIPTION} element={<ManageSubscriptionRoute />} />
+        <Route
+          path={ROUTES.MANAGESUBSCRIPTION}
+          element={<ManageSubscriptionRoute />}
+        />
+        <Route path={ROUTES.MANAGEPROFILE} element={<ManageProfileRoute />} />
         <Route path="*" element={<NotFoundRoute />} />
       </>
     )

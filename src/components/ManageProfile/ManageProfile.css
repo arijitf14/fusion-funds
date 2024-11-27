@@ -1,0 +1,26 @@
+/* Contact Details Button */
+.custom-btn-outline {
+  border: 2px solid #1c2971; /* Dark blue border */
+  border-radius: 25px;
+  background-color: transparent;
+  color: #1a237e; /* Dark blue text */
+  font-weight: 500;
+  padding: 8px 20px;
+  font-size: 16px;
+}
+
+/* Account Settings Button */
+.custom-btn-filled {
+  border: none;
+  border-radius: 25px;
+  background-color: #596AC5; /* Light blue */
+  color: white;
+  font-weight: 500;
+  padding: 8px 20px;
+  font-size: 16px;
+}
+
+/* Icon Styling */
+.custom-icon {
+  font-size: 20px;
+}
