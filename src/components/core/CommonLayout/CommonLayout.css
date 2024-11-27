@@ -57,10 +57,13 @@
     display: block;
     position: absolute; 
     right: 0;
-    background-color: #f8f9fa;
     border-radius: 50%;
     padding: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    right: 12px;
+    top: 10px;
+    height: 30px;
+    width: 30px;
+    color: white;
   }
 }
 
@@ -99,24 +102,26 @@
 /* Nav item styles */
 .nav-item {
   padding-left: 10px;
+  height: 50px;
 }
 
 .nav-item.selected {
   background-color: #596ac5; /* Highlight color */
   border-radius: 8px; /* Optional for rounded corners */
-  height: 50px;
+  /* height: 50px; */
 }
 
 /* Nav link styles */
 .nav-link {
   color: white !important; /* Force white font color */
   text-decoration: none;
-  transition: color 0.3s ease; /* Smooth color transition */
+  transition: color 0.3s ease;
+  white-space: pre;
 }
 
 /* Ensure selected nav-link retains white color */
 .nav-link.selected {
-  font-weight: bold; /* Optional: Highlight selected item */
+  /* font-weight: bold;  */
   color: white !important; /* Maintain white color for selected */
 }
 

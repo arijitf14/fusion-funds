@@ -27,13 +27,6 @@
   /* Responsive adjustments for smaller screens */
   @media (max-width: 768px) {
     .toggle-sidebar {
-      display: block; /* Show button on smaller screens */
-      /* position: fixed; Keeps the button in a consistent place */
-      /* top: 10px; */
-      /* left: 10px; */
-      background-color: #f8f9fa;
-      border-radius: 50%;
-      /* padding: 5px; */
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: block;
     }
   }

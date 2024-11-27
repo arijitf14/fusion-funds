@@ -140,6 +140,7 @@ const LayoutHOC = <P extends object>(
               overflowY: "auto",
               height: `calc(100vh - ${navbarHeight}px)`,
             }}
+            className="container-fluid" 
           >
             <WrappedComponent {...(props as P)} />
           </div>
