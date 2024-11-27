@@ -139,13 +139,8 @@ hr {
 /* Global style for scrollable areas */
 /* Global style for scrollable areas */
 .scrollable {
-  overflow-y: hidden; /* Hide scrollbar by default */
+  overflow-y: auto; /* Allow scrolling, shows scrollbar when necessary */
   -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on Webkit browsers */
-}
-
-/* Enable scrollbar visibility when hovered */
-.scrollable:hover {
-  overflow-y: scroll; /* Show scrollbar when hovered */
 }
 
 /* Custom scrollbar styling for Webkit browsers */
@@ -165,3 +160,4 @@ hr {
 .scrollable::-webkit-scrollbar-track {
   background: #f1f1f1; /* Scrollbar track */
 }
+
