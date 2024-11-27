@@ -1,4 +1,39 @@
-.custom-header {
+.custom-header-nav {
     border-bottom: 1px solid #D9DEFC;
     padding-bottom: 5px;
 }
+
+
+
+  /* Sidebar Toggle Button */
+.toggle-sidebar {
+    border: none;
+    background-color: transparent;
+    /* color: #1c2971; */
+    /* font-size: 1.5rem; */
+    width: 25px;
+     height: 25px;
+    /* height: 34px; */
+    margin-right: 10px;
+    cursor: pointer;
+    z-index: 1050;
+    display: none; /* Hidden by default */
+  }
+  
+  .toggle-sidebar:hover {
+    /* color: #0d6efd; */
+  }
+  
+  /* Responsive adjustments for smaller screens */
+  @media (max-width: 768px) {
+    .toggle-sidebar {
+      display: block; /* Show button on smaller screens */
+      /* position: fixed; Keeps the button in a consistent place */
+      /* top: 10px; */
+      /* left: 10px; */
+      background-color: #f8f9fa;
+      border-radius: 50%;
+      /* padding: 5px; */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  }
