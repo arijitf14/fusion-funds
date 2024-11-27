@@ -59,6 +59,8 @@ const LayoutHOC = <P extends object>(
               { icon: <Dashboard />, label: "My Dashboard", href: "#dashboard" },
               { icon: <Transaction />, label: "Transaction History", href: "#transaction-history" },
               { icon:  <Echeck/>, label: "Create E-check", href: "#create-check" },
+              { icon:  <Echeck/>, label: "Receive E-check", href: "#create-check" },
+              { icon:  <Echeck/>, label: "E-check Drafts", href: "#create-check" },
               { icon: <Reports/>, label: "Reports", href: "#reports" },
               { icon:  <Bank/>, label: "Manage Sponsor Bank", href: "#manage-sponsor-bank" },
               { icon:  <Payee/>, label: "Manage Payee", href: "#manage-payee" },
