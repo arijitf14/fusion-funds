@@ -3,7 +3,8 @@ export const ROUTES = {
     TwoFA: "/twoFA",
     CREATE_ACCOUNT: "/create-account",
     DASHBOARD: '/dashboard',
-    SIGNUP: '/signup'
+    SIGNUP: '/signup',
+    TRANSACTION: '/transactions'
   }
 
 export const isBuildMode = import.meta.env.PROD

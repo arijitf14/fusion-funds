@@ -11,6 +11,7 @@ import DashboardRoute from "@routes/dashboard";
 import SignupRoute from "@routes/signup";
 import CreateAccountRoute from "@routes/createAccount";
 import NotFoundRoute from "@routes/notFound";
+import TransactionRoute from "./transactions";
 
 const RouterMapping = () => {
   //   const accessToken = useAccessToken();
@@ -23,6 +24,7 @@ const RouterMapping = () => {
         <Route path={ROUTES.DASHBOARD} element={<DashboardRoute />} />
         <Route path={ROUTES.SIGNUP} element={<SignupRoute />} />
         <Route path={ROUTES.CREATE_ACCOUNT} element={<CreateAccountRoute />} />
+        <Route path={ROUTES.TRANSACTION} element={<TransactionRoute />} />
         <Route path="*" element={<NotFoundRoute />} />
       </>
     )

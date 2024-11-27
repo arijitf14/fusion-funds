@@ -38,19 +38,17 @@
   margin-left: 0; /* No offset when sidebar is collapsed */
 }
 
-
+/* Sidebar toggle button */
 .toggle-sidebar-cross {
   border: none;
   background-color: transparent;
-  /* color: #1c2971; */
-  /* font-size: 1.5rem; */
   cursor: pointer;
   z-index: 1050;
   display: none; /* Hidden by default */
 }
 
 .toggle-sidebar-cross:hover {
-  /* color: #0d6efd; */
+  /* Optional hover styles */
 }
 
 /* Responsive adjustments for smaller screens */
@@ -58,8 +56,6 @@
   .toggle-sidebar-cross {
     display: block;
     position: absolute; 
-    /* top: 10px; */
-    /* left: 10px; */
     right: 0;
     background-color: #f8f9fa;
     border-radius: 50%;
@@ -68,10 +64,6 @@
   }
 }
 
-
-
-
-/* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
   .sidebar-custom {
     position: absolute; /* Sidebar floats above main content */
@@ -84,7 +76,6 @@
     margin-left: 0; /* Remove offset on smaller screens */
   }
 }
-
 
 /* Sidebar logo */
 .nav-logo {
@@ -105,17 +96,37 @@
   }
 }
 
+/* Nav item styles */
 .nav-item {
   padding-left: 10px;
 }
 
 .nav-item.selected {
-  background-color: #596AC5; /* Highlight color */
+  background-color: #596ac5; /* Highlight color */
   border-radius: 8px; /* Optional for rounded corners */
   height: 50px;
 }
 
-.nav-item.selected .nav-link {
-  font-weight: bold;
+/* Nav link styles */
+.nav-link {
+  color: white !important; /* Force white font color */
+  text-decoration: none;
+  transition: color 0.3s ease; /* Smooth color transition */
 }
 
+/* Ensure selected nav-link retains white color */
+.nav-link.selected {
+  font-weight: bold; /* Optional: Highlight selected item */
+  color: white !important; /* Maintain white color for selected */
+}
+
+/* Divider styles */
+hr {
+  border-top: 2px solid #2096f3;
+  margin: 20px 0;
+}
+
+/* Sidebar nav item logout */
+.nav-item.d-flex.align-items-center.mb-3 a.nav-link {
+  color: white; /* Ensure consistent color for logout link */
+}

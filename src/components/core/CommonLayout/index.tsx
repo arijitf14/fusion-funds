@@ -7,17 +7,59 @@ import Reports from "@assets/svg/reports.svg?react";
 import Bank from "@assets/svg/bank.svg?react";
 import Payee from "@assets/svg/payee.svg?react";
 import Logout from "@assets/svg/logout.svg?react";
+import Subscription from "@assets/svg/subscription.svg?react";
 import logo from "@assets/images/FusionNav.png";
 import { ROUTES } from "@utils/Utils";
 import Header from "../Header";
+import { NavLink, useLocation } from "react-router-dom";
 
 const LayoutHOC = <P extends object>(
   WrappedComponent: React.ComponentType<P>
 ): React.FC<P> => {
   return (props: P) => {
-    const [selected, setSelected] = useState<string>(ROUTES.DASHBOARD); // Default selected route
+    const [selected, setSelected] = useState<string>(); // Default selected route
     const [navbarHeight, setNavbarHeight] = useState(0);
-    const [isSidebarVisible, setSidebarVisible] = useState(window.innerWidth > 768); // Default based on screen size
+    const [isSidebarVisible, setSidebarVisible] = useState(
+      window.innerWidth > 768
+    ); // Default based on screen size
+
+    const location = useLocation();
+
+    const sideRoutes = [
+      {
+        icon: <Dashboard />,
+        label: "My Dashboard",
+        href: `${ROUTES.DASHBOARD}`,
+      },
+      {
+        icon: <Transaction />,
+        label: "Transaction History",
+        href: `${ROUTES.TRANSACTION}`,
+      },
+      {
+        icon: <Echeck />,
+        label: "Create E-check",
+        href: "#create-check",
+      },
+      {
+        icon: <Echeck />,
+        label: "Receive E-check",
+        href: "#create-check",
+      },
+      {
+        icon: <Echeck />,
+        label: "E-check Drafts",
+        href: "#create-check",
+      },
+      { icon: <Reports />, label: "Reports", href: "#reports" },
+      {
+        icon: <Bank />,
+        label: "Manage Bank Account",
+        href: "#manage-sponsor-bank",
+      },
+      { icon: <Payee />, label: "Manage Payee", href: "#manage-payee" },
+      { icon: <Subscription />, label: "Manage Subscription", href: "#manage-payee" },
+    ];
 
     const toggleSidebar = () => setSidebarVisible((prev) => !prev);
 
@@ -25,23 +67,24 @@ const LayoutHOC = <P extends object>(
       const handleResize = () => {
         setSidebarVisible(window.innerWidth > 768);
       };
-  
+
       window.addEventListener("resize", handleResize);
       return () => window.removeEventListener("resize", handleResize);
     }, []);
 
     const handleSelection = (route: string) => {
+      console.log("I HAVE BEEN HIT");
       setSelected(route);
       // hideSidebar();
     };
-
-    const isSelected = (route: string) => route === selected;
 
     return (
       <div className="layout-container">
         {/* Sidebar */}
         <nav
-          className={`sidebar-custom ${isSidebarVisible ? "visible" : "collapsed"}`}
+          className={`sidebar-custom ${
+            isSidebarVisible ? "visible" : "collapsed"
+          }`}
           aria-hidden={!isSidebarVisible}
         >
           <button
@@ -55,46 +98,52 @@ const LayoutHOC = <P extends object>(
             <img src={logo} alt="Logo" className="nav-logo" />
           </ul>
           <ul className="nav flex-column px-4 mt-6">
-            {[
-              { icon: <Dashboard />, label: "My Dashboard", href: "#dashboard" },
-              { icon: <Transaction />, label: "Transaction History", href: "#transaction-history" },
-              { icon:  <Echeck/>, label: "Create E-check", href: "#create-check" },
-              { icon:  <Echeck/>, label: "Receive E-check", href: "#create-check" },
-              { icon:  <Echeck/>, label: "E-check Drafts", href: "#create-check" },
-              { icon: <Reports/>, label: "Reports", href: "#reports" },
-              { icon:  <Bank/>, label: "Manage Sponsor Bank", href: "#manage-sponsor-bank" },
-              { icon:  <Payee/>, label: "Manage Payee", href: "#manage-payee" },
-            ].map(({ icon, label, href }) => (
-              <li className="nav-item d-flex align-items-center mb-3" key={label}>
-                {icon}
-                <a className="nav-link text-white" href={href}>
-                  {label}
-                </a>
-              </li>
-            ))}
+            {sideRoutes.map(({ icon, label, href }) => {
+              const isActive = location.pathname === href; // Compare directly with location.pathname
+              return (
+                <li
+                  className={`nav-item d-flex align-items-center mb-3 ${
+                    isActive ? "selected" : ""
+                  }`}
+                  key={label}
+                >
+                  {icon}
+                  <NavLink
+                    to={href}
+                    onClick={() => handleSelection(href)}
+                    className={({ isActive }) =>
+                      `nav-link ${isActive ? "selected" : ""}`
+                    }
+                  >
+                    {label}
+                  </NavLink>
+                </li>
+              );
+            })}
+
             <hr style={{ borderTop: "2px solid #2096f3", margin: "20px 0" }} />
             <li className="nav-item d-flex align-items-center mb-3">
-             <Logout />
+              <Logout />
               <a className="nav-link text-white" href="#logout">
                 Log Out
               </a>
             </li>
           </ul>
         </nav>
-  
+
         {/* Main Content */}
         <main className={`main-content ${isSidebarVisible ? "" : "collapsed"}`}>
-          <Header 
-          navbarHeight={navbarHeight}
-          setNavbarHeight={setNavbarHeight}
-          toggleSidebar={toggleSidebar} 
+          <Header
+            navbarHeight={navbarHeight}
+            setNavbarHeight={setNavbarHeight}
+            toggleSidebar={toggleSidebar}
           />
           <div
-          style={{
-            overflowY: "auto",
-            height: `calc(100vh - ${navbarHeight}px)`,
-          }}
-        >
+            style={{
+              overflowY: "auto",
+              height: `calc(100vh - ${navbarHeight}px)`,
+            }}
+          >
             <WrappedComponent {...(props as P)} />
           </div>
         </main>
