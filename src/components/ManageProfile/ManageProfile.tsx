@@ -234,7 +234,7 @@ const ManageProfile = () => {
             {/* Submit Button */}
             <div className="d-flex gap-2 justify-content-start">
               <div className="d-grid col-md-1 mb-2">
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn-secondary">
                   Edit
                 </button>
               </div>

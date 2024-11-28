@@ -11,11 +11,13 @@ import ReactSelect, { StylesConfig } from "react-select";
 import { TReactSelectOption } from "src/models";
 import { customStyles } from "src/customStyles";
 import CustomField from "@components/core/Input/CustomFieldProps";
-import './CreateAccount.css';
+import "./CreateAccount.css";
+import Confirmation from "@components/Confirmation/Confirmation";
 
 const CreateAccount = () => {
   const navigate = useNavigate();
   const [modalShow, setModalShow] = useState<boolean>(false);
+  const [confirmModalShow, setConfirmModalShow] = useState<boolean>(false);
   const options = [
     { value: "chocolate", label: "Chocolate" },
     { value: "strawberry", label: "Strawberry" },
@@ -38,7 +40,7 @@ const CreateAccount = () => {
 
   const handleSubmit = (data: any) => {
     console.log("Form Data:", data);
-    // setModalShow(true);
+    setModalShow(true);
   };
 
   const validationSchema = Yup.object().shape({
@@ -58,7 +60,7 @@ const CreateAccount = () => {
     zipCode: Yup.string()
       .required("Please enter a zip code")
       .matches(/^\d{5}$/, "Zip code must be exactly 5 digits"),
-    addressLine1: Yup.string().required("Please enter address line 1")
+    addressLine1: Yup.string().required("Please enter address line 1"),
     // .matches(/^\d{3}-\d{2}-\d{4}$/, 'SSN must be in the format XXX-XX-XXXX'),
   });
 
@@ -95,7 +97,9 @@ const CreateAccount = () => {
                     <Form>
                       <Accordion defaultActiveKey="1">
                         <Accordion.Item eventKey="0" className="mb-4">
-                          <Accordion.Header className="custom-header">Profile & Contact Details</Accordion.Header>
+                          <Accordion.Header className="custom-header">
+                            Profile & Contact Details
+                          </Accordion.Header>
                           <Accordion.Body>
                             <CustomField
                               type="text"
@@ -128,7 +132,9 @@ const CreateAccount = () => {
                           </Accordion.Body>
                         </Accordion.Item>
                         <Accordion.Item eventKey="1">
-                          <Accordion.Header className="custom-header">Personal & Address Details</Accordion.Header>
+                          <Accordion.Header className="custom-header">
+                            Personal & Address Details
+                          </Accordion.Header>
                           <Accordion.Body>
                             <div className="row">
                               <CustomField
@@ -266,8 +272,18 @@ const CreateAccount = () => {
           <TwoFA
             onHide={() => setModalShow(false)}
             onSuccess={() => {
-              navigate(ROUTES.DASHBOARD);
+              // navigate(ROUTES.DASHBOARD);
+              setConfirmModalShow(true);
             }}
+          />
+        </MyCustomModal>
+        <MyCustomModal
+          show={confirmModalShow}
+          onHide={() => setConfirmModalShow(false)}
+        >
+          <Confirmation
+            onSuccess={() => navigate(ROUTES.DASHBOARD)}
+            onHide={() => setConfirmModalShow(false)}
           />
         </MyCustomModal>
       </div>

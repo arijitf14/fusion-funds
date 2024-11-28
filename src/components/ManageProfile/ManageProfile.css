@@ -20,6 +20,14 @@
   font-size: 16px;
 }
 
+.btn-secondary {
+    background-color: #D2D4E3 !important;
+    border-radius: 8px;
+    border-width: 0;
+    height: 45px;
+    color: #1C2971;
+  }
+
 /* Icon Styling */
 .custom-icon {
   font-size: 20px;

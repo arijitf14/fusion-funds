@@ -1,32 +1,53 @@
 .custom-header-nav {
-    border-bottom: 1px solid #D9DEFC;
-    padding-bottom: 5px;
+  border-bottom: 1px solid #d9defc;
+  padding-bottom: 5px;
 }
 
-
-
-  /* Sidebar Toggle Button */
+/* Sidebar Toggle Button */
 .toggle-sidebar {
-    border: none;
-    background-color: transparent;
-    /* color: #1c2971; */
-    /* font-size: 1.5rem; */
-    width: 25px;
-     height: 25px;
-    /* height: 34px; */
-    margin-right: 10px;
-    cursor: pointer;
-    z-index: 1050;
-    display: none; /* Hidden by default */
+  border: none;
+  background-color: transparent;
+  /* color: #1c2971; */
+  /* font-size: 1.5rem; */
+  width: 25px;
+  height: 25px;
+  /* height: 34px; */
+  margin-right: 10px;
+  cursor: pointer;
+  z-index: 1050;
+  display: none; /* Hidden by default */
+}
+
+.toggle-sidebar:hover {
+  /* color: #0d6efd; */
+}
+
+.profile-holder {
+  display: flex; /* Ensures it's a flex container */
+  background-color: #D9DEFC;
+  border-radius: 8px;
+  align-items: center; /* Centers items vertically */
+  justify-content: center; /* Centers items horizontally */
+  color: black;
+}
+
+.profile-holder > *:first-child {
+  flex-shrink: 0; /* Prevent the image from shrinking */
+}
+
+.profile-holder .px-3 {
+  flex-grow: 1; /* Ensure text container behaves as flex */
+  align-items: center; /* Vertically center the text */
+}
+
+.profile-holder p {
+  margin: 0; /* Remove default margin from the paragraph */
+  line-height: 1; /* Adjust line-height if necessary */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .toggle-sidebar {
+    display: block;
   }
-  
-  .toggle-sidebar:hover {
-    /* color: #0d6efd; */
-  }
-  
-  /* Responsive adjustments for smaller screens */
-  @media (max-width: 768px) {
-    .toggle-sidebar {
-      display: block;
-    }
-  }
+}

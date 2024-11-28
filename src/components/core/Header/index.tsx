@@ -14,7 +14,11 @@ interface HeaderProps {
   toggleSidebar: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ toggleSidebar, navbarHeight, setNavbarHeight }) => {
+const Header: React.FC<HeaderProps> = ({
+  toggleSidebar,
+  navbarHeight,
+  setNavbarHeight,
+}) => {
   const navbarRef = useRef<HTMLDivElement>(null);
 
   const updateNavbarHeight = () => {
@@ -28,7 +32,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, navbarHeight, setNavbarH
     window.addEventListener("resize", updateNavbarHeight);
     return () => window.removeEventListener("resize", updateNavbarHeight);
   }, []);
-  
+
   return (
     <div className="custom-header-nav" ref={navbarRef}>
       <Navbar className="px-2 pb-0" bg="light" expand="lg">
@@ -48,11 +52,19 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, navbarHeight, setNavbarH
               <Nav.Link href="#search">
                 <Search />
               </Nav.Link>
-              <Nav.Link href="#notifications" className="d-flex align-items-center">
+              <Nav.Link
+                href="#notifications"
+                className="d-flex align-items-center"
+              >
                 <Notification />
               </Nav.Link>
               <Nav.Link as={Link} to={ROUTES.MANAGEPROFILE}>
-                <Profile />
+                <div className="d-flex profile-holder">
+                  <Profile />
+                  <div className="px-3">
+                    <p>Your Merchant ID : Rich1234</p>
+                  </div>
+                </div>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>

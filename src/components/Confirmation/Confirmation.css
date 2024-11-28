@@ -1,0 +1,31 @@
+.merch-holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #d9defc;
+  height: 35px;
+  border-radius: 8px;
+  color: black;
+  max-width: 228px;
+}
+
+.merch-holder > *:first-child {
+  flex-shrink: 0; /* Prevent the image from shrinking */
+}
+
+.merch-holder .px-3 {
+  flex-grow: 1; /* Ensure text container behaves as flex */
+  align-items: center; /* Vertically center the text */
+}
+
+.merch-holder p {
+  margin: 0; /* Remove default margin from the paragraph */
+  line-height: 1; /* Adjust line-height if necessary */
+}
+
+.close-icon-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
