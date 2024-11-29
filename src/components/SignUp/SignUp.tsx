@@ -8,7 +8,7 @@ import { MyCustomModal } from "@components/core/Modal";
 import { useState } from "react";
 import TwoFA from "@components/TwoFA/TwoFA";
 import CustomField from "@components/core/Input/CustomFieldProps";
-import { FusionLogo } from "@assets/images/images";
+import { FusionLogo } from "@assets/images";
 
 const SignUp = () => {
   const navigate = useNavigate();

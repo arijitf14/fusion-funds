@@ -12,7 +12,7 @@ import { customStyles } from "src/customStyles";
 import CustomField from "@components/core/Input/CustomFieldProps";
 import "./CreateAccount.css";
 import Confirmation from "@components/Confirmation/Confirmation";
-import { FusionLogo } from "@assets/images/images";
+import { FusionLogo } from "@assets/images";
 
 const CreateAccount = () => {
   const navigate = useNavigate();

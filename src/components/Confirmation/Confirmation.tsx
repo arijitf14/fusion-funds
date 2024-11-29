@@ -1,4 +1,4 @@
-import { Close, ConfirmationIcon } from "@assets/svg/svg";
+import { Close, ConfirmationIcon } from "@assets/svg";
 import "./Confirmation.css";
 
 interface ConfirmationProps {

@@ -4,7 +4,7 @@ import Search from "../Search";
 import "./Header.css";
 import { Link } from "react-router-dom";
 import { ROUTES } from "@utils/Utils";
-import { Menu, Notification, Profile } from "@assets/svg/svg";
+import { Menu, Notification, Profile } from "@assets/svg";
 
 interface HeaderProps {
   navbarHeight: number;

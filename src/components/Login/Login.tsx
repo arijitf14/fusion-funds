@@ -8,8 +8,8 @@ import { MyCustomModal } from "@components/core/Modal";
 import TwoFA from "@components/TwoFA/TwoFA";
 import "./Login.css";
 import CustomField from "@components/core/Input/CustomFieldProps";
-import { FusionLogo } from "@assets/images/images";
-import { RefreshIcon, VolumeIcon } from "@assets/svg/svg";
+import { FusionLogo } from "@assets/images";
+import { RefreshIcon, VolumeIcon } from "@assets/svg";
 
 const Login = () => {
   const navigate = useNavigate();

@@ -2,7 +2,7 @@ import { Formik, Field, FormikHelpers } from "formik";
 import { Form } from "react-bootstrap";
 import * as Yup from "yup";
 import { useState } from "react";
-import { Clock, Close } from "@assets/svg/svg";
+import { Clock, Close } from "@assets/svg";
 
 interface TwoFAProps {
   onHide: () => void; // Function to close the modal

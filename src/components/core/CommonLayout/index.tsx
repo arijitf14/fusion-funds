@@ -3,8 +3,8 @@ import "./CommonLayout.css";
 import { ROUTES } from "@utils/Utils";
 import Header from "../Header";
 import { NavLink, useLocation } from "react-router-dom";
-import { Bank, Dashboard, Echeck, Logout, Payee, Reports, Subscription, Transaction } from "@assets/svg/svg";
-import { FusionNav } from "@assets/images/images";
+import { Bank, Dashboard, Echeck, Logout, Payee, Reports, Subscription, Transaction } from "@assets/svg";
+import { FusionNav } from "@assets/images";
 
 const LayoutHOC = <P extends object>(
   WrappedComponent: React.ComponentType<P>

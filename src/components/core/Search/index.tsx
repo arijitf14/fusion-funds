@@ -1,4 +1,4 @@
-import { SearchIcon } from '@assets/svg/svg';
+import { SearchIcon } from '@assets/svg';
 import React, { useState, useEffect, useRef } from 'react';
 type SearchProps = {
   onSearch?: (query: string) => void;

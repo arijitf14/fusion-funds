@@ -4,7 +4,7 @@ import "./NotFound.css";
 import { useSelector } from "react-redux";
 import { RootState } from "@redux/store";
 import { ROUTES } from "@utils/Utils";
-import { FusionLogo } from "@assets/images/images";
+import { FusionLogo } from "@assets/images";
 
 const NotFound = () => {
   const token = useSelector((gs: RootState) => gs.authDetails.accessToken);
