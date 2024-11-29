@@ -1,10 +1,10 @@
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import FusionLogo from "@assets/images/FusionLogo.png";
 import "./NotFound.css";
 import { useSelector } from "react-redux";
 import { RootState } from "@redux/store";
 import { ROUTES } from "@utils/Utils";
+import { FusionLogo } from "@assets/images/images";
 
 const NotFound = () => {
   const token = useSelector((gs: RootState) => gs.authDetails.accessToken);

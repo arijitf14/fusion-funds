@@ -1,9 +1,8 @@
 import { Formik, Field, FormikHelpers } from "formik";
 import { Form } from "react-bootstrap";
-import CloseIcon from "@assets/svg/close.svg?react";
-import ClockIcon from "@assets/svg/clock.svg?react";
 import * as Yup from "yup";
 import { useState } from "react";
+import { Clock, Close } from "@assets/svg/svg";
 
 interface TwoFAProps {
   onHide: () => void; // Function to close the modal
@@ -39,7 +38,7 @@ const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
           <h1 className="mb-0">2 Factor Authentication</h1>
         </div>
         <div onClick={onHide} className="d-flex align-items-center">
-          <CloseIcon />
+          <Close />
         </div>
       </div>
       <p>
@@ -100,7 +99,7 @@ const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
                   <div className="d-flex align-items-center justify-content-between mb-4">
                     <div className="d-flex align-items-center">
                       <div className="mx-2">
-                        <ClockIcon />
+                        <Clock />
                       </div>
                       <span>Time left: 3 mins 00 secs</span>
                     </div>

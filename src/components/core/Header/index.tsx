@@ -1,12 +1,10 @@
 import React, { useRef, useEffect } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
-import Notification from "@assets/svg/notification.svg?react";
-import Profile from "@assets/svg/profile.svg?react";
 import Search from "../Search";
-import MenuIcon from "@assets/svg/menu.svg?react";
 import "./Header.css";
 import { Link } from "react-router-dom";
 import { ROUTES } from "@utils/Utils";
+import { Menu, Notification, Profile } from "@assets/svg/svg";
 
 interface HeaderProps {
   navbarHeight: number;
@@ -39,7 +37,7 @@ const Header: React.FC<HeaderProps> = ({
         <Container fluid>
           <div className="d-flex align-items-center">
             {/* Sidebar Toggle Button */}
-            <MenuIcon
+            <Menu
               className="toggle-sidebar d-md-none"
               onClick={toggleSidebar}
               aria-label="Toggle Sidebar"

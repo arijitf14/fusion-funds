@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Row, Col, Form as BsForm, Accordion } from "react-bootstrap";
-import logo from "@assets/images/FusionLogo.png";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,6 +12,7 @@ import { customStyles } from "src/customStyles";
 import CustomField from "@components/core/Input/CustomFieldProps";
 import "./CreateAccount.css";
 import Confirmation from "@components/Confirmation/Confirmation";
+import { FusionLogo } from "@assets/images/images";
 
 const CreateAccount = () => {
   const navigate = useNavigate();
@@ -74,7 +74,7 @@ const CreateAccount = () => {
             md={6}
             className="d-flex justify-content-center align-items-center flex-column flex-md-row"
           >
-            <img src={logo} alt="Side Graphic" className="login-logo" />
+            <img src={FusionLogo} alt="Side Graphic" className="login-logo" />
           </Col>
 
           {/* Right Side: Form */}

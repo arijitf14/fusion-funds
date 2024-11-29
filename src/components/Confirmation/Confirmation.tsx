@@ -1,5 +1,4 @@
-import ConfirmationIcon from "@assets/svg/Confirmation.svg?react";
-import CloseIcon from "@assets/svg/close.svg?react";
+import { Close, ConfirmationIcon } from "@assets/svg/svg";
 import "./Confirmation.css";
 
 interface ConfirmationProps {
@@ -13,10 +12,10 @@ const Confirmation: React.FC<ConfirmationProps> = (props) => {
   return (
     <div className="text-center">
       <div onClick={() => onHide()} className="close-icon-container">
-        <CloseIcon />
+        <Close/>
       </div>
       <div className="d-flex align-items-center justify-content-center">
-        <ConfirmationIcon />
+        <ConfirmationIcon/>
       </div>
       <div className="d-flex align-items-center justify-content-center">
         <div className="merch-holder mt-4">

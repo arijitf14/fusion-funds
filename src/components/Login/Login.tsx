@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Row, Col, Form as BsForm } from "react-bootstrap";
-import logo from "@assets/images/FusionLogo.png";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,8 +8,8 @@ import { MyCustomModal } from "@components/core/Modal";
 import TwoFA from "@components/TwoFA/TwoFA";
 import "./Login.css";
 import CustomField from "@components/core/Input/CustomFieldProps";
-import VolumeIcon from "@assets/svg/volume.svg?react";
-import RefreshIcon from "@assets/svg/refresh.svg?react";
+import { FusionLogo } from "@assets/images/images";
+import { RefreshIcon, VolumeIcon } from "@assets/svg/svg";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -48,7 +47,7 @@ const Login = () => {
             md={6}
             className="d-flex justify-content-center align-items-center flex-column flex-md-row"
           >
-            <img src={logo} alt="Side Graphic" className="login-logo" />
+            <img src={FusionLogo} alt="Side Graphic" className="login-logo" />
           </Col>
 
           {/* Right Side: Form */}

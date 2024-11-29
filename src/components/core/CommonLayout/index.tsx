@@ -1,17 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./CommonLayout.css";
-import Dashboard from "@assets/svg/dashboard.svg?react";
-import Transaction from "@assets/svg/transaction.svg?react";
-import Echeck from "@assets/svg/echeck.svg?react";
-import Reports from "@assets/svg/reports.svg?react";
-import Bank from "@assets/svg/bank.svg?react";
-import Payee from "@assets/svg/payee.svg?react";
-import Logout from "@assets/svg/logout.svg?react";
-import Subscription from "@assets/svg/subscription.svg?react";
-import logo from "@assets/images/FusionNav.png";
 import { ROUTES } from "@utils/Utils";
 import Header from "../Header";
 import { NavLink, useLocation } from "react-router-dom";
+import { Bank, Dashboard, Echeck, Logout, Payee, Reports, Subscription, Transaction } from "@assets/svg/svg";
+import { FusionNav } from "@assets/images/images";
 
 const LayoutHOC = <P extends object>(
   WrappedComponent: React.ComponentType<P>
@@ -101,7 +94,7 @@ const LayoutHOC = <P extends object>(
             ✖
           </button>
           <ul className="nav d-flex justify-content-center">
-            <img src={logo} alt="Logo" className="nav-logo" />
+            <img src={FusionNav} alt="Logo" className="nav-logo" />
           </ul>
           <ul className="nav flex-column px-4 mt-6">
             {sideRoutes.map(({ icon, label, href }) => {

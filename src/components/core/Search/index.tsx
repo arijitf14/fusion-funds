@@ -1,6 +1,5 @@
+import { SearchIcon } from '@assets/svg/svg';
 import React, { useState, useEffect, useRef } from 'react';
-import SearchIcon from "@assets/svg/search.svg?react"; // Assuming you're using an SVG as a React component
-
 type SearchProps = {
   onSearch?: (query: string) => void;
 };
