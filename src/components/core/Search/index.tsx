@@ -1,5 +1,7 @@
 import { SearchIcon } from '@assets/svg';
 import React, { useState, useEffect, useRef } from 'react';
+import './search.css';
+
 type SearchProps = {
   onSearch?: (query: string) => void;
 };
@@ -7,8 +9,8 @@ type SearchProps = {
 const Search: React.FC<SearchProps> = ({ onSearch }) => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
-  
-  // Ref to keep track of the search input container
+
+ // Ref to keep track of the search input container
   const searchRef = useRef<HTMLDivElement>(null);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,21 +23,20 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
   };
 
   const handleIconClick = () => {
-    setIsExpanded((prev) => !prev); // Toggle input expansion on icon click
+    setIsExpanded((prev) => !prev);
   };
 
-  // Handle clicks outside the search bar to close the search
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
-        setIsExpanded(false); // Close the search input if clicked outside
+        setIsExpanded(false);
       }
     };
 
     // Add the event listener on mount
     document.addEventListener('mousedown', handleClickOutside);
 
-    // Cleanup event listener on unmount
+   // Cleanup event listener on unmount
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
@@ -45,47 +46,21 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
     <form onSubmit={handleSearchSubmit}>
       {/* Container for the whole search bar */}
       <div
-        ref={searchRef} // Reference to the search container
-        style={{
-          backgroundColor: '#F0F0F0',
-          borderRadius: 8,
-          display: 'flex',
-          alignItems: 'center',
-          padding: '0 10px',
-          width: isExpanded ? 400 : 55, // Initially narrow, expands when clicked
-          height: 45,
-          boxSizing: 'border-box',
-          transition: 'width 0.3s ease',
-          gap:isExpanded ? "10px" : "" // Smooth transition for container width
-        }}
+        ref={searchRef}
+        className={`search-container d-flex align-items-center ${isExpanded ? 'expanded' : ''}`}
       >
         {/* Icon on the left inside the input */}
         <SearchIcon
-          onClick={handleIconClick} // Click icon to toggle expansion
-          style={{
-            width: '35px',
-            height: '35px',
-            cursor: 'pointer',
-            marginLeft: '4px',
-          }}
+          onClick={handleIconClick}
+          className="search-icon"
         />
-
-        {/* Search Input */}
+         {/* Search Input */}
         <input
           type="text"
           placeholder="Search by Transaction ID"
           value={searchQuery}
           onChange={handleSearchChange}
-          style={{
-            backgroundColor: 'transparent',
-            width: isExpanded ? '100%' : 0, // Adjust input width based on state
-            height: '100%',
-            border: 'none',
-            outline: 'none',
-            fontSize: '16px',
-            borderRadius: '8px',
-            transition: 'width 0.3s ease', // Smooth transition for input width
-          }}
+          className={`search-input ${isExpanded ? 'visible' : 'hidden'}`}
         />
       </div>
     </form>

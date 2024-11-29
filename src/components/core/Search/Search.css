@@ -1,4 +1,44 @@
+/* Search container styles */
+.search-container {
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  padding: 0 10px;
+  width: 55px;
+  height: 45px;
+  box-sizing: border-box;
+  transition: width 0.3s ease;
+  gap: 0;
+}
+
+.search-container.expanded {
+  width: 400px;
+  gap: 10px;
+}
+
+/* Search icon styles */
+.search-icon {
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+/* Search input styles */
 .search-input {
-  background-color: #2196f3; /* Blue background color */
-  color: white; /* Text color */
+  background-color: transparent;
+  width: 0;
+  height: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: width 0.3s ease;
+}
+
+.search-input.visible {
+  width: 100%;
+}
+
+.search-input.hidden {
+  width: 0;
 }
