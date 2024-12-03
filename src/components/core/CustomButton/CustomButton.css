@@ -1,0 +1,37 @@
+/* Main container */
+.edit-button {
+    display: inline-flex; /* Flexbox for alignment */
+    align-items: center; /* Vertical alignment */
+    justify-content: center; /* Horizontal alignment */
+    border: 1.5px solid #002366; /* Navy-blue border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 8px 16px; /* Space inside the button */
+    background-color: white; /* White background */
+    color: #002366; /* Navy-blue text and icon */
+    cursor: pointer; /* Pointer cursor for interactivity */
+    transition: background-color 0.2s ease, color 0.2s ease; /* Hover effects */
+  }
+  
+  /* Icon container (circular) */
+  .edit-button-icon {
+    display: flex; /* Center the plus sign */
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid #002366; /* Icon border */
+    border-radius: 50%; /* Circular shape */
+    width: 16px; /* Width of the circle */
+    height: 16px; /* Height of the circle */
+    margin-right: 8px; /* Space between icon and text */
+  }
+  
+  /* Plus sign */
+  .edit-button-plus {
+    font-size: 16px; /* Font size of the plus sign */
+    font-weight: bold; /* Bold style */
+  }
+  
+  /* Text beside the icon */
+  .edit-button-text {
+    font-size: 16px; /* Font size for the text */
+    font-weight: 500; /* Slightly bold text */
+  }

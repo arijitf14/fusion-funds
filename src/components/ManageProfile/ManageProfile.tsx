@@ -1,252 +1,136 @@
 import LayoutHOC from "@components/core/CommonLayout";
-import CustomField from "@components/core/Input/CustomFieldProps";
-import { Formik, Form } from "formik";
-import { Form as BsForm } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import ReactSelect, { StylesConfig } from "react-select";
-import { customStyles } from "src/customStyles";
-import { TReactSelectOption } from "src/models";
-import * as Yup from "yup";
+import { Accordion, Col, Row } from "react-bootstrap";
 import "./ManageProfile.css";
 import ContactIcon from "@assets/customSvg/Contact";
-import AccountIcon from "@assets/customSvg/Account";
-import { useState } from "react";
+import { PillIcons } from "@assets/svg";
+import CustomButton from "@components/core/CustomButton/CustomEditButton";
 
 const ManageProfile = () => {
-  const [selectedTab, setSelectedTab] = useState<string>("Contact");
-
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-  ];
-
-  const initialValues = {
-    username: "",
-    mobile: "",
-    email: "",
-    firstName: "",
-    middleName: "",
-    lastName: "",
-    country: "",
-    city: "",
-    province: "",
-    zipCode: "",
-    addressLine1: "",
-    addressLine2: "",
-  };
-
-  const handleSubmit = (data: any) => {
-    console.log("Form Data:", data);
-    // setModalShow(true);
-  };
-
-  const validationSchema = Yup.object().shape({
-    username: Yup.string().required("Please enter a username"),
-    mobile: Yup.string()
-      .required("Please enter a mobile number")
-      .matches(/^\d{10}$/, "Mobile number must be exactly 10 digits"),
-    email: Yup.string()
-      .email("Invalid email format")
-      .required("Please enter an email"),
-    firstName: Yup.string().required("Please enter your first name"),
-    middleName: Yup.string().required("Please enter your Middle Name"),
-    lastName: Yup.string().required("Please enter your last name"),
-    country: Yup.string().required("Please select a country"),
-    city: Yup.string().required("Please enter your city"),
-    province: Yup.string().required("Please enter your province"),
-    zipCode: Yup.string()
-      .required("Please enter a zip code")
-      .matches(/^\d{5}$/, "Zip code must be exactly 5 digits"),
-    addressLine1: Yup.string().required("Please enter address line 1"),
-    addressLine2: Yup.string().required("Please enter address line 1"),
-    // .matches(/^\d{3}-\d{2}-\d{4}$/, 'SSN must be in the format XXX-XX-XXXX'),
-  });
   return (
     <div className="my-4">
       <div className="my-4">
         <h3>Manage Profile</h3>
-        <div className="d-flex gap-3">
-          {/* Contact Details */}
-          <div
-            className={`d-flex gap-1 align-items-center ${
-              selectedTab === "Contact"
-                ? "custom-btn-filled"
-                : "custom-btn-outline"
-            }`}
-            onClick={() => setSelectedTab("Contact")}
-          >
-            <ContactIcon
-              color={selectedTab === "Contact" ? "white" : "#1C2971"}
-            />
-            {/* Replace with correct icon */}
-            Contact Details
-          </div>
 
-          {/* Account Settings */}
-          <div
-            className={`d-flex gap-1 align-items-center ${
-              selectedTab === "Account"
-                ? "custom-btn-filled"
-                : "custom-btn-outline"
-            }`}
-            onClick={() => setSelectedTab("Account")}
-          >
-            <AccountIcon
-              color={selectedTab === "Account" ? "white" : "#1C2971"}
-            />
-            {/* Replace with correct icon */}
-            Account Settings
-          </div>
-        </div>
       </div>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ touched, setFieldValue, errors }) => (
-          <Form>
-            <div className="row">
-              <CustomField
-                type="text"
-                name="mobile"
-                label="Mobile Number"
-                placeholder="Mobile Number"
-                className="col-md-6"
-                touched={touched}
-                errors={errors}
-              />
-              <CustomField
-                type="email"
-                name="email"
-                label="Email"
-                placeholder="example@gmail.com"
-                className="col-md-6"
-                touched={touched}
-                errors={errors}
-              />
+      <Accordion defaultActiveKey="0">
+        <Accordion.Item eventKey="0" className="custom-accordion-item mb-4">
+          <Accordion.Header className="headerClass">
+            <div className="header-content">
+              <span className="header-icon"><PillIcons /></span>
+              <span className="header">Contact Details</span>
             </div>
-            <div className="row">
-              <CustomField
-                type="text"
-                name="firstName"
-                label="First Name"
-                placeholder="First Name"
-                className="col-md-4"
-                touched={touched}
-                errors={errors}
-              />
-              <CustomField
-                type="text"
-                name="middleName"
-                label="Middle Name"
-                placeholder="Middle Name"
-                className="col-md-4"
-                touched={touched}
-                errors={errors}
-              />
-              <CustomField
-                type="text"
-                name="lastName"
-                label="Last Name"
-                placeholder="Last Name"
-                className="col-md-4"
-                touched={touched}
-                errors={errors}
-              />
+          </Accordion.Header>
+          <Accordion.Body className="bodyClass">
+            <div className="">
+              <span className="body-header">Contact Details</span>
+              <Row className="w-100 h-100 ms-0 mt-2">
+                <Col xs={12} md={3} className="px-0">
+                  <div className="d-flex flex-column">
+                    <span className="body-containt-title">Mobile Number</span>
+                    <span className="body-containt-text">+1 981-904-4652 0896</span>
+                  </div>
+                </Col>
+                <Col xs={12} md={8} className="px-0">
+                  <div className="d-flex flex-column">
+                    <span className="body-containt-title">Email</span>
+                    <span className="body-containt-text">rahulduitta@gmail.com</span>
+                  </div>
+                </Col>
+              </Row>
+              <hr className="hrLine" />
+              <span className="body-header">Personal Details </span>
+              <Row className="w-100 h-100 ms-0 mt-2">
+                <Col xs={12} md={3} className="px-0 mb-2 mb-md-2">
+                  <div className="d-flex flex-column">
+                    <span className="body-containt-title">First Name</span>
+                    <span className="body-containt-text">Richard</span>
+                  </div>
+                </Col>
+                <Col xs={12} md={2} className="px-0 mb-2 mb-md-2">
+                  <div className="d-flex flex-column">
+                    <span className="body-containt-title">Middle Name</span>
+                    <span className="body-containt-text">John</span>
+                  </div>
+                </Col>
+                <Col xs={12} md={2} className="px-0 mb-2 mb-md-2">
+                  <div className="d-flex flex-column">
+                    <span className="body-containt-title">Last Name</span>
+                    <span className="body-containt-text">Jackman</span>
+                  </div>
+                </Col>
+                <Col xs={12} md={2} className="px-0 mb-2 mb-md-2">
+                  <div className="d-flex flex-column">
+                    <span className="body-containt-title">Country</span>
+                    <span className="body-containt-text">USA</span>
+                  </div>
+                </Col>
+                <Col xs={12} md={3} className="px-0 mb-2 mb-md-2">
+                  <div className="d-flex flex-column">
+                    <span className="body-containt-title">City</span>
+                    <span className="body-containt-text">Orlando City</span>
+                  </div>
+                </Col>
+                <Col xs={12} md={3} className="px-0 mb-2 mb-md-2">
+                  <div className="d-flex flex-column">
+                    <span className="body-containt-title">State</span>
+                    <span className="body-containt-text">Westwind</span>
+                  </div>
+                </Col>
+                <Col xs={12} md={2} className="px-0 mb-2 mb-md-2">
+                  <div className="d-flex flex-column">
+                    <span className="body-containt-title">Zip Code</span>
+                    <span className="body-containt-text">541258</span>
+                  </div>
+                </Col>
+                <Col xs={12} md={2} className="px-0 mb-2 mb-md-2">
+                  <div className="d-flex flex-column">
+                    <span className="body-containt-title">Address Line 1</span>
+                    <span className="body-containt-text">Holland Road</span>
+                  </div>
+                </Col>
+                <Col xs={12} md={2} className="px-0 mb-2 mb-md-2">
+                  <div className="d-flex flex-column">
+                    <span className="body-containt-title">Address Line 2</span>
+                    <span className="body-containt-text">123 Holland Road</span>
+                  </div>
+                </Col>
+              </Row>
+              
+{/* <AccordionCustomButton icon={AddCircle} text="Edit" onClick={() => console.log("Edit button clicked")}/> */}
+<div className="mt-3">
+              <CustomButton title="Edit" icon="+" onSelect={() => {}} />
             </div>
-            <div className="row">
-              <CustomField
-                type="text"
-                name="country"
-                label="Country"
-                placeholder="Country"
-                className="col-md-6"
-                touched={touched}
-                errors={errors}
-              />
-
-              <div className="col-md-6 mb-3">
-                <label htmlFor="city">City</label>
-                <ReactSelect
-                  className={`form-control ${
-                    touched.city && errors.city ? "is-invalid" : ""
-                  }`}
-                  inputId="city"
-                  // value={}
-                  onChange={(e) => {
-                    setFieldValue("city", e?.value);
-                  }}
-                  options={options}
-                  hideSelectedOptions={false}
-                  components={{
-                    IndicatorSeparator: () => null,
-                  }}
-                  styles={
-                    customStyles as StylesConfig<TReactSelectOption, false>
-                  }
-                />
-                {touched.city && errors.city && (
-                  <BsForm.Control.Feedback type="invalid">
-                    {errors.city}
-                  </BsForm.Control.Feedback>
-                )}
-              </div>
             </div>
-
-            <div className="row">
-              <CustomField
-                type="text"
-                name="province"
-                label="State"
-                placeholder="State"
-                className="col-md-6"
-                touched={touched}
-                errors={errors}
-              />
-              <CustomField
-                type="text"
-                name="zipCode"
-                label="Zip Code"
-                placeholder="Zip Code"
-                className="col-md-6"
-                touched={touched}
-                errors={errors}
-              />
+          </Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey="1" className="custom-accordion-item mb-4">
+          <Accordion.Header className="headerClass">
+            <div className="header-content">
+              <span className="header-icon"><ContactIcon /></span>
+              <span className="header-text">Account Settings</span>
             </div>
-            <CustomField
-              type="text"
-              name="addressLine1"
-              label="Address Line 1"
-              placeholder="Address Line 1"
-              touched={touched}
-              errors={errors}
-            />
-            <CustomField
-              type="text"
-              name="addressLine2"
-              label="Address Line 2"
-              placeholder="Address Line 2"
-              touched={touched}
-              errors={errors}
-            />
-            {/* Submit Button */}
-            <div className="d-flex gap-2 justify-content-start">
-              <div className="d-grid col-md-1 mb-2">
-                <button type="submit" className="btn-secondary">
-                  Edit
-                </button>
-              </div>
-              <div className="d-grid col-md-1 mb-2">
-                <button type="submit" className="btn btn-primary">
-                  Save
-                </button>
-              </div>
+          </Accordion.Header>
+          <Accordion.Body className="bodyClass">
+          <div className="">
+          <span className="body-header">2 Factor Authentication Settings</span>
+          <div className="d-flex flex-column">
+                    <span className="body-containt-title">Preferred Option</span>
+                    <span className="body-containt-text">Email ID</span>
+                  </div>
+                  <div className="mt-3">
+              <CustomButton title="Edit" icon="+" onSelect={() => {}} />
             </div>
-          </Form>
-        )}
-      </Formik>
+          </div>
+          <hr className="hrLine" />
+          <div className="changePasswordDiv">
+          <span className="body-containt-text">Change Password</span>  
+          <div className="mt-3">
+              <CustomButton title="Change" icon="+" onSelect={() => {}} />
+            </div>
+          </div>
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
     </div>
   );
 };

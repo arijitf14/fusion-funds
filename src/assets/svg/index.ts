@@ -18,6 +18,7 @@ import SearchIcon from "./search.svg?react";
 import Subscription from "./subscription.svg?react";
 import Transaction from "./transaction.svg?react";
 import VolumeIcon from "./volume.svg?react";
+import PillIcons from "./pillIcons.svg?react";
 
 // Export all the imported SVGs
 export {
@@ -39,5 +40,6 @@ export {
     SearchIcon,
     Subscription,
     Transaction,
-    VolumeIcon
+    VolumeIcon,
+    PillIcons
 };

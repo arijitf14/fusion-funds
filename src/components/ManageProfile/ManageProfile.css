@@ -32,3 +32,69 @@
 .custom-icon {
   font-size: 20px;
 }
+
+/* Apply the same background color regardless of the accordion state */
+.custom-accordion-item .accordion-button {
+  background-color: #d9defc !important; /* Constant header background */
+  color: #1c2971 !important; /* Header text color */
+  font-size: 14px !important;
+  border: none; /* Remove default border */
+  box-shadow: none;
+  display: flex;
+  border-radius: 1px;
+  align-items: center;
+  gap: 10px; /* Space between icon and text */
+}
+  /* Ensure collapsed state also uses the same styles */
+  .custom-accordion-item .accordion-button.collapsed {
+    background-color: #d9defc !important; /* Constant background for collapsed state */
+    color: #1c2971 !important;
+  }
+  .custom-accordion-item .accordion-button:not(.collapsed) {
+    /* background-color: #F0F0F0 !important; */
+  }
+  .custom-accordion-item .accordion-button:focus {
+    box-shadow: none !important; /* Remove focus outline */
+  }
+  .custom-accordion-item:hover .accordion-button {
+   /* Optional: Add hover effect */
+  }
+
+  .bodyClass {
+    background: #F1F3F6;
+    padding-inline: 34px !important;
+  }
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+  }
+  .header-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #1c2971; /* Icon color */
+  }
+
+  .body-header {
+    color: #333333;
+    font-size: 14px;
+  }
+  .body-containt-title {
+font-size: 12px;
+color: #7D7D7D;
+  }
+
+  .body-containt-text{
+    font-size: 14px;
+    color: #333333;
+  }
+
+  .hrLine {
+    border-top: 2px solid #cccdda;
+  }
+  
+  .changePasswordDiv {
+    margin-top: -7px;
+  }
