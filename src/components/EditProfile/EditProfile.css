@@ -1,0 +1,35 @@
+.field-class{
+    font-size: 12px;
+}
+.fieldTextSize {
+    font-size: 12px !important;
+}
+.dropdown-field-text {
+    font-size: 12px !important;
+}
+
+/* Contact Details Button */
+.custom-btn-outline {
+    border: 2px solid #1c2971; /* Dark blue border */
+    border-radius: 8px; /* Smoothly rounded edges */
+    background-color: transparent; /* Transparent background */
+    color: #1a237e; /* Dark blue text */
+    font-weight: 500; /* Medium weight for better emphasis */
+    padding: 8px 15px; /* Adequate padding for touch targets */
+    font-size: 16px; /* Readable text size */
+    cursor: pointer; /* Indicates it's clickable */
+    transition: all 0.3s ease; /* Smooth hover effect */
+  }
+  
+  /* Account Settings Button */
+  .custom-btn-filled {
+    border: none; /* Removes border */
+    border-radius: 8px; /* Smoothly rounded edges */
+    background-color: #1C2971; /* Light blue background */
+    color: white; /* White text for good contrast */
+    font-weight: 500; /* Medium weight for better emphasis */
+    padding: 8px 20px; /* Adequate padding for touch targets */
+    font-size: 16px; /* Readable text size */
+    cursor: pointer; /* Indicates it's clickable */
+    transition: all 0.3s ease; /* Smooth hover effect */
+  }

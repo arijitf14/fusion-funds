@@ -5,3 +5,11 @@
     padding: 6px 20px !important;         /* Padding inside the button */
     border-radius: 6px !important;        /* Rounded corners */
   }
+
+  .custom-button-disabled {
+    background-color: #D2D4E3 !important;
+    color: #7D7D7D !important;  
+    border-radius: 8px;
+    height: 45px;
+    border: none;
+  }

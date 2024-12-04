@@ -98,3 +98,8 @@ color: #7D7D7D;
   .changePasswordDiv {
     margin-top: -7px;
   }
+
+  .panel-container {
+    margin-block: 17px;
+    margin-inline: 20px;
+  }

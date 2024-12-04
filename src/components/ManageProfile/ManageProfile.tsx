@@ -4,8 +4,13 @@ import "./ManageProfile.css";
 import ContactIcon from "@assets/customSvg/Contact";
 import { PillIcons } from "@assets/svg";
 import CustomButton from "@components/core/CustomButton/CustomEditButton";
+import SidePanel from "@components/core/SidePanel";
+import { useState } from "react";
+import EditProfile from "@components/EditProfile/EditProfile";
 
 const ManageProfile = () => {
+
+  const [previewModal, setShowPreviewModal] = useState<boolean>(false);
   return (
     <div className="my-4">
       <div className="my-4">
@@ -95,11 +100,11 @@ const ManageProfile = () => {
                   </div>
                 </Col>
               </Row>
-              
-{/* <AccordionCustomButton icon={AddCircle} text="Edit" onClick={() => console.log("Edit button clicked")}/> */}
-<div className="mt-3">
-              <CustomButton title="Edit" icon="+" onSelect={() => {}} />
-            </div>
+
+              {/* <AccordionCustomButton icon={AddCircle} text="Edit" onClick={() => console.log("Edit button clicked")}/> */}
+              <div className="mt-3">
+                <CustomButton title="Edit" icon="+" onSelect={() => { setShowPreviewModal(true)}} />
+              </div>
             </div>
           </Accordion.Body>
         </Accordion.Item>
@@ -111,26 +116,35 @@ const ManageProfile = () => {
             </div>
           </Accordion.Header>
           <Accordion.Body className="bodyClass">
-          <div className="">
-          <span className="body-header">2 Factor Authentication Settings</span>
-          <div className="d-flex flex-column">
-                    <span className="body-containt-title">Preferred Option</span>
-                    <span className="body-containt-text">Email ID</span>
-                  </div>
-                  <div className="mt-3">
-              <CustomButton title="Edit" icon="+" onSelect={() => {}} />
+            <div className="">
+              <span className="body-header">2 Factor Authentication Settings</span>
+              <div className="d-flex flex-column">
+                <span className="body-containt-title">Preferred Option</span>
+                <span className="body-containt-text">Email ID</span>
+              </div>
+              <div className="mt-3">
+                <CustomButton title="Edit" icon="+" onSelect={() => { }} />
+              </div>
             </div>
-          </div>
-          <hr className="hrLine" />
-          <div className="changePasswordDiv">
-          <span className="body-containt-text">Change Password</span>  
-          <div className="mt-3">
-              <CustomButton title="Change" icon="+" onSelect={() => {}} />
+            <hr className="hrLine" />
+            <div className="changePasswordDiv">
+              <span className="body-containt-text">Change Password</span>
+              <div className="mt-3">
+                <CustomButton title="Change" icon="+" onSelect={() => { }} />
+              </div>
             </div>
-          </div>
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
+      {previewModal && <SidePanel
+        position="right"
+        setSidePanelVisibility={() => setShowPreviewModal(false)}
+        sidePanelHeading="Edit Personal Details"
+        size="sm"
+        contentfullHeight
+      >
+        <div className="vh-100 panel-container"><EditProfile/></div>
+      </SidePanel>}
     </div>
   );
 };

@@ -9,6 +9,7 @@ import { useState } from "react";
 import TwoFA from "@components/TwoFA/TwoFA";
 import CustomField from "@components/core/Input/CustomFieldProps";
 import { FusionLogo } from "@assets/images";
+import OtpVerify from "@components/TwoFA/Otpverify";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -146,8 +147,8 @@ const SignUp = () => {
             </div>
           </Col>
         </Row>
-        <MyCustomModal show={modalShow} onHide={() => setModalShow(false)}>
-          <TwoFA
+        <MyCustomModal show={true} onHide={() => setModalShow(false)}>
+          <OtpVerify
             onHide={() => setModalShow(false)}
             onSuccess={() => {
               navigate(ROUTES.CREATE_ACCOUNT);

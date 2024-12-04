@@ -19,6 +19,7 @@ import Subscription from "./subscription.svg?react";
 import Transaction from "./transaction.svg?react";
 import VolumeIcon from "./volume.svg?react";
 import PillIcons from "./pillIcons.svg?react";
+import CloseWhite from "./close-white.svg?react";
 
 // Export all the imported SVGs
 export {
@@ -41,5 +42,6 @@ export {
     Subscription,
     Transaction,
     VolumeIcon,
-    PillIcons
+    PillIcons,
+    CloseWhite
 };

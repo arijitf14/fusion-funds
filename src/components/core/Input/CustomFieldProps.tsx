@@ -10,6 +10,7 @@ interface CustomFieldProps {
   className?: string;
   touched: any; // Formik touched object
   errors: any; // Formik errors object
+  fieldTextSize?: string
 }
 
 const CustomField: React.FC<CustomFieldProps> = ({
@@ -20,6 +21,7 @@ const CustomField: React.FC<CustomFieldProps> = ({
   className = "",
   touched,
   errors,
+  fieldTextSize = "",
 }) => {
   const isInvalid = touched[name] && errors[name];
 
@@ -31,7 +33,7 @@ const CustomField: React.FC<CustomFieldProps> = ({
         name={name}
         id={name}
         placeholder={placeholder}
-        className={`form-control ${isInvalid ? "is-invalid" : ""}`}
+        className={`form-control ${isInvalid ? "is-invalid" : ""} ${fieldTextSize}`}
       />
       {isInvalid && (
         <BsForm.Control.Feedback type="invalid">

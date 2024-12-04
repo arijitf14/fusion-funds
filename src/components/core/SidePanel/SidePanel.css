@@ -1,0 +1,134 @@
+/* .sidePanelOverlay .btn {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.25) !important;
+    top: 0;
+    left: 0;
+    z-index: 1048;
+    transition: all 0.4s;
+    border-radius: 0;
+    opacity: 0;
+  }
+   
+  .sidePanelOverlay .btn.showOverlay {
+    opacity: 1;
+  } */
+
+  .sidePanelOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .sidePanelOverlay.showOverlay {
+    opacity: 1;
+    visibility: visible;
+  }
+   
+  .overFlowXhidden {
+    overflow: hidden;
+  }
+  .sidePanel {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background-color: #fff;
+    z-index: 1049;
+    overflow: hidden;
+    transition: all 0.4s;
+  }
+   
+  .sidePanel.sm {
+    max-width: 400px; /* Replace with your modal-sm variable */
+  }
+   
+  .sidePanel.md {
+    max-width: 600px; /* Replace with your modal-md variable */
+  }
+   
+  .sidePanel.lg {
+    max-width: 800px; /* Replace with your modal-lg variable */
+  }
+   
+  .sidePanel.xl {
+    max-width: 1000px; /* Replace with your modal-xl variable */
+  }
+   
+  .sidePanel.right {
+    right: 0;
+    transform: translateX(100%);
+  }
+   
+  .sidePanel.right.show {
+    transform: translateX(0);
+  }
+   
+  .sidePanel .sidePanelHeader {
+    padding: 12px;
+    position: sticky;
+    top: 0;
+    background-color: #1C2971;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+  }
+   
+  .sidePanel .sidePanelHeader h3 {
+    font-size: 18px; /* Replace with your map font-size */
+    font-weight: 600;
+    margin: 0;
+  }
+   
+  .sidePanel .sidePanelBody {
+    padding: 24px 32px 0; /* Adjust according to $spacer values */
+  }
+   
+  .sidePanel .sidePanelFooter {
+    padding: 16px 32px; /* Adjust according to $spacer values */
+    position: sticky;
+    bottom: 0;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border-top: 1px solid #e6e6e6; /* Adjust to lighten color */
+    z-index: 2;
+    margin-top: 16px; /* Adjust according to $spacer values */
+  }
+   
+  .closeButton {
+    width: 24px; /* Replace with $spacer * 1.5 */
+    height: 24px; /* Replace with $spacer * 1.5 */
+    padding: 0 !important;
+    color: #cccccc; /* Replace with $medium_lighter */
+    display: inline-flex;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: all 0.1s;
+  }
+   
+  .closeButton:hover {
+    color: #007bff; /* Replace with $primary */
+  }
+   
+  .closeButton svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .sidePanelHeading {
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+  }
