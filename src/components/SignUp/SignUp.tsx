@@ -147,7 +147,7 @@ const SignUp = () => {
             </div>
           </Col>
         </Row>
-        <MyCustomModal show={true} onHide={() => setModalShow(false)}>
+        <MyCustomModal show={modalShow} onHide={() => setModalShow(false)}>
           <OtpVerify
             onHide={() => setModalShow(false)}
             onSuccess={() => {
