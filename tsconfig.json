@@ -31,7 +31,6 @@
       "@redux/*":["./src/redux/*"],
       "@firebaseConfig/*":["./src/firebaseConfig/*"],
       "@context/*":["./src/context/*"],
-      "@customHooks/*":["./src/customHooks/*"],
       "@axiosConfig/*":["./src/axiosConfig/*"],
       "src/*":["./src/*"]
     },

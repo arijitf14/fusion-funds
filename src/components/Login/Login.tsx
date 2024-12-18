@@ -9,9 +9,15 @@ import TwoFA from "@components/TwoFA/TwoFA";
 import "./Login.css";
 import CustomField from "@components/core/Input/CustomFieldProps";
 import { FusionLogo } from "@assets/images";
-import { RefreshIcon, VolumeIcon } from "@assets/svg";
+import ReCAPTCHA from "react-google-recaptcha";
+interface LoginFormValues {
+  email: string;
+  password: string;
+  captcha: string;
+}
 
 const Login = () => {
+  const siteKey = "6LeIG58qAAAAALJlNZlkWtdLS0BjXC02VMKDq1_o";
   const navigate = useNavigate();
   const [modalShow, setModalShow] = useState<boolean>(false);
 
@@ -19,10 +25,10 @@ const Login = () => {
     email: "",
     password: "",
     captcha: "",
-    security: "",
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (values:LoginFormValues) => {
+    console.log("Form Submitted with values:", values);
     setModalShow(true);
   };
 
@@ -33,9 +39,10 @@ const Login = () => {
     password: Yup.string()
       .min(1, "Password must be at least 8 characters")
       .required("Please enter the password"),
-    security: Yup.string().required("Please enter the security code"),
     captcha: Yup.string().required("Please enter the captcha"),
   });
+
+ 
 
   return (
     <div className="login-container d-flex justify-content-center align-items-center">
@@ -58,15 +65,13 @@ const Login = () => {
           >
             <div className="login-form-container">
               <div className="login-form">
-                <h2 className="text-start text-lg font-semibold mb-4">
-                Login
-                </h2>
+                <h2 className="text-start text-lg font-semibold mb-4">Login</h2>
                 <Formik
                   initialValues={initialValues}
                   validationSchema={validationSchema}
                   onSubmit={handleSubmit}
                 >
-                  {({ touched, errors }) => (
+                  {({ touched, errors,setFieldValue }) => (
                     <Form>
                       {/* Email Field */}
                       <CustomField
@@ -108,49 +113,30 @@ const Login = () => {
                           </div>
                         </div>
 
-                        <label className="forgotPasswordButton">Forgot Password?</label>
+                        <label className="forgotPasswordButton">
+                          Forgot Password?
+                        </label>
                       </div>
 
                       <hr className="my-3" />
 
                       {/* Security Check Field */}
-                      <div className="d-flex align-items-center justify-content-between">
-                        <div style={{ width: "80%"}}>
-                          <CustomField
-                            type="text"
-                            name="security"
-                            label="Security Check"
-                            placeholder="Enter security code"
-                            className="col-md-12"
-                            touched={touched}
-                            errors={errors}
-                        fieldTextSize="fieldTextSize"
-                          />
-                        </div>
-
-                        <div style={{width: '15%'}} className="d-flex gap-1 align-items-center justify-content-between">
-                            <VolumeIcon />
-                            <RefreshIcon />
-                        </div>
+                      <div className="captch_box">
+                        <ReCAPTCHA
+                          sitekey={siteKey}
+                          onChange={(token) =>
+                            setFieldValue("captcha", token || "")
+                          }
+                        />
+                        {touched.captcha && errors.captcha && (
+                          <div className="error-text">{errors.captcha}</div>
+                        )}
                       </div>
-
-                      {/* Captcha Field */}
-                      <CustomField
-                        type="text"
-                        name="captcha"
-                        label="Type the Word Above"
-                        placeholder="Enter captcha"
-                        touched={touched}
-                        errors={errors}
-                        fieldTextSize="fieldTextSize"
-
-                      />
-
                       {/* Submit Button */}
                       <div className="d-flex justify-content-center">
                         <div className="d-grid col-md-5 mb-2">
                           <button type="submit" className="btn btn-primary">
-                          Continue
+                            Continue
                           </button>
                         </div>
                       </div>
