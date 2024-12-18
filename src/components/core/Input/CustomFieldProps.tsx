@@ -1,6 +1,8 @@
-import React from "react";
-import { Field } from "formik";
+import React, { useState } from "react";
+import { Field, FieldProps } from "formik";
 import { Form as BsForm } from "react-bootstrap";
+import { EyeClose, EyeOpen } from "@assets/svg";
+import './CustomFieldProps.css'
 
 interface CustomFieldProps {
   type: string;
@@ -10,7 +12,7 @@ interface CustomFieldProps {
   className?: string;
   touched: any; // Formik touched object
   errors: any; // Formik errors object
-  fieldTextSize?: string
+  fieldTextSize?: string;
 }
 
 const CustomField: React.FC<CustomFieldProps> = ({
@@ -23,23 +25,58 @@ const CustomField: React.FC<CustomFieldProps> = ({
   errors,
   fieldTextSize = "",
 }) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const isPasswordField = type === "password";
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
+
+  // Check if there's an error and the field has been touched
   const isInvalid = touched[name] && errors[name];
 
   return (
-    <div className={`form-group mb-3 ${className}`}>
+    <div className={`form-group mb-3 ${className}`} style={{ position: "relative" }}>
+      {/* Label */}
       <label htmlFor={name}>{label}</label>
-      <Field
-        type={type}
-        name={name}
-        id={name}
-        placeholder={placeholder}
-        className={`form-control ${isInvalid ? "is-invalid" : ""} ${fieldTextSize}`}
-      />
-      {isInvalid && (
-        <BsForm.Control.Feedback type="invalid">
-          {errors[name]}
-        </BsForm.Control.Feedback>
-      )}
+
+      {/* Field Input */}
+      <div className="customFieldPropsClass">
+        <Field name={name}>
+          {({ field }: FieldProps) => (
+            <>
+              <input
+                {...field}
+                type={isPasswordField && showPassword ? "text" : type}
+                id={name}
+                placeholder={placeholder}
+                style={{fontSize:'12px'}}
+                // className={`form-control ${isInvalid ? "is-invalid" : ""} ${fieldTextSize}`}
+                className={`form-control ${isInvalid && !isPasswordField ? "is-invalid" : ""} ${fieldTextSize}`}
+              />
+              {/* Eye Icon for Password Fields */}
+              {isPasswordField && (
+                <button
+                className="passwordInputField"
+                  type="button"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  onClick={togglePasswordVisibility}
+                >
+
+                  {showPassword  ? <EyeOpen className="testIcon" style={{width:'22px', height:'23px'}}/> : <EyeClose className="testIcon"/>}
+                </button>
+              )}
+            </>
+          )}
+        </Field>
+
+        {/* Error Message */}
+        {isInvalid && (
+          <BsForm.Control.Feedback type="invalid" style={{ display: "block" }}>
+            {errors[name]}
+          </BsForm.Control.Feedback>
+        )}
+      </div>
     </div>
   );
 };

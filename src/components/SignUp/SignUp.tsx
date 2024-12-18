@@ -38,9 +38,15 @@ const SignUp = () => {
     email: Yup.string()
       .email("Invalid email")
       .required("Please enter the email"),
+    // password: Yup.string()
+    //   .min(6, "At least 6 characters are required")
+    //   .required("Please enter the password"),
     password: Yup.string()
-      .min(6, "At least 6 characters are required")
-      .required("Please enter the password"),
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/,
+      "Minimum 8 characters, at least one uppercase letter, one lowercase letter, one number, and one special character."
+    )
+    .required("Please enter the password"),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password")], "Passwords must match")
       .required("Please confirm the password"),

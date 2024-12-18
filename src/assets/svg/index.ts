@@ -20,6 +20,9 @@ import Transaction from "./transaction.svg?react";
 import VolumeIcon from "./volume.svg?react";
 import PillIcons from "./pillIcons.svg?react";
 import CloseWhite from "./close-white.svg?react";
+import EyeOpen from "./eye-open.svg?react";
+import EyeClose from "./eye-close.svg?react";
+
 
 // Export all the imported SVGs
 export {
@@ -43,5 +46,7 @@ export {
     Transaction,
     VolumeIcon,
     PillIcons,
-    CloseWhite
+    CloseWhite,
+    EyeOpen,
+    EyeClose
 };

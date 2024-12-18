@@ -57,9 +57,9 @@ const Login = () => {
             className="d-flex justify-content-center align-items-center"
           >
             <div className="login-form-container">
-              <div className="login-form mt-4">
+              <div className="login-form">
                 <h2 className="text-start text-lg font-semibold mb-4">
-                  Welcome
+                Login
                 </h2>
                 <Formik
                   initialValues={initialValues}
@@ -72,10 +72,11 @@ const Login = () => {
                       <CustomField
                         type="text"
                         name="email"
-                        label="Enter Username"
-                        placeholder="ABC"
+                        label="User Name"
+                        placeholder="Jonh Doe"
                         touched={touched}
                         errors={errors}
+                        fieldTextSize="fieldTextSize"
                       />
 
                       {/* Password Field */}
@@ -83,19 +84,20 @@ const Login = () => {
                         type="password"
                         name="password"
                         label="Password"
-                        placeholder="At least 6 characters"
+                        placeholder="At least 8 characters"
                         touched={touched}
                         errors={errors}
+                        fieldTextSize="fieldTextSize"
                       />
 
-                      <div className="d-flex align-items-center justify-content-between mb-4">
+                      <div className="d-flex align-items-center justify-content-between">
                         <div className="d-flex align-items-center">
                           <div className="form-check">
                             <Field
                               type="checkbox"
                               name={"rememberMe"}
                               id={"rememberMe"}
-                              className={`form-check-input`}
+                              className={`form-check-input rememberCheckBox`}
                             />
                             <label
                               htmlFor={"rememberMe"}
@@ -106,26 +108,27 @@ const Login = () => {
                           </div>
                         </div>
 
-                        <label>Forgot Password?</label>
+                        <label className="forgotPasswordButton">Forgot Password?</label>
                       </div>
 
-                      <hr className="my-2" />
+                      <hr className="my-3" />
 
                       {/* Security Check Field */}
-                      <div className="d-flex align-items-center justify-content-between mb-2">
-                        {/* <div style={{ width: "80%"}}> */}
+                      <div className="d-flex align-items-center justify-content-between">
+                        <div style={{ width: "80%"}}>
                           <CustomField
                             type="text"
                             name="security"
                             label="Security Check"
                             placeholder="Enter security code"
-                            className="col-md-9"
+                            className="col-md-12"
                             touched={touched}
                             errors={errors}
+                        fieldTextSize="fieldTextSize"
                           />
-                        {/* </div> */}
+                        </div>
 
-                        <div style={{width: '15%'}} className="d-flex align-items-center justify-content-between mb-2">
+                        <div style={{width: '15%'}} className="d-flex gap-1 align-items-center justify-content-between">
                             <VolumeIcon />
                             <RefreshIcon />
                         </div>
@@ -135,23 +138,25 @@ const Login = () => {
                       <CustomField
                         type="text"
                         name="captcha"
-                        label="Type the word above"
+                        label="Type the Word Above"
                         placeholder="Enter captcha"
                         touched={touched}
                         errors={errors}
+                        fieldTextSize="fieldTextSize"
+
                       />
 
                       {/* Submit Button */}
                       <div className="d-flex justify-content-center">
                         <div className="d-grid col-md-5 mb-2">
                           <button type="submit" className="btn btn-primary">
-                            Login
+                          Continue
                           </button>
                         </div>
                       </div>
 
                       {/* Signup Link */}
-                      <div className="d-flex justify-content-center align-items-center mb-0">
+                      <div className="d-flex justify-content-center align-items-center signupLinkText mb-0">
                         <span>
                           Don't have an account?{" "}
                           <Link to={ROUTES.SIGNUP} className="signup-link">

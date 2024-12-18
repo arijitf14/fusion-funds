@@ -34,7 +34,7 @@
 
 .login-form-container {
   width: 100%;
-  padding: 2rem;
+  padding: 24px;
   background: white;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -74,8 +74,11 @@
  
 label {
   font-weight: 400 !important;
+  font-size: 12px;
 }
- 
+.fieldTextSize {
+  font-size: 12px !important;
+}
 .btn-primary {
   background-color: #1C2971 !important;
   border-color: #1C2971 !important;
@@ -90,3 +93,10 @@ label {
   cursor: pointer;
 }
 
+.forgotPasswordButton {
+  cursor: pointer;
+}
+
+.signupLinkText {
+  font-size: 14px;
+}
