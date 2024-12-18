@@ -10,19 +10,30 @@ import "./Login.css";
 import CustomField from "@components/core/Input/CustomFieldProps";
 import { FusionLogo } from "@assets/images";
 import { RefreshIcon, VolumeIcon } from "@assets/svg";
+import CustomButton from "@components/core/CustomButton/CustomEditButton";
+
+interface LoginFormValues {
+  email: string;
+  password: string;
+  captcha: string;
+  security: string;
+  rememberMe?: boolean; // Optional: if you want to track the checkbox state
+}
 
 const Login = () => {
   const navigate = useNavigate();
   const [modalShow, setModalShow] = useState<boolean>(false);
 
-  const initialValues = {
+  const initialValues:LoginFormValues = {
     email: "",
     password: "",
     captcha: "",
     security: "",
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (values:LoginFormValues) => {
+    console.log(values);
+
     setModalShow(true);
   };
 
@@ -59,14 +70,14 @@ const Login = () => {
             <div className="login-form-container">
               <div className="login-form">
                 <h2 className="text-start text-lg font-semibold mb-4">
-                Login
+                  Login
                 </h2>
                 <Formik
                   initialValues={initialValues}
                   validationSchema={validationSchema}
                   onSubmit={handleSubmit}
                 >
-                  {({ touched, errors }) => (
+                  {({ touched, values, errors, handleSubmit, isValid, dirty }) => (
                     <Form>
                       {/* Email Field */}
                       <CustomField
@@ -115,7 +126,7 @@ const Login = () => {
 
                       {/* Security Check Field */}
                       <div className="d-flex align-items-center justify-content-between">
-                        <div style={{ width: "80%"}}>
+                        <div style={{ width: "80%" }}>
                           <CustomField
                             type="text"
                             name="security"
@@ -124,13 +135,13 @@ const Login = () => {
                             className="col-md-12"
                             touched={touched}
                             errors={errors}
-                        fieldTextSize="fieldTextSize"
+                            fieldTextSize="fieldTextSize"
                           />
                         </div>
 
-                        <div style={{width: '15%'}} className="d-flex gap-1 align-items-center justify-content-between">
-                            <VolumeIcon />
-                            <RefreshIcon />
+                        <div style={{ width: '15%' }} className="d-flex gap-1 align-items-center justify-content-between">
+                          <VolumeIcon />
+                          <RefreshIcon />
                         </div>
                       </div>
 
@@ -149,9 +160,12 @@ const Login = () => {
                       {/* Submit Button */}
                       <div className="d-flex justify-content-center">
                         <div className="d-grid col-md-5 mb-2">
-                          <button type="submit" className="btn btn-primary">
-                          Continue
-                          </button>
+                          <CustomButton 
+                          onSelect={handleSubmit} 
+                          title="Continue" 
+                          containFill={true} 
+                           buttonDisabled={!isValid || !dirty} // Disable button if form is invalid or not modified
+                          />
                         </div>
                       </div>
 
