@@ -13,3 +13,25 @@
     height: 45px;
     border: none;
   }
+  .twoFaTitle {
+    font-size: 32px;
+    line-height: 28px;
+  }
+  .twoText {
+    font-size: 12px;
+  }
+  .twoLebalText {
+    font-size: 14px;
+    color: #333333;
+  }
+  .timerText {
+    font-size: 12px;
+  }
+.titleContainer {
+  position: relative;
+}
+ .titleCloseIcon {
+  position: absolute;
+  right: -8px;
+  bottom: 16px;
+ } 

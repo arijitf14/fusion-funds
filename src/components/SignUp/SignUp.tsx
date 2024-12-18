@@ -4,12 +4,21 @@ import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "@utils/Utils";
-import { MyCustomModal } from "@components/core/Modal";
+import { MyCustomModal } from "@components/core/MyCustomModal/MyCustomModal";
 import { useState } from "react";
 import TwoFA from "@components/TwoFA/TwoFA";
 import CustomField from "@components/core/Input/CustomFieldProps";
 import { FusionLogo } from "@assets/images";
 import OtpVerify from "@components/TwoFA/Otpverify";
+import CustomButton from "@components/core/CustomButton/CustomEditButton";
+
+interface SignUpFormValues {
+  name: string;
+  mobile: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -23,7 +32,9 @@ const SignUp = () => {
     confirmPassword: "",
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (values:SignUpFormValues) => {
+    console.log("sign up",values);
+    
     // navigate(ROUTES.TwoFA);
     setModalShow(true);
   };
@@ -72,8 +83,8 @@ const SignUp = () => {
             className="d-flex justify-content-center align-items-center"
           >
             <div className="signup-form-container">
-              <div className="signup-form mt-4">
-                <h2 className="text-start text-lg font-semibold mb-4">
+              <div className="signup-form">
+                <h2 className="text-start text-lg font-semibold mb-3">
                   Sign Up
                 </h2>
                 <Formik
@@ -81,15 +92,16 @@ const SignUp = () => {
                   validationSchema={validationSchema}
                   onSubmit={handleSubmit}
                 >
-                  {({ touched, errors }) => (
+                  {({ touched, errors, handleSubmit, isValid, dirty }) => (
                     <Form>
                       <CustomField
                         type="text"
                         name="name"
                         label="User Name"
-                        placeholder="Enter your name"
+                        placeholder="Jonh Doe"
                         touched={touched}
                         errors={errors}
+                        fieldTextSize="fieldTextSize"
                       />
                       <div className="row">
                         <CustomField
@@ -100,6 +112,7 @@ const SignUp = () => {
                           className="col-md-6"
                           touched={touched}
                           errors={errors}
+                        fieldTextSize="fieldTextSize"
                         />
                         <CustomField
                           type="email"
@@ -109,6 +122,7 @@ const SignUp = () => {
                           className="col-md-6"
                           touched={touched}
                           errors={errors}
+                        fieldTextSize="fieldTextSize"
                         />
                       </div>
 
@@ -116,29 +130,38 @@ const SignUp = () => {
                         type="password"
                         name="password"
                         label="Create Password"
-                        placeholder="Atleast 6 characters"
+                        placeholder="Atleast 8 characters"
                         touched={touched}
                         errors={errors}
+                        fieldTextSize="fieldTextSize"
                       />
 
                       <CustomField
                         type="password"
                         name="confirmPassword"
                         label="Confirm Password"
-                        placeholder="Atleast 6 characters"
+                        placeholder="Atleast 8 characters"
                         touched={touched}
                         errors={errors}
+                        fieldTextSize="fieldTextSize"
                       />
 
                       <div className="d-flex justify-content-center">
-                        <div className="d-grid col-md-5 mb-2">
-                          <button type="submit" className="btn btn-primary">
+                        <div className="d-grid col-md-5 my-2">
+                        <CustomButton 
+                          onSelect={isValid && dirty ? ()=>{} : handleSubmit} 
+                          title="Verify" 
+                          containFill={true} 
+                           buttonDisabled={!isValid || !dirty} // Disable button if form is invalid or not modified
+                          />
+
+                          {/* <button type="submit" className="btn btn-primary">
                             Verify
-                          </button>
+                          </button> */}
                         </div>
                       </div>
 
-                      <div className="text-center mt-3">
+                      <div className="d-flex justify-content-center align-items-center signupLinkText mb-0 mt-2">
                         <span>
                           Already have an account?{" "}
                           <Link to={"/"} className="login-link">

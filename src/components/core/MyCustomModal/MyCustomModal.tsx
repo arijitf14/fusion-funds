@@ -1,5 +1,6 @@
 import Modal from "react-bootstrap/Modal";
 import { ReactNode } from "react";
+import './MyCustomModal.css'
 
 export enum ModalSize {
   sm = "sm",
@@ -32,7 +33,7 @@ export const MyCustomModal: React.FC<ModalProps> = ({
       dialogClassName="modal-70w"
       style={width ? { width } : undefined} // Apply custom width if provided
     >
-      <Modal.Body>{children}</Modal.Body>
+      <Modal.Body className="modalBody">{children}</Modal.Body>
     </Modal>
   );
 };

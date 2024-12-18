@@ -3,6 +3,7 @@ import { Form } from "react-bootstrap";
 import * as Yup from "yup";
 import { useState } from "react";
 import { Clock, Close } from "@assets/svg";
+import CustomButton from "@components/core/CustomButton/CustomEditButton";
 
 interface TwoFAProps {
   onHide: () => void; // Function to close the modal
@@ -33,20 +34,22 @@ const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
 
   return (
     <>
-      <div className="d-flex align-items-center justify-content-between">
+      <div className="d-flex align-items-center justify-content-between titleContainer">
         <div>
-          <h1 className="mb-0">2 Factor Authentication</h1>
+          <span className="twoFaTitle mb-0">2 Factor Authentication</span>
         </div>
-        <div onClick={onHide} className="d-flex align-items-center">
+        <div onClick={onHide} className="d-flex align-items-center titleCloseIcon">
           <Close />
         </div>
       </div>
-      <p>
-        A verification code will be sent to your registered email ID and mobile
-        number
-      </p>
-
-      <p>Get Verification Code</p>
+      <div className="mb-2">
+        <span className="twoText">
+          A verification code will be sent to below options as per your preference
+        </span>
+      </div>
+      <div className="mb-1">
+        <span className="twoLebalText">Get Verification Code</span>
+      </div>
 
       <Form.Group className="mb-3">
         <div>
@@ -80,16 +83,15 @@ const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
               {({ touched, errors, handleSubmit }) => (
                 <form onSubmit={handleSubmit}>
                   <div className="form-group my-3">
-                    <label className="mb-2">
+                    <label className="mb-1">
                       Enter 6 digit verification code
                     </label>
                     <Field
                       type="text"
                       id="code"
                       name="code"
-                      className={`form-control ${
-                        touched.code && errors.code ? "is-invalid" : ""
-                      }`}
+                      className={`form-control ${touched.code && errors.code ? "is-invalid" : ""
+                        }`}
                     />
                     {touched.code && errors.code && (
                       <div className="invalid-feedback">{errors.code}</div>
@@ -101,19 +103,29 @@ const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
                       <div className="mx-2">
                         <Clock />
                       </div>
-                      <span>Time left: 3 mins 00 secs</span>
+                      <span className="timerText">Time left: 3 mins 00 secs</span>
                     </div>
 
-                    <button type="button" className="btn btn-primary">
-                      Resend Code
-                    </button>
+                    <CustomButton 
+                          onSelect={()=>{}} 
+                          title="Resend Code" 
+                          containFill={true} 
+                           buttonDisabled={true} // Disable button if form is invalid or not modified
+                          />
                   </div>
 
-                  <div className="d-grid">
-                    <button type="submit" className="btn btn-primary">
-                      Confirm
-                    </button>
-                  </div>
+
+                  <div className="d-flex justify-content-center">
+                        <div className="d-grid col-md-5 mt-3">
+                          <CustomButton
+                            onSelect={()=>{}} 
+                            title=" Confirm"
+                            containFill={true}
+                            buttonDisabled={false}
+                          />
+                        </div>
+                      </div>
+
                 </form>
               )}
             </Formik>

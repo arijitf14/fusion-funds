@@ -4,7 +4,7 @@ import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "@utils/Utils";
-import { MyCustomModal } from "@components/core/Modal";
+import { MyCustomModal } from "@components/core/MyCustomModal/MyCustomModal";
 import TwoFA from "@components/TwoFA/TwoFA";
 import "./Login.css";
 import CustomField from "@components/core/Input/CustomFieldProps";
@@ -67,7 +67,7 @@ const Login = () => {
           >
             <div className="login-form-container">
               <div className="login-form">
-                <h2 className="text-start text-lg font-semibold mb-4">Login</h2>
+                <h2 className="text-start text-lg font-semibold mb-3">Login</h2>
                 <Formik
                   initialValues={initialValues}
                   validationSchema={validationSchema}
@@ -145,7 +145,7 @@ const Login = () => {
                       <div className="d-flex justify-content-center">
                         <div className="d-grid col-md-5 my-2">
                           <CustomButton
-                            onSelect={handleSubmit}
+                            onSelect={isValid && dirty ? ()=>{} : handleSubmit} 
                             title="Continue"
                             containFill={true}
                             buttonDisabled={!isValid || !dirty}

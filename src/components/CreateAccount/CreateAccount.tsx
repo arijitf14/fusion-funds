@@ -4,7 +4,7 @@ import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "@utils/Utils";
-import { MyCustomModal } from "@components/core/Modal";
+import { MyCustomModal } from "@components/core/MyCustomModal/MyCustomModal";
 import TwoFA from "@components/TwoFA/TwoFA";
 import ReactSelect, { StylesConfig } from "react-select";
 import { TReactSelectOption } from "src/models";
@@ -13,6 +13,23 @@ import CustomField from "@components/core/Input/CustomFieldProps";
 import "./CreateAccount.css";
 import Confirmation from "@components/Confirmation/Confirmation";
 import { FusionLogo } from "@assets/images";
+import CustomButton from "@components/core/CustomButton/CustomEditButton";
+
+interface CreateAccountFormValues {
+  username: string;
+  mobile: string;
+  email: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  country: string;
+  city: string;
+  province: string;
+  zipCode: string;
+  addressLine1: string;
+  addressLine2: string;
+}
+
 
 const CreateAccount = () => {
   const navigate = useNavigate();
@@ -36,9 +53,10 @@ const CreateAccount = () => {
     province: "",
     zipCode: "",
     addressLine1: "",
+    addressLine2: ""
   };
 
-  const handleSubmit = (data: any) => {
+  const handleSubmit = (data: CreateAccountFormValues) => {
     console.log("Form Data:", data);
     setModalShow(true);
   };
@@ -61,6 +79,7 @@ const CreateAccount = () => {
       .required("Please enter a zip code")
       .matches(/^\d{5}$/, "Zip code must be exactly 5 digits"),
     addressLine1: Yup.string().required("Please enter address line 1"),
+    addressLine2: Yup.string().required("Please enter address line 2"),
     // .matches(/^\d{3}-\d{2}-\d{4}$/, 'SSN must be in the format XXX-XX-XXXX'),
   });
 
@@ -83,9 +102,9 @@ const CreateAccount = () => {
             md={6}
             className="d-flex justify-content-center align-items-center"
           >
-            <div className="login-form-container">
-              <div className="login-form mt-2">
-                <h2 className="text-start text-lg font-semibold mb-4">
+            <div className="signup-form-container">
+              <div className="signup-form">
+                <h2 className="text-start text-lg font-semibold mb-3">
                   Sign Up
                 </h2>
                 <Formik
@@ -93,7 +112,7 @@ const CreateAccount = () => {
                   validationSchema={validationSchema}
                   onSubmit={handleSubmit}
                 >
-                  {({ touched, setFieldValue, errors }) => (
+                  {({ touched, setFieldValue, errors, handleSubmit, isValid, dirty }) => (
                     <Form>
                       <Accordion defaultActiveKey="1">
                         <Accordion.Item eventKey="0" className="mb-4">
@@ -104,20 +123,22 @@ const CreateAccount = () => {
                             <CustomField
                               type="text"
                               name="username"
-                              label="Username"
-                              placeholder="Enter Username"
+                              label="User Name"
+                              placeholder="Jonh Doe"
                               touched={touched}
                               errors={errors}
+                              fieldTextSize="fieldTextSize"
                             />
                             <div className="row">
                               <CustomField
                                 type="text"
                                 name="mobile"
                                 label="Mobile Number"
-                                placeholder="Mobile Number"
+                                placeholder="Enter your mobile no"
                                 className="col-md-6"
                                 touched={touched}
                                 errors={errors}
+                                fieldTextSize="fieldTextSize"
                               />
                               <CustomField
                                 type="email"
@@ -127,6 +148,7 @@ const CreateAccount = () => {
                                 className="col-md-6"
                                 touched={touched}
                                 errors={errors}
+                                fieldTextSize="fieldTextSize"
                               />
                             </div>
                           </Accordion.Body>
@@ -145,6 +167,7 @@ const CreateAccount = () => {
                                 className="col-md-4"
                                 touched={touched}
                                 errors={errors}
+                                fieldTextSize="fieldTextSize"
                               />
                               <CustomField
                                 type="text"
@@ -154,6 +177,7 @@ const CreateAccount = () => {
                                 className="col-md-4"
                                 touched={touched}
                                 errors={errors}
+                                fieldTextSize="fieldTextSize"
                               />
                               <CustomField
                                 type="text"
@@ -163,6 +187,7 @@ const CreateAccount = () => {
                                 className="col-md-4"
                                 touched={touched}
                                 errors={errors}
+                                fieldTextSize="fieldTextSize"
                               />
                             </div>
                             <div className="row">
@@ -174,16 +199,16 @@ const CreateAccount = () => {
                                 className="col-md-6"
                                 touched={touched}
                                 errors={errors}
+                                fieldTextSize="fieldTextSize"
                               />
 
                               <div className="col-md-6 mb-3">
                                 <label htmlFor="city">City</label>
                                 <ReactSelect
-                                  className={`form-control ${
-                                    touched.city && errors.city
+                                  className={`form-control ${touched.city && errors.city
                                       ? "is-invalid"
                                       : ""
-                                  }`}
+                                    } dropdown-field-text`}
                                   inputId="city"
                                   // value={}
                                   onChange={(e) => {
@@ -218,6 +243,7 @@ const CreateAccount = () => {
                                 className="col-md-6"
                                 touched={touched}
                                 errors={errors}
+                                fieldTextSize="fieldTextSize"
                               />
                               <CustomField
                                 type="text"
@@ -227,6 +253,7 @@ const CreateAccount = () => {
                                 className="col-md-6"
                                 touched={touched}
                                 errors={errors}
+                                fieldTextSize="fieldTextSize"
                               />
                             </div>
                             <CustomField
@@ -236,24 +263,38 @@ const CreateAccount = () => {
                               placeholder="Address Line 1"
                               touched={touched}
                               errors={errors}
+                              fieldTextSize="fieldTextSize"
+                            />
+                            <CustomField
+                              type="text"
+                              name="addressLine2"
+                              label="Address Line 2"
+                              placeholder="Address Line 2"
+                              touched={touched}
+                              errors={errors}
+                              fieldTextSize="fieldTextSize"
                             />
                             {/* Submit Button */}
                             <div className="d-flex justify-content-center">
-                              <div className="d-grid col-md-5 mb-2">
-                                <button
-                                  type="submit"
-                                  className="btn btn-primary"
-                                >
-                                  Continue
-                                </button>
+                              <div className="d-grid col-md-5 my-2">
+                                <CustomButton
+                                  onSelect={isValid && dirty ? () => { } : handleSubmit}
+                                  title="Verify"
+                                  containFill={true}
+                                  buttonDisabled={!isValid || !dirty} // Disable button if form is invalid or not modified
+                                />
+
+                                {/* <button type="submit" className="btn btn-primary">
+                            Verify
+                          </button> */}
                               </div>
                             </div>
 
                             {/* Signup Link */}
-                            <div className="d-flex justify-content-center align-items-center mb-0">
+                            <div className="d-flex justify-content-center align-items-center signupLinkText mb-0 mt-2">
                               <span>
                                 Already have an account?{" "}
-                                <Link to={"/"} className="signup-link">
+                                <Link to={"/"} className="login-link">
                                   Login
                                 </Link>
                               </span>

@@ -88,8 +88,7 @@ label {
 }
 
 .signup-link {
-  color: inherit;
-  font-weight: bold;
+  color: #1C2971;
   text-decoration: none;
   cursor: pointer;
 }
