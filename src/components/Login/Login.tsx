@@ -159,7 +159,7 @@ const Login = () => {
 
                       {/* Submit Button */}
                       <div className="d-flex justify-content-center">
-                        <div className="d-grid col-md-5 mb-2">
+                        <div className="d-grid col-md-5 my-2">
                           <CustomButton 
                           onSelect={handleSubmit} 
                           title="Continue" 
@@ -170,7 +170,7 @@ const Login = () => {
                       </div>
 
                       {/* Signup Link */}
-                      <div className="d-flex justify-content-center align-items-center signupLinkText mb-0">
+                      <div className="d-flex justify-content-center align-items-center signupLinkText mb-0 mt-2">
                         <span>
                           Don't have an account?{" "}
                           <Link to={ROUTES.SIGNUP} className="signup-link">
