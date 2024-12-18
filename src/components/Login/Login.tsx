@@ -25,13 +25,13 @@ const Login = () => {
   const navigate = useNavigate();
   const [modalShow, setModalShow] = useState<boolean>(false);
 
-  const initialValues:LoginFormValues = {
+  const initialValues: LoginFormValues = {
     email: "",
     password: "",
     captcha: "",
   };
 
-  const handleSubmit = (values:LoginFormValues) => {
+  const handleSubmit = (values: LoginFormValues) => {
     console.log("Form Submitted with values:", values);
     setModalShow(true);
   };
@@ -45,8 +45,6 @@ const Login = () => {
       .required("Please enter the password"),
     captcha: Yup.string().required("Please enter the captcha"),
   });
-
- 
 
   return (
     <div className="login-container d-flex justify-content-center align-items-center">
@@ -69,15 +67,20 @@ const Login = () => {
           >
             <div className="login-form-container">
               <div className="login-form">
-                <h2 className="text-start text-lg font-semibold mb-4">
-                  Login
-                </h2>
+                <h2 className="text-start text-lg font-semibold mb-4">Login</h2>
                 <Formik
                   initialValues={initialValues}
                   validationSchema={validationSchema}
                   onSubmit={handleSubmit}
                 >
-                  {({ touched, values, errors, handleSubmit, isValid, dirty,setFieldValue }) => (
+                  {({
+                    touched,
+                    errors,
+                    handleSubmit,
+                    isValid,
+                    dirty,
+                    setFieldValue,
+                  }) => (
                     <Form>
                       {/* Email Field */}
                       <CustomField
@@ -142,10 +145,10 @@ const Login = () => {
                       <div className="d-flex justify-content-center">
                         <div className="d-grid col-md-5 my-2">
                           <CustomButton
-                          onSelect={handleSubmit} 
-                          title="Continue" 
-                          containFill={true} 
-                           buttonDisabled={!isValid || !dirty} // Disable button if form is invalid or not modified
+                            onSelect={handleSubmit}
+                            title="Continue"
+                            containFill={true}
+                            buttonDisabled={!isValid || !dirty}
                           />
                         </div>
                       </div>

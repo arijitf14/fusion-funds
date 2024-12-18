@@ -13,19 +13,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url("../../assets/images/FusionBg.png") no-repeat center center/cover;
+  background: url("../../assets/images/FusionBg.png") no-repeat center
+    center/cover;
   background-size: cover;
   overflow: hidden;
   min-height: 100vh; /* Ensures the container always covers the full height */
 }
- 
+
 .login-logo {
   max-width: 80%; /* Limit the size of the logo */
   height: auto;
   display: block;
   margin-bottom: 20px; /* For mobile spacing */
 }
- 
+
 @media (max-width: 767px) {
   .login-logo {
     max-width: 60%; /* Make the logo smaller on small screens */
@@ -39,11 +40,11 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
- 
+
 .login-form {
   width: 100%;
 }
- 
+
 .form-control {
   border: 1px solid #ccc !important;
   border-radius: 8px !important;
@@ -51,27 +52,27 @@
   box-shadow: none !important;
   font-size: 16px !important;
 }
- 
+
 .form-control::placeholder {
   color: #b0b0b0 !important;
   opacity: 1 !important;
 }
- 
+
 .form-control:focus {
   outline: none !important;
   border-color: #999 !important;
   box-shadow: none !important;
 }
- 
+
 .is-invalid {
   border-color: #dc3545;
 }
- 
+
 .is-invalid:focus {
   border-color: #dc3545;
   box-shadow: none;
 }
- 
+
 label {
   font-weight: 400 !important;
   font-size: 12px;
@@ -80,12 +81,12 @@ label {
   font-size: 12px !important;
 }
 .btn-primary {
-  background-color: #1C2971 !important;
-  border-color: #1C2971 !important;
+  background-color: #1c2971 !important;
+  border-color: #1c2971 !important;
   border-radius: 8px;
   height: 45px;
 }
- 
+
 .signup-link {
   color: inherit;
   font-weight: bold;
@@ -100,17 +101,23 @@ label {
 .signupLinkText {
   font-size: 14px;
 }
-.captch_box{
+.captch_box {
   display: flex;
-  justify-content:flex-start;
+  justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
   margin-top: 30px;
   margin-bottom: 35px;
   width: 100%;
 }
-.error-text{
-  color:#dc3545;
+.error-text {
+  color: #dc3545;
   font-size: 14px;
   font-size: 300;
+}
+.rememberCheckBox {
+  border: 1px solid #1c2971 !important ;
+}
+.rememberCheckBox:checked {
+  background-color: #1c2971 !important;
 }
