@@ -10,10 +10,14 @@ import "./Login.css";
 import CustomField from "@components/core/Input/CustomFieldProps";
 import { FusionLogo } from "@assets/images";
 import ReCAPTCHA from "react-google-recaptcha";
+
+import CustomButton from "@components/core/CustomButton/CustomEditButton";
+
 interface LoginFormValues {
   email: string;
   password: string;
   captcha: string;
+  rememberMe?: boolean;
 }
 
 const Login = () => {
@@ -21,7 +25,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [modalShow, setModalShow] = useState<boolean>(false);
 
-  const initialValues = {
+  const initialValues:LoginFormValues = {
     email: "",
     password: "",
     captcha: "",
@@ -65,13 +69,15 @@ const Login = () => {
           >
             <div className="login-form-container">
               <div className="login-form">
-                <h2 className="text-start text-lg font-semibold mb-4">Login</h2>
+                <h2 className="text-start text-lg font-semibold mb-4">
+                  Login
+                </h2>
                 <Formik
                   initialValues={initialValues}
                   validationSchema={validationSchema}
                   onSubmit={handleSubmit}
                 >
-                  {({ touched, errors,setFieldValue }) => (
+                  {({ touched, values, errors, handleSubmit, isValid, dirty,setFieldValue }) => (
                     <Form>
                       {/* Email Field */}
                       <CustomField
@@ -134,15 +140,18 @@ const Login = () => {
                       </div>
                       {/* Submit Button */}
                       <div className="d-flex justify-content-center">
-                        <div className="d-grid col-md-5 mb-2">
-                          <button type="submit" className="btn btn-primary">
-                            Continue
-                          </button>
+                        <div className="d-grid col-md-5 my-2">
+                          <CustomButton
+                          onSelect={handleSubmit} 
+                          title="Continue" 
+                          containFill={true} 
+                           buttonDisabled={!isValid || !dirty} // Disable button if form is invalid or not modified
+                          />
                         </div>
                       </div>
 
                       {/* Signup Link */}
-                      <div className="d-flex justify-content-center align-items-center signupLinkText mb-0">
+                      <div className="d-flex justify-content-center align-items-center signupLinkText mb-0 mt-2">
                         <span>
                           Don't have an account?{" "}
                           <Link to={ROUTES.SIGNUP} className="signup-link">
