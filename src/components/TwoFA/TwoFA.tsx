@@ -1,17 +1,20 @@
 import { Formik, Field, FormikHelpers } from "formik";
 import { Form } from "react-bootstrap";
 import * as Yup from "yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Clock, Close } from "@assets/svg";
 import CustomButton from "@components/core/CustomButton/CustomEditButton";
 
 interface TwoFAProps {
-  onHide: () => void; // Function to close the modal
-  onSuccess: () => void; // Function to handle success
+  onHide: () => void;
+  onSuccess: () => void;
 }
 
 const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
   const [selectedCheckbox, setSelectedCheckbox] = useState<string>("");
+
+  const [timer, setTimer] = useState(180);
+  const [isButtonDisabled, setButtonDisabled] = useState<boolean>(true);
 
   const initialValues = {
     code: "",
@@ -19,9 +22,10 @@ const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
 
   const validationSchema = Yup.object().shape({
     code: Yup.string()
-      .length(6, "Code must be exactly 6 digits")
+      .matches(/^\d{6}$/, "Code must be exactly 6 digits")
       .required("Verification code is required"),
   });
+
 
   const handleSubmit = (
     values: { code: string },
@@ -30,6 +34,34 @@ const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
     setSubmitting(false);
     onHide();
     onSuccess();
+  };
+
+  useEffect(() => {
+    if (selectedCheckbox !== "") {
+      setTimer(180);
+      setButtonDisabled(true);
+    }
+  }, [selectedCheckbox]);
+
+  useEffect(() => {
+    if (timer > 0 && isButtonDisabled) {
+      const interval = setInterval(() => {
+        setTimer((prevTime) => {
+          if (prevTime <= 1) {
+            clearInterval(interval);
+            setButtonDisabled(false);
+            return 0;
+          }
+          return prevTime - 1;
+        });
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [timer, isButtonDisabled]);
+
+  const resetTimer = () => {
+    setTimer(180);
+    setButtonDisabled(true);
   };
 
   return (
@@ -80,7 +112,7 @@ const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
               validationSchema={validationSchema}
               onSubmit={handleSubmit}
             >
-              {({ touched, errors, handleSubmit }) => (
+              {({ touched, values, errors, handleSubmit, setFieldValue }) => (
                 <form onSubmit={handleSubmit}>
                   <div className="form-group my-3">
                     <label className="mb-1">
@@ -92,6 +124,17 @@ const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
                       name="code"
                       className={`form-control ${touched.code && errors.code ? "is-invalid" : ""
                         }`}
+                      onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                        if (!/[0-9]/.test(e.key)) {
+                          e.preventDefault();
+                        }
+                      }}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        const { value } = e.target;
+                        if (value.length <= 6) {
+                          setFieldValue("code", value);
+                        }
+                      }}
                     />
                     {touched.code && errors.code && (
                       <div className="invalid-feedback">{errors.code}</div>
@@ -103,29 +146,29 @@ const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
                       <div className="mx-2">
                         <Clock />
                       </div>
-                      <span className="timerText">Time left: 3 mins 00 secs</span>
+                      <span className="timerText">
+                        Time left: {Math.floor(timer / 60)} mins {timer % 60} secs
+                      </span>
                     </div>
 
-                    <CustomButton 
-                          onSelect={()=>{}} 
-                          title="Resend Code" 
-                          containFill={true} 
-                           buttonDisabled={true} // Disable button if form is invalid or not modified
-                          />
+                    <CustomButton
+                      onSelect={resetTimer}
+                      title="Resend Code"
+                      containFill={true}
+                      buttonDisabled={isButtonDisabled}
+                    />
                   </div>
 
-
                   <div className="d-flex justify-content-center">
-                        <div className="d-grid col-md-5 mt-3">
-                          <CustomButton
-                            onSelect={()=>{}} 
-                            title=" Confirm"
-                            containFill={true}
-                            buttonDisabled={false}
-                          />
-                        </div>
-                      </div>
-
+                    <div className="d-grid col-md-5 mt-3">
+                      <CustomButton
+                        onSelect={() => { }}
+                        title=" Confirm"
+                        containFill={true}
+                        buttonDisabled={values?.code?.length !== 6}
+                      />
+                    </div>
+                  </div>
                 </form>
               )}
             </Formik>
