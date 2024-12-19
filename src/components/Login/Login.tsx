@@ -12,6 +12,7 @@ import { FusionLogo } from "@assets/images";
 import ReCAPTCHA from "react-google-recaptcha";
 
 import CustomButton from "@components/core/CustomButton/CustomEditButton";
+import {toast } from "react-toastify";
 
 interface LoginFormValues {
   email: string;
@@ -145,7 +146,9 @@ const Login = () => {
                       <div className="d-flex justify-content-center">
                         <div className="d-grid col-md-5 my-2">
                           <CustomButton
-                            onSelect={isValid && dirty ? ()=>{} : handleSubmit} 
+                            onSelect={
+                              isValid && dirty ? () => {} : handleSubmit
+                            }
                             title="Continue"
                             containFill={true}
                             buttonDisabled={!isValid || !dirty}
@@ -173,7 +176,16 @@ const Login = () => {
           <TwoFA
             onHide={() => setModalShow(false)}
             onSuccess={() => {
-              console.log("I HAVE BEEN HIT");
+              toast.success("Login success", {
+                position: "top-right",
+                autoClose: 4000, 
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+              });
               navigate(ROUTES.DASHBOARD);
             }}
           />

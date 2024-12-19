@@ -9,13 +9,19 @@ interface CustomButtonProps {
 }
 
 const CustomButton: React.FC<CustomButtonProps> = (props) => {
-  const { onSelect, title, icon, containFill = false, buttonDisabled = false } = props;
-
-  console.log("BUTTON DISABLED", buttonDisabled)
-
+  const {
+    onSelect,
+    title,
+    icon,
+    containFill = false,
+    buttonDisabled = false,
+  } = props;
   return (
     // <div>
-    <button className={`${buttonDisabled ? 'edit-disable-button' : 'edit-button'} ${containFill ? 'containFillButoom' : ''} `}
+    <button
+      className={`${buttonDisabled ? "edit-disable-button" : "edit-button"} ${
+        containFill ? "containFillButoom" : ""
+      } `}
       onClick={() => !buttonDisabled && onSelect()}
       disabled={buttonDisabled}
     >

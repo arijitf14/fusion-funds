@@ -11,8 +11,8 @@ interface TwoFAProps {
 }
 
 const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
+  
   const [selectedCheckbox, setSelectedCheckbox] = useState<string>("");
-
   const [timer, setTimer] = useState(180);
   const [isButtonDisabled, setButtonDisabled] = useState<boolean>(true);
 
@@ -26,7 +26,6 @@ const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
       .required("Verification code is required"),
   });
 
-
   const handleSubmit = (
     values: { code: string },
     { setSubmitting }: FormikHelpers<{ code: string }>
@@ -34,6 +33,7 @@ const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
     setSubmitting(false);
     onHide();
     onSuccess();
+    console.log("twoFa Value", values);
   };
 
   useEffect(() => {
@@ -70,13 +70,17 @@ const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
         <div>
           <span className="twoFaTitle mb-0">2 Factor Authentication</span>
         </div>
-        <div onClick={onHide} className="d-flex align-items-center titleCloseIcon">
+        <div
+          onClick={onHide}
+          className="d-flex align-items-center titleCloseIcon"
+        >
           <Close />
         </div>
       </div>
       <div className="mb-2">
         <span className="twoText">
-          A verification code will be sent to below options as per your preference
+          A verification code will be sent to below options as per your
+          preference
         </span>
       </div>
       <div className="mb-1">
@@ -119,16 +123,12 @@ const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
                       Enter 6 digit verification code
                     </label>
                     <Field
-                      type="text"
+                      type="number"
                       id="code"
                       name="code"
-                      className={`form-control ${touched.code && errors.code ? "is-invalid" : ""
-                        }`}
-                      onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => {
-                        if (!/[0-9]/.test(e.key)) {
-                          e.preventDefault();
-                        }
-                      }}
+                      className={`form-control ${
+                        touched.code && errors.code ? "is-invalid" : ""
+                      }`}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         const { value } = e.target;
                         if (value.length <= 6) {
@@ -147,7 +147,8 @@ const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
                         <Clock />
                       </div>
                       <span className="timerText">
-                        Time left: {Math.floor(timer / 60)} mins {timer % 60} secs
+                        Time left: {Math.floor(timer / 60)} mins {timer % 60}{" "}
+                        secs
                       </span>
                     </div>
 
@@ -162,7 +163,7 @@ const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
                   <div className="d-flex justify-content-center">
                     <div className="d-grid col-md-5 mt-3">
                       <CustomButton
-                        onSelect={() => { }}
+                        onSelect={() => {}}
                         title=" Confirm"
                         containFill={true}
                         buttonDisabled={values?.code?.length !== 6}
