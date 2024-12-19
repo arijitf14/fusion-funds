@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { useEffect, useState } from "react";
 import { Clock, Close } from "@assets/svg";
 import CustomButton from "@components/core/CustomButton/CustomEditButton";
+import useTimerProps from "@customHooks/useTimerProps";
 
 interface TwoFAProps {
   onHide: () => void;
@@ -12,9 +13,14 @@ interface TwoFAProps {
 
 const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
   const [selectedCheckbox, setSelectedCheckbox] = useState<string>("");
-
-  const [timer, setTimer] = useState(180);
-  const [isButtonDisabled, setButtonDisabled] = useState<boolean>(true);
+  const { timer, isButtonDisabled, resetTimer } = useTimerProps({
+    initialTime: 5,
+  });
+  useEffect(() => {
+    if (selectedCheckbox) {
+      resetTimer();
+    }
+  }, [selectedCheckbox]);
 
   const initialValues = {
     code: "",
@@ -26,7 +32,6 @@ const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
       .required("Verification code is required"),
   });
 
-
   const handleSubmit = (
     values: { code: string },
     { setSubmitting }: FormikHelpers<{ code: string }>
@@ -34,34 +39,6 @@ const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
     setSubmitting(false);
     onHide();
     onSuccess();
-  };
-
-  useEffect(() => {
-    if (selectedCheckbox !== "") {
-      setTimer(180);
-      setButtonDisabled(true);
-    }
-  }, [selectedCheckbox]);
-
-  useEffect(() => {
-    if (timer > 0 && isButtonDisabled) {
-      const interval = setInterval(() => {
-        setTimer((prevTime) => {
-          if (prevTime <= 1) {
-            clearInterval(interval);
-            setButtonDisabled(false);
-            return 0;
-          }
-          return prevTime - 1;
-        });
-      }, 1000);
-      return () => clearInterval(interval);
-    }
-  }, [timer, isButtonDisabled]);
-
-  const resetTimer = () => {
-    setTimer(180);
-    setButtonDisabled(true);
   };
 
   return (
@@ -152,11 +129,11 @@ const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
                     </div>
 
                     <CustomButton
-                      onSelect={resetTimer}
-                      title="Resend Code"
-                      containFill={true}
-                      buttonDisabled={isButtonDisabled}
-                    />
+                    onSelect={resetTimer}
+                    title="Resend Code"
+                    containFill={true}
+                    buttonDisabled={isButtonDisabled}
+                  />
                   </div>
 
                   <div className="d-flex justify-content-center">
