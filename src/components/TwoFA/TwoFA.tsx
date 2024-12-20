@@ -12,12 +12,7 @@ interface TwoFAProps {
 }
 
 const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
-  
   const [selectedCheckbox, setSelectedCheckbox] = useState<string>("");
-<<<<<<< HEAD
-  const [timer, setTimer] = useState(180);
-  const [isButtonDisabled, setButtonDisabled] = useState<boolean>(true);
-=======
   const { timer, isButtonDisabled, resetTimer } = useTimerProps({
     initialTime: 5,
   });
@@ -26,7 +21,6 @@ const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
       resetTimer();
     }
   }, [selectedCheckbox]);
->>>>>>> 11dfc0bded682a02f1127f70d80fa81e3435a72c
 
   const initialValues = {
     code: "",
