@@ -5,12 +5,18 @@ import ContactIcon from "@assets/customSvg/Contact";
 import { PillIcons } from "@assets/svg";
 import CustomButton from "@components/core/CustomButton/CustomEditButton";
 import SidePanel from "@components/core/SidePanel";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EditProfile from "@components/EditProfile/EditProfile";
+import { MyCustomModal } from "@components/core/MyCustomModal/MyCustomModal";
+import TwoFA from "@components/TwoFA/TwoFA";
+import ChangePassword from "@components/ChangePassword/ChangePassword";
 
 const ManageProfile = () => {
 
   const [previewModal, setShowPreviewModal] = useState<boolean>(false);
+  const [modalShow, setModalShow] = useState<boolean>(false);
+  const [changePasswordModalShow, setChangePasswordModalShow] = useState<boolean>(false);
+
   return (
     <div className="my-4">
       <div className="my-4">
@@ -123,14 +129,14 @@ const ManageProfile = () => {
                 <span className="body-containt-text">Email ID</span>
               </div>
               <div className="mt-3">
-                <CustomButton title="Edit" icon="+" onSelect={() => { }} />
+                <CustomButton title="Edit" icon="+" onSelect={() => { setModalShow(true)}} />
               </div>
             </div>
             <hr className="hrLine" />
             <div className="changePasswordDiv">
               <span className="body-containt-text">Change Password</span>
               <div className="mt-3">
-                <CustomButton title="Change" icon="+" onSelect={() => { }} />
+                <CustomButton title="Change" icon="+" onSelect={() => { setChangePasswordModalShow(true)}} />
               </div>
             </div>
           </Accordion.Body>
@@ -145,6 +151,20 @@ const ManageProfile = () => {
       >
         <div className="vh-100 panel-container"><EditProfile/></div>
       </SidePanel>}
+      <MyCustomModal show={modalShow} onHide={() => setModalShow(false)}>
+      <TwoFA
+            onHide={() => setModalShow(false)}
+            onSuccess={() => {}}
+            // showOtp={showOtp}
+            // setShowOtp={setShowOtp}
+          />
+        </MyCustomModal>
+        <MyCustomModal show={changePasswordModalShow} onHide={() => setChangePasswordModalShow(false)}>
+      <ChangePassword
+            onHide={() => setChangePasswordModalShow(false)}
+            onSuccess={() => {}}
+          />
+        </MyCustomModal>
     </div>
   );
 };

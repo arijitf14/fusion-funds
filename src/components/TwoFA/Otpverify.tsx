@@ -14,7 +14,7 @@ interface TwoFAProps {
 const OtpVerify: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
 
   const { timer, isButtonDisabled, resetTimer } = useTimerProps({
-    initialTime: 5,
+    initialTime: 30,
   });
 
   const initialValues = {

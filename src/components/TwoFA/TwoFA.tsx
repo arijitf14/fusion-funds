@@ -5,22 +5,68 @@ import { useEffect, useState } from "react";
 import { Clock, Close } from "@assets/svg";
 import CustomButton from "@components/core/CustomButton/CustomEditButton";
 import useTimerProps from "@customHooks/useTimerProps";
+import { toast } from "react-toastify";
+import "./TwoFA.css";
 
 interface TwoFAProps {
   onHide: () => void;
   onSuccess: () => void;
+  firstTimeTriggerOtp?: boolean;
 }
 
-const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
-  const [selectedCheckbox, setSelectedCheckbox] = useState<string>("");
+const TwoFA: React.FC<TwoFAProps> = ({
+  onHide,
+  onSuccess,
+  firstTimeTriggerOtp = false,
+}) => {
+  const reduxPref = ""; // User's current 2FA preference
+  const [selectedOption, setSelectedOption] = useState<string>(reduxPref);
+  const [showOtp, setShowOtp] = useState<boolean>(firstTimeTriggerOtp);
   const { timer, isButtonDisabled, resetTimer } = useTimerProps({
-    initialTime: 5,
+    initialTime: 30,
   });
-  useEffect(() => {
-    if (selectedCheckbox) {
+
+  const sendOtp = (option: string) => {
+    if (option !== reduxPref || firstTimeTriggerOtp) {
+      toast.success(`An OTP has been sent to your registered ${option}.`);
       resetTimer();
+      setShowOtp(true);
+    } else {
+      setShowOtp(false);
     }
-  }, [selectedCheckbox]);
+    setSelectedOption(option);
+  };
+  
+  // const sendOtp = (option: string) => {
+  //   if (option !== reduxPref && !firstTimeTriggerOtp) {
+  //     toast.success(`An OTP has been sent to your registered ${option}.`);
+  //     resetTimer();
+  //     setShowOtp(true);
+  //   } else if (firstTimeTriggerOtp) {
+  //     toast.success(`An OTP has been sent to your registered ${option}.`);
+  //     resetTimer();
+  //     setShowOtp(true);
+  //   }
+  //   else {
+  //     setShowOtp(false);
+  //   }
+  //   setSelectedOption(option);
+  // };
+
+  const handleOptionChange = (option: string) => {
+    if (option !== selectedOption) {
+      sendOtp(option);
+    } else if (option === reduxPref) {
+      setShowOtp(false);
+    }
+  };
+  useEffect(() => {
+    sendOtp(reduxPref);
+  }, [firstTimeTriggerOtp]);
+  const resendOtp = () => {
+    toast.success(`A new OTP has been sent to your registered ${selectedOption}.`);
+    resetTimer();
+  };
 
   const initialValues = {
     code: "",
@@ -39,7 +85,7 @@ const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
     setSubmitting(false);
     onHide();
     onSuccess();
-    console.log("twoFa Value", values);
+    console.log("Submitted TwoFA Code:", values.code);
   };
 
   return (
@@ -48,111 +94,111 @@ const TwoFA: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
         <div>
           <span className="twoFaTitle mb-0">2 Factor Authentication</span>
         </div>
-        <div
-          onClick={onHide}
-          className="d-flex align-items-center titleCloseIcon"
-        >
-          <Close />
+        <div className="d-flex align-items-center titleCloseIcon">
+          <Close onClick={onHide} />
         </div>
       </div>
+
       <div className="mb-2">
         <span className="twoText">
-          A verification code will be sent to below options as per your
-          preference
+          A verification code will be sent to {firstTimeTriggerOtp ? <>your <b>{reduxPref}</b></> : 'below options'} as per your preference
         </span>
       </div>
-      <div className="mb-1">
-        <span className="twoLebalText">Get Verification Code</span>
-      </div>
-
+      {!firstTimeTriggerOtp &&
+        <div className="mb-1">
+          <span className="twoLebalText">Get Verification Code</span>
+        </div>
+      }
       <Form.Group className="mb-3">
-        <div>
-          <Form.Check
-            inline
-            label="SMS"
-            type="radio"
-            id="sms"
-            name="selectedCheckbox"
-            value="sms"
-            checked={selectedCheckbox === "sms"}
-            onChange={() => setSelectedCheckbox("sms")}
-          />
-          <Form.Check
-            inline
-            label="Email"
-            type="radio"
-            id="email"
-            name="selectedCheckbox"
-            value="email"
-            checked={selectedCheckbox === "email"}
-            onChange={() => setSelectedCheckbox("email")}
-          />
-
-          {selectedCheckbox !== "" && (
-            <Formik
-              initialValues={initialValues}
-              validationSchema={validationSchema}
-              onSubmit={handleSubmit}
-            >
-              {({ touched, values, errors, handleSubmit, setFieldValue }) => (
-                <form onSubmit={handleSubmit}>
-                  <div className="form-group my-3">
-                    <label className="mb-1">
-                      Enter 6 digit verification code
-                    </label>
-                    <Field
-                      type="number"
-                      id="code"
-                      name="code"
-                      className={`form-control ${
-                        touched.code && errors.code ? "is-invalid" : ""
+        {!firstTimeTriggerOtp &&
+          <div className="radio-group">
+            <label className="radio_lable">
+              <input
+                type="radio"
+                name="verificationOption"
+                value="mobile"
+                className="radio_button"
+                checked={selectedOption === "mobile"}
+                onChange={() => handleOptionChange("mobile")}
+              />
+              {"SMS"}
+            </label>
+            <label className="radio_lable">
+              <input
+                disabled={firstTimeTriggerOtp ? true : false}
+                type="radio"
+                name="verificationOption"
+                value="email"
+                className="radio_button"
+                checked={selectedOption === "email"}
+                onChange={() => handleOptionChange("email")}
+              />
+              {"Email"}
+            </label>
+          </div>
+        }
+        {showOtp && (
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ touched, values, errors, handleSubmit, setFieldValue }) => (
+              <form onSubmit={handleSubmit}>
+                <div className="form-group my-3">
+                  <label htmlFor="code" className="mb-1">
+                    Enter 6 digit verification code
+                  </label>
+                  <Field
+                    type="number"
+                    id="code"
+                    name="code"
+                    className={`form-control ${touched.code && errors.code ? "is-invalid" : ""
                       }`}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        const { value } = e.target;
-                        if (value.length <= 6) {
-                          setFieldValue("code", value);
-                        }
-                      }}
-                    />
-                    {touched.code && errors.code && (
-                      <div className="invalid-feedback">{errors.code}</div>
-                    )}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      const { value } = e.target;
+                      if (value.length <= 6) {
+                        setFieldValue("code", value);
+                      }
+                    }}
+                  />
+                  {touched.code && errors.code && (
+                    <div className="invalid-feedback">{errors.code}</div>
+                  )}
+                </div>
+
+                <div className="d-flex align-items-center justify-content-between mb-4">
+                  <div className="d-flex align-items-center">
+                    <div className="mx-2">
+                      <Clock />
+                    </div>
+                    <span className="timerText">
+                      You can resend OTP in: {Math.floor(timer / 60)} mins {timer % 60} secs
+                    </span>
                   </div>
 
-                  <div className="d-flex align-items-center justify-content-between mb-4">
-                    <div className="d-flex align-items-center">
-                      <div className="mx-2">
-                        <Clock />
-                      </div>
-                      <span className="timerText">
-                        Time left: {Math.floor(timer / 60)} mins {timer % 60}{" "}
-                        secs
-                      </span>
-                    </div>
-
-                    <CustomButton
-                    onSelect={resetTimer}
+                  <CustomButton
+                    onSelect={resendOtp}
                     title="Resend Code"
                     containFill={true}
                     buttonDisabled={isButtonDisabled}
                   />
-                  </div>
+                </div>
 
-                  <div className="d-flex justify-content-center">
-                    <div className="d-grid col-md-5 mt-3">
-                      <CustomButton
-                        onSelect={() => {}}
-                        title=" Confirm"
-                        containFill={true}
-                        buttonDisabled={values?.code?.length !== 6}
-                      />
-                    </div>
+                <div className="d-flex justify-content-center">
+                  <div className="d-grid col-md-5 mt-3">
+                    <CustomButton
+                      onSelect={() => { }}
+                      title=" Confirm"
+                      containFill={true}
+                      buttonDisabled={values?.code?.length !== 6}
+                    />
                   </div>
-                </form>
-              )}
-            </Formik>
-          )}
-        </div>
+                </div>
+              </form>
+            )}
+          </Formik>
+        )}
       </Form.Group>
     </>
   );

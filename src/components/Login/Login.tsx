@@ -44,7 +44,7 @@ const Login = () => {
     password: Yup.string()
       .min(1, "Password must be at least 8 characters")
       .required("Please enter the password"),
-    captcha: Yup.string().required("Please enter the captcha"),
+    captcha: Yup.string(),
   });
 
   return (
@@ -175,6 +175,7 @@ const Login = () => {
         <MyCustomModal show={modalShow} onHide={() => setModalShow(false)}>
           <TwoFA
             onHide={() => setModalShow(false)}
+            firstTimeTriggerOtp={true}
             onSuccess={() => {
               toast.success("Login success", {
                 position: "top-right",
