@@ -105,7 +105,7 @@ const SignUp = () => {
                       />
                       <div className="row">
                         <CustomField
-                          type="text"
+                          type="number"
                           name="mobile"
                           label="Mobile Number"
                           placeholder="Enter your mobile no"

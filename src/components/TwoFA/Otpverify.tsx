@@ -1,16 +1,21 @@
 import { Formik, Field, FormikHelpers } from "formik";
 import { Form } from "react-bootstrap";
 import * as Yup from "yup";
-import { useState } from "react";
 import { Clock, Close } from "@assets/svg";
 import "./TwoFA.css";
+import "./Otpverify.css"
+import CustomButton from "@components/core/CustomButton/CustomEditButton";
+import useTimerProps from "@customHooks/useTimerProps";
 interface TwoFAProps {
-  onHide: () => void; // Function to close the modal
-  onSuccess: () => void; // Function to handle success
+  onHide: () => void;
+  onSuccess: () => void;
 }
 
 const OtpVerify: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
-  const [selectedCheckbox, setSelectedCheckbox] = useState<string>("");
+
+  const { timer, isButtonDisabled, resetTimer } = useTimerProps({
+    initialTime: 5,
+  });
 
   const initialValues = {
     code: "",
@@ -18,12 +23,11 @@ const OtpVerify: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
 
   const validationSchema = Yup.object().shape({
     code: Yup.string()
-      .length(6, "Code must be exactly 6 digits")
+      .matches(/^\d{6}$/, "Code must be exactly 6 digits")
       .required("Verification code is required"),
   });
 
-  const handleSubmit = (
-    values: { code: string },
+  const handleSubmit = (values: { code: string },
     { setSubmitting }: FormikHelpers<{ code: string }>
   ) => {
     setSubmitting(false);
@@ -33,62 +37,52 @@ const OtpVerify: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
 
   return (
     <>
-      <div className="d-flex align-items-center justify-content-between">
+      <div className="d-flex align-items-center justify-content-between titleContainer">
         <div>
-          <h1 className="mb-0">OTP Verification</h1>
+          <h1 className="otpTitle mb-0">OTP Verification</h1>
         </div>
-        <div onClick={onHide} className="d-flex align-items-center">
+        <div onClick={onHide} className="d-flex align-items-center titleCloseIcon">
           <Close />
         </div>
       </div>
-      <p>
-        A verification code will be sent to your registered email ID and mobile
-        number
-      </p>
+      <div className="mb-2">
+        <span className="twoText">
+          A verification code will be sent to your registered email ID and mobile
+          number
+        </span>
+      </div>
 
       {/* <p>Get Verification Code</p> */}
-
       <Form.Group className="mb-3">
         <div>
-          {/* <Form.Check
-            inline
-            label="SMS"
-            type="radio"
-            id="sms"
-            name="selectedCheckbox"
-            value="sms"
-            checked={selectedCheckbox === "sms"}
-            onChange={() => setSelectedCheckbox("sms")}
-          />
-          <Form.Check
-            inline
-            label="Email"
-            type="radio"
-            id="email"
-            name="selectedCheckbox"
-            value="email"
-            checked={selectedCheckbox === "email"}
-            onChange={() => setSelectedCheckbox("email")}
-          /> */}
-
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
-            {({ values, touched, errors, handleSubmit }) => (
+            {({ values, touched, errors, handleSubmit, setFieldValue }) => (
               <form onSubmit={handleSubmit}>
                 <div className="form-group my-3">
-                  <label className="mb-2">
+                  <label className="mb-1">
                     Enter 6 digit verification code
                   </label>
                   <Field
                     type="text"
                     id="code"
                     name="code"
-                    className={`form-control ${
-                      touched.code && errors.code ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${touched.code && errors.code ? "is-invalid" : ""
+                      }`}
+                    onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                      if (!/[0-9]/.test(e.key)) {
+                        e.preventDefault();
+                      }
+                    }}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      const { value } = e.target;
+                      if (value.length <= 6) {
+                        setFieldValue("code", value);
+                      }
+                    }}
                   />
                   {touched.code && errors.code && (
                     <div className="invalid-feedback">{errors.code}</div>
@@ -100,25 +94,27 @@ const OtpVerify: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
                     <div className="mx-2">
                       <Clock />
                     </div>
-                    <span>Time left: 3 mins 00 secs</span>
+                    <span className="timerText">
+                      Time left: {Math.floor(timer / 60)} mins {timer % 60} secs
+                    </span>
                   </div>
 
-                  <span className="">Resend Code</span>
+                  <CustomButton
+                    onSelect={resetTimer}
+                    title="Resend Code"
+                    containFill={true}
+                    buttonDisabled={isButtonDisabled}
+                  />
                 </div>
 
                 <div className="d-flex justify-content-center">
-                  <div className="d-grid col-md-6">
-                    <button
-                      type="submit"
-                      disabled={!values.code}
-                      className={`btn ${
-                        values.code.length === 6
-                          ? "btn-primary"
-                          : "custom-button-disabled"
-                      }`}
-                    >
-                      Confirm
-                    </button>
+                  <div className="d-grid col-md-5 mt-3">
+                    <CustomButton
+                      onSelect={() => { }}
+                      title=" Confirm"
+                      containFill={true}
+                      buttonDisabled={values?.code?.length !== 6}
+                    />
                   </div>
                 </div>
               </form>
