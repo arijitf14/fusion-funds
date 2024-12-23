@@ -14,7 +14,7 @@ import "./CreateAccount.css";
 import { FusionLogo } from "@assets/images";
 import CustomButton from "@components/core/CustomButton/CustomEditButton";
 import { useDispatch } from "react-redux";
-import { showNotifyModal } from "@redux/dummy";
+import { showNotifyModal } from "@redux/signUpConfirmation";
 import { AuthState, save } from "@redux/auth";
 
 interface CreateAccountFormValues {

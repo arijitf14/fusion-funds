@@ -4,11 +4,11 @@ import { MyCustomModal } from "@components/core/MyCustomModal/MyCustomModal";
 import { RootState } from "@redux/store";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { clearShowNotifyModal } from "@redux/dummy";
+import { clearShowNotifyModal } from "@redux/signUpConfirmation";
 
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch();
-  const { showModal } = useSelector((gs: RootState) => gs.dummyDetails)
+  const { showModal } = useSelector((gs: RootState) => gs.signUpConfirmationDetails)
   const [confirmModalShow, setConfirmModalShow] = useState<boolean>(false);
 
   useEffect(() => {
