@@ -70,7 +70,7 @@ const CreateAccount = () => {
       .email("Invalid email format")
       .required("Please enter an email"),
     firstName: Yup.string().required("Please enter your first name"),
-    middleName: Yup.string().required("Please enter your Middle Name"),
+    middleName: Yup.string(),
     lastName: Yup.string().required("Please enter your last name"),
     country: Yup.string().required("Please select a country"),
     city: Yup.string().required("Please enter your city"),

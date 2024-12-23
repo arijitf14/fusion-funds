@@ -42,3 +42,24 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+.unstyled-input {
+  all: unset;
+  height: 100%;
+  width: 100%; 
+  box-sizing: border-box;
+  color: "#333333";
+}
+.unstyled-input::placeholder {
+  color: #b0b0b0;
+}
+.number_extention {
+  height: 100%;
+  width: 24px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-right: 1px solid #cbcbcb;
+  margin-right: 5px;
+
+}

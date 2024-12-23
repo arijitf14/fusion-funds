@@ -11,6 +11,7 @@ import CustomField from "@components/core/Input/CustomFieldProps";
 import { FusionLogo } from "@assets/images";
 import OtpVerify from "@components/TwoFA/Otpverify";
 import CustomButton from "@components/core/CustomButton/CustomEditButton";
+import MobileField from "@components/core/Input/MobileField";
 
 interface SignUpFormValues {
   name: string;
@@ -32,9 +33,9 @@ const SignUp = () => {
     confirmPassword: "",
   };
 
-  const handleSubmit = (values:SignUpFormValues) => {
-    console.log("sign up",values);
-    
+  const handleSubmit = (values: SignUpFormValues) => {
+    console.log("sign up", values);
+
     // navigate(ROUTES.TwoFA);
     setModalShow(true);
   };
@@ -49,15 +50,12 @@ const SignUp = () => {
     email: Yup.string()
       .email("Invalid email")
       .required("Please enter the email"),
-    // password: Yup.string()
-    //   .min(6, "At least 6 characters are required")
-    //   .required("Please enter the password"),
     password: Yup.string()
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/,
-      "Minimum 8 characters, at least one uppercase letter, one lowercase letter, one number, and one special character."
-    )
-    .required("Please enter the password"),
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/,
+        "Minimum 8 characters, at least one uppercase letter, one lowercase letter, one number, and one special character."
+      )
+      .required("Please enter the password"),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password")], "Passwords must match")
       .required("Please confirm the password"),
@@ -104,7 +102,7 @@ const SignUp = () => {
                         fieldTextSize="fieldTextSize"
                       />
                       <div className="row">
-                        <CustomField
+                        <MobileField
                           type="number"
                           name="mobile"
                           label="Mobile Number"
@@ -112,7 +110,7 @@ const SignUp = () => {
                           className="col-md-6"
                           touched={touched}
                           errors={errors}
-                        fieldTextSize="fieldTextSize"
+                          fieldTextSize="fieldTextSize"
                         />
                         <CustomField
                           type="email"
@@ -122,7 +120,7 @@ const SignUp = () => {
                           className="col-md-6"
                           touched={touched}
                           errors={errors}
-                        fieldTextSize="fieldTextSize"
+                          fieldTextSize="fieldTextSize"
                         />
                       </div>
 
@@ -148,11 +146,13 @@ const SignUp = () => {
 
                       <div className="d-flex justify-content-center">
                         <div className="d-grid col-md-5 my-2">
-                        <CustomButton 
-                          onSelect={isValid && dirty ? ()=>{} : handleSubmit} 
-                          title="Verify" 
-                          containFill={true} 
-                           buttonDisabled={!isValid || !dirty} // Disable button if form is invalid or not modified
+                          <CustomButton
+                            onSelect={
+                              isValid && dirty ? () => {} : handleSubmit
+                            }
+                            title="Verify"
+                            containFill={true}
+                            buttonDisabled={!isValid || !dirty} // Disable button if form is invalid or not modified
                           />
 
                           {/* <button type="submit" className="btn btn-primary">

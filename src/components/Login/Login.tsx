@@ -12,7 +12,7 @@ import { FusionLogo } from "@assets/images";
 import ReCAPTCHA from "react-google-recaptcha";
 
 import CustomButton from "@components/core/CustomButton/CustomEditButton";
-import {toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 interface LoginFormValues {
   email: string;
@@ -178,13 +178,6 @@ const Login = () => {
             firstTimeTriggerOtp={true}
             onSuccess={() => {
               toast.success("Login success", {
-                position: "top-right",
-                autoClose: 4000, 
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
                 theme: "colored",
               });
               navigate(ROUTES.DASHBOARD);
