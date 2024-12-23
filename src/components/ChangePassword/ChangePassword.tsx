@@ -5,10 +5,10 @@ import * as Yup from "yup";
 import CustomField from "@components/core/Input/CustomFieldProps";
 import CustomButton from "@components/core/CustomButton/CustomEditButton";
 interface ChangePassswordFormValues {
-    newPassword: string;
+    oldPassword: string;
     password: string;
     confirmPassword: string;
-  }
+}
 
 interface ChangePasswordProps {
     onHide: () => void;
@@ -18,12 +18,12 @@ interface ChangePasswordProps {
 const ChangePassword: React.FC<ChangePasswordProps> = ({ onHide, onSuccess }) => {
 
     const initialValues = {
-        newPassword: "",
+        oldPassword: "",
         password: "",
         confirmPassword: "",
     };
     const validationSchema = Yup.object().shape({
-        newPassword: Yup.string()
+        oldPassword: Yup.string()
             .matches(
                 /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/,
                 "Minimum 8 characters, at least one uppercase letter, one lowercase letter, one number, and one special character."
@@ -39,7 +39,7 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({ onHide, onSuccess }) =>
             .oneOf([Yup.ref("password")], "Passwords must match")
             .required("Please confirm the password"),
     });
-    const handleSubmit = (data:ChangePassswordFormValues) => {
+    const handleSubmit = (data: ChangePassswordFormValues) => {
         console.log("Change password Data:", data);
         // onHide();
     };
@@ -68,8 +68,8 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({ onHide, onSuccess }) =>
                         <Form>
                             <CustomField
                                 type="password"
-                                name="newPassword"
-                                label="New Password"
+                                name="oldPassword"
+                                label="Old Password"
                                 placeholder="Atleast 8 characters"
                                 touched={touched}
                                 errors={errors}
@@ -101,7 +101,7 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({ onHide, onSuccess }) =>
                                         onSelect={isValid && dirty ? () => { } : handleSubmit}
                                         title="Confirm"
                                         containFill={true}
-                                        buttonDisabled={!isValid || !dirty} // Disable button if form is invalid or not modified
+                                        buttonDisabled={!isValid || !dirty}
                                     />
                                 </div>
                             </div>

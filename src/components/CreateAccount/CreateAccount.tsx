@@ -11,9 +11,11 @@ import { TReactSelectOption } from "src/models";
 import { customStyles } from "src/customStyles";
 import CustomField from "@components/core/Input/CustomFieldProps";
 import "./CreateAccount.css";
-import Confirmation from "@components/Confirmation/Confirmation";
 import { FusionLogo } from "@assets/images";
 import CustomButton from "@components/core/CustomButton/CustomEditButton";
+import { useDispatch } from "react-redux";
+import { showNotifyModal } from "@redux/dummy";
+import { AuthState, save } from "@redux/auth";
 
 interface CreateAccountFormValues {
   username: string;
@@ -34,7 +36,7 @@ interface CreateAccountFormValues {
 const CreateAccount = () => {
   const navigate = useNavigate();
   const [modalShow, setModalShow] = useState<boolean>(false);
-  const [confirmModalShow, setConfirmModalShow] = useState<boolean>(false);
+  const dispatch = useDispatch();
   const options = [
     { value: "chocolate", label: "Chocolate" },
     { value: "strawberry", label: "Strawberry" },
@@ -206,8 +208,8 @@ const CreateAccount = () => {
                                 <label htmlFor="city">City</label>
                                 <ReactSelect
                                   className={`form-control ${touched.city && errors.city
-                                      ? "is-invalid"
-                                      : ""
+                                    ? "is-invalid"
+                                    : ""
                                     } dropdown-field-text`}
                                   inputId="city"
                                   // value={}
@@ -281,12 +283,8 @@ const CreateAccount = () => {
                                   onSelect={isValid && dirty ? () => { } : handleSubmit}
                                   title="Verify"
                                   containFill={true}
-                                  buttonDisabled={!isValid || !dirty} // Disable button if form is invalid or not modified
+                                  buttonDisabled={!isValid || !dirty}
                                 />
-
-                                {/* <button type="submit" className="btn btn-primary">
-                            Verify
-                          </button> */}
                               </div>
                             </div>
 
@@ -313,18 +311,20 @@ const CreateAccount = () => {
           <TwoFA
             onHide={() => setModalShow(false)}
             onSuccess={() => {
-              // navigate(ROUTES.DASHBOARD);
-              setConfirmModalShow(true);
+              navigate(ROUTES.DASHBOARD);
+              const authData: AuthState = {
+                accessToken: 'fusionFund',
+                accessTokenExpiry: 3600,
+                refreshToken: 'refresh-fusionFund',
+                refreshTokenExpiry: 12000,
+                name: "Richard",
+                email: "",
+                merchantID: "Rich1234",
+                twoFaPref: "mobile",
+              };
+              dispatch(save(authData))
+              dispatch(showNotifyModal(true));
             }}
-          />
-        </MyCustomModal>
-        <MyCustomModal
-          show={confirmModalShow}
-          onHide={() => setConfirmModalShow(false)}
-        >
-          <Confirmation
-            onSuccess={() => navigate(ROUTES.DASHBOARD)}
-            onHide={() => setConfirmModalShow(false)}
           />
         </MyCustomModal>
       </div>

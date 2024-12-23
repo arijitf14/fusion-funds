@@ -1,5 +1,5 @@
 export const ROUTES = {
-    LOGIN: "/login",
+    LOGIN: "/",
     TwoFA: "/twoFA",
     CREATE_ACCOUNT: "/create-account",
     DASHBOARD: '/dashboard',
@@ -13,6 +13,7 @@ export const ROUTES = {
     MANAGEPAYEE: '/manage-payee',
     MANAGESUBSCRIPTION: '/manage-subscription',
     MANAGEPROFILE: '/manage-profile',
+    LOGOUT: '/logout'
   }
 
 export const isBuildMode = import.meta.env.PROD

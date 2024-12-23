@@ -7,6 +7,8 @@ import CustomButton from "@components/core/CustomButton/CustomEditButton";
 import useTimerProps from "@customHooks/useTimerProps";
 import { toast } from "react-toastify";
 import "./TwoFA.css";
+import { useSelector } from "react-redux";
+import { RootState } from "@redux/store";
 
 interface TwoFAProps {
   onHide: () => void;
@@ -19,16 +21,16 @@ const TwoFA: React.FC<TwoFAProps> = ({
   onSuccess,
   firstTimeTriggerOtp = false,
 }) => {
-  const reduxPref = ""; // User's current 2FA preference
-  const [selectedOption, setSelectedOption] = useState<string>(reduxPref);
+  const twoFaPref = useSelector((gs: RootState) => gs.authDetails.twoFaPref)
+  const [selectedOption, setSelectedOption] = useState<string>(twoFaPref);
   const [showOtp, setShowOtp] = useState<boolean>(firstTimeTriggerOtp);
   const { timer, isButtonDisabled, resetTimer } = useTimerProps({
     initialTime: 30,
   });
 
   const sendOtp = (option: string) => {
-    if (option !== reduxPref || firstTimeTriggerOtp) {
-      toast.success(`An OTP has been sent to your registered ${option}.`);
+    if (option !== twoFaPref || firstTimeTriggerOtp) {
+      toast.success(`An OTP has been sent to your registered ${option}.`, { theme: "colored" });
       resetTimer();
       setShowOtp(true);
     } else {
@@ -36,35 +38,19 @@ const TwoFA: React.FC<TwoFAProps> = ({
     }
     setSelectedOption(option);
   };
-  
-  // const sendOtp = (option: string) => {
-  //   if (option !== reduxPref && !firstTimeTriggerOtp) {
-  //     toast.success(`An OTP has been sent to your registered ${option}.`);
-  //     resetTimer();
-  //     setShowOtp(true);
-  //   } else if (firstTimeTriggerOtp) {
-  //     toast.success(`An OTP has been sent to your registered ${option}.`);
-  //     resetTimer();
-  //     setShowOtp(true);
-  //   }
-  //   else {
-  //     setShowOtp(false);
-  //   }
-  //   setSelectedOption(option);
-  // };
 
   const handleOptionChange = (option: string) => {
     if (option !== selectedOption) {
       sendOtp(option);
-    } else if (option === reduxPref) {
+    } else if (option === twoFaPref) {
       setShowOtp(false);
     }
   };
   useEffect(() => {
-    sendOtp(reduxPref);
+    sendOtp(twoFaPref);
   }, [firstTimeTriggerOtp]);
   const resendOtp = () => {
-    toast.success(`A new OTP has been sent to your registered ${selectedOption}.`);
+    toast.success(`A new OTP has been sent to your registered ${selectedOption}.`, { theme: "colored" });
     resetTimer();
   };
 
@@ -101,7 +87,7 @@ const TwoFA: React.FC<TwoFAProps> = ({
 
       <div className="mb-2">
         <span className="twoText">
-          A verification code will be sent to {firstTimeTriggerOtp ? <>your <b>{reduxPref}</b></> : 'below options'} as per your preference
+          A verification code will be sent to {firstTimeTriggerOtp ? <>your <b>{twoFaPref}</b></> : 'below options'} as per your preference
         </span>
       </div>
       {!firstTimeTriggerOtp &&

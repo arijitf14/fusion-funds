@@ -5,6 +5,8 @@ import "./Header.css";
 import { Link } from "react-router-dom";
 import { ROUTES } from "@utils/Utils";
 import { Menu, Notification, Profile } from "@assets/svg";
+import { useSelector } from "react-redux";
+import { RootState } from "@redux/store";
 
 interface HeaderProps {
   navbarHeight: number;
@@ -17,6 +19,7 @@ const Header: React.FC<HeaderProps> = ({
   navbarHeight,
   setNavbarHeight,
 }) => {
+  const { merchantID, name } = useSelector((gs: RootState) => gs.authDetails)
   const navbarRef = useRef<HTMLDivElement>(null);
 
   const updateNavbarHeight = () => {
@@ -42,7 +45,7 @@ const Header: React.FC<HeaderProps> = ({
               onClick={toggleSidebar}
               aria-label="Toggle Sidebar"
             />
-            <Navbar.Brand href="#">Welcome Back, Richard</Navbar.Brand>
+            <Navbar.Brand href="#">Welcome Back, {name}</Navbar.Brand>
           </div>
           <Navbar.Toggle aria-controls="navbar-content" />
           <Navbar.Collapse id="navbar-content">
@@ -60,7 +63,7 @@ const Header: React.FC<HeaderProps> = ({
                 <div className="d-flex profile-holder">
                   <Profile />
                   <div className="px-3">
-                    <p>Your Merchant ID : Rich1234</p>
+                    <p>Your Merchant ID : {merchantID}</p>
                   </div>
                 </div>
               </Nav.Link>

@@ -1,13 +1,15 @@
 /* eslint-disable no-param-reassign */
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
-interface AuthState {
+export interface AuthState {
   accessToken: string
   accessTokenExpiry: number
   refreshToken: string
   refreshTokenExpiry: number
   name: string
   email: string
+  merchantID: string
+  twoFaPref: string
 }
 
 const initialState: AuthState = {
@@ -17,6 +19,8 @@ const initialState: AuthState = {
   refreshTokenExpiry: 0,
   name: "",
   email: "",
+  merchantID: "",
+  twoFaPref: ""
 }
 
 const authSlice = createSlice({
@@ -26,12 +30,15 @@ const authSlice = createSlice({
     save: (_, action: PayloadAction<AuthState>) => {
       return action.payload
     },
+    savePref: (_, action: PayloadAction<string>) => {
+      return { ...initialState, twoFaPref: action.payload }
+    },
     clear: () => {
-      return initialState
+      return initialState 
     },
   },
 })
 
-export const { save, clear } = authSlice.actions
+export const { save, clear, savePref } = authSlice.actions
 
 export default authSlice.reducer

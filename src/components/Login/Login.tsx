@@ -12,7 +12,9 @@ import { FusionLogo } from "@assets/images";
 import ReCAPTCHA from "react-google-recaptcha";
 
 import CustomButton from "@components/core/CustomButton/CustomEditButton";
-import { toast } from "react-toastify";
+import {toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { AuthState, save } from "@redux/auth";
 
 interface LoginFormValues {
   email: string;
@@ -25,6 +27,7 @@ const Login = () => {
   const siteKey = "6LeIG58qAAAAALJlNZlkWtdLS0BjXC02VMKDq1_o";
   const navigate = useNavigate();
   const [modalShow, setModalShow] = useState<boolean>(false);
+  const dispatch = useDispatch();
 
   const initialValues: LoginFormValues = {
     email: "",
@@ -34,7 +37,19 @@ const Login = () => {
 
   const handleSubmit = (values: LoginFormValues) => {
     console.log("Form Submitted with values:", values);
-    setModalShow(true);
+    setModalShow(true); 
+
+    const authData: AuthState = {
+      accessToken: 'fusionFund',
+      accessTokenExpiry: 3600,
+      refreshToken: 'refresh-fusionFund',
+      refreshTokenExpiry: 12000,
+      name: "Richard",
+      email: values.email || "",
+      merchantID: "Rich1234",
+      twoFaPref: "mobile",
+    };
+    dispatch(save(authData))
   };
 
   const validationSchema = Yup.object().shape({
@@ -177,9 +192,7 @@ const Login = () => {
             onHide={() => setModalShow(false)}
             firstTimeTriggerOtp={true}
             onSuccess={() => {
-              toast.success("Login success", {
-                theme: "colored",
-              });
+              toast.success("Login success", {theme: "colored"});
               navigate(ROUTES.DASHBOARD);
             }}
           />

@@ -5,6 +5,9 @@ import Header from "../Header";
 import { NavLink, useLocation } from "react-router-dom";
 import { Bank, Dashboard, Echeck, Logout, Payee, Reports, Subscription, Transaction } from "@assets/svg";
 import { FusionNav } from "@assets/images";
+import useAccessToken from "@customHooks/useAccessToken";
+import { clear } from "@redux/auth";
+import { useDispatch } from "react-redux";
 
 const LayoutHOC = <P extends object>(
   WrappedComponent: React.ComponentType<P>
@@ -15,6 +18,10 @@ const LayoutHOC = <P extends object>(
       window.innerWidth > 768
     ); // Default based on screen size
     const [isHovered, setIsHovered] = useState(false);
+    const token = useAccessToken();
+    const dispatch = useDispatch();
+
+    console.log("token", token)
 
     const handleMouseEnter = () => {
       setIsHovered(true);
@@ -81,9 +88,8 @@ const LayoutHOC = <P extends object>(
       <div className="layout-container">
         {/* Sidebar */}
         <nav
-          className={`sidebar-custom scrollable  ${
-            isSidebarVisible ? "visible" : "collapsed"
-          }`}
+          className={`sidebar-custom scrollable  ${isSidebarVisible ? "visible" : "collapsed"
+            }`}
           aria-hidden={!isSidebarVisible}
         >
           <button
@@ -101,9 +107,8 @@ const LayoutHOC = <P extends object>(
               const isActive = location.pathname === href; // Compare directly with location.pathname
               return (
                 <li
-                  className={`nav-item d-flex align-items-center mb-3 ${
-                    isActive ? "selected" : ""
-                  }`}
+                  className={`nav-item d-flex align-items-center mb-3 ${isActive ? "selected" : ""
+                    }`}
                   key={label}
                 >
                   {icon}
@@ -123,10 +128,18 @@ const LayoutHOC = <P extends object>(
             <hr style={{ borderTop: "2px solid #2096f3", margin: "20px 0" }} />
             <li className="nav-item d-flex align-items-center mb-3">
               <Logout />
-              <a className="nav-link text-white" href="#logout">
-                Log Out
-              </a>
+              <NavLink
+                onClick={() =>dispatch(clear())}
+                to={ROUTES.LOGIN}
+                // onClick={() => handleSelection(href)}
+                className={({ isActive }) =>
+                  `nav-link ${isActive ? "selected" : ""}`
+                }
+              >
+                Logout
+              </NavLink>
             </li>
+
           </ul>
         </nav>
 

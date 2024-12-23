@@ -13,7 +13,7 @@ export const onRequestSuccess = (config: InternalAxiosRequestConfig<any>) => {
   // Access any state from redux
 
   let token = "";
-  if (configuration.url !== "/admin/token") {
+  if (configuration.url !== "/refresh-token") {
     token = store?.getState()?.authDetails?.accessToken;
   }
 

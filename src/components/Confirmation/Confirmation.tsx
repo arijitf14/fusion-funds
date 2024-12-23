@@ -1,21 +1,36 @@
 import { Close, ConfirmationIcon } from "@assets/svg";
 import "./Confirmation.css";
+import { useEffect, useState } from "react";
 
 interface ConfirmationProps {
-  onHide: () => void; // Function to close the modal
-  onSuccess: () => void; // Function to handle success
+  onHide: () => void;
+  onSuccess: () => void;
 }
 
 const Confirmation: React.FC<ConfirmationProps> = (props) => {
   const { onHide, onSuccess } = props;
+  const [countdown, setCountdown] = useState(5);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCountdown((prev) => prev - 1);
+    }, 1000);
+
+    if (countdown === 0) {
+      clearInterval(timer);
+      onSuccess();
+    }
+
+    return () => clearInterval(timer);
+  }, [countdown, onSuccess]);
 
   return (
     <div className="text-center">
-      <div onClick={() => onHide()} className="close-icon-container">
-        <Close/>
+      <div className="close-icon-container">
+        <Close onClick={() => onHide()} />
       </div>
       <div className="d-flex align-items-center justify-content-center">
-        <ConfirmationIcon/>
+        <ConfirmationIcon />
       </div>
       <div className="d-flex align-items-center justify-content-center">
         <div className="merch-holder mt-4">
@@ -38,7 +53,7 @@ const Confirmation: React.FC<ConfirmationProps> = (props) => {
             type="submit"
             className="btn btn-primary"
           >
-            Okay [5]
+            Okay [{countdown}]
           </button>
         </div>
       </div>
