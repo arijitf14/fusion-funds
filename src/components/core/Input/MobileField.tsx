@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Field, FieldProps } from "formik";
 import { Form as BsForm } from "react-bootstrap";
-import { EyeClose, EyeOpen } from "@assets/svg";
 import "./CustomFieldProps.css";
 
 interface CustomFieldProps {

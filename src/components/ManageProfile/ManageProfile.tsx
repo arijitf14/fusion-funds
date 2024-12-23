@@ -12,22 +12,41 @@ import TwoFA from "@components/TwoFA/TwoFA";
 import ChangePassword from "@components/ChangePassword/ChangePassword";
 
 const ManageProfile = () => {
-
   const [previewModal, setShowPreviewModal] = useState<boolean>(false);
   const [modalShow, setModalShow] = useState<boolean>(false);
-  const [changePasswordModalShow, setChangePasswordModalShow] = useState<boolean>(false);
+  const [changePasswordModalShow, setChangePasswordModalShow] =
+    useState<boolean>(false);
+
+  const profileDetail = {
+    contactDetail: {
+      phoneNumber: "981-904-4652 0896",
+      email: "rahulduitta@gmail.com",
+    },
+    personalDetail: {
+      firstName: "John",
+      middleName: "",
+      lastName: "Doe",
+      country: "chocolate",
+      city: "strawberry",
+      state: "chocolate",
+      zipCode: "10001",
+      addressLine1: "123 Main St",
+      addressLine2: "Apt 4B",
+    },
+  };
 
   return (
     <div className="my-4">
       <div className="my-4">
         <h3>Manage Profile</h3>
-
       </div>
       <Accordion defaultActiveKey="0">
         <Accordion.Item eventKey="0" className="custom-accordion-item mb-4">
           <Accordion.Header className="headerClass">
             <div className="header-content">
-              <span className="header-icon"><PillIcons /></span>
+              <span className="header-icon">
+                <PillIcons />
+              </span>
               <span className="header">Contact Details</span>
             </div>
           </Accordion.Header>
@@ -38,13 +57,17 @@ const ManageProfile = () => {
                 <Col xs={12} md={3} className="px-0">
                   <div className="d-flex flex-column">
                     <span className="body-containt-title">Mobile Number</span>
-                    <span className="body-containt-text">+1 981-904-4652 0896</span>
+                    <span className="body-containt-text">
+                      +1 {profileDetail?.contactDetail?.phoneNumber}
+                    </span>
                   </div>
                 </Col>
                 <Col xs={12} md={8} className="px-0">
                   <div className="d-flex flex-column">
                     <span className="body-containt-title">Email</span>
-                    <span className="body-containt-text">rahulduitta@gmail.com</span>
+                    <span className="body-containt-text">
+                      {profileDetail?.contactDetail.email}
+                    </span>
                   </div>
                 </Col>
               </Row>
@@ -54,62 +77,86 @@ const ManageProfile = () => {
                 <Col xs={12} md={3} className="px-0 mb-2 mb-md-2">
                   <div className="d-flex flex-column">
                     <span className="body-containt-title">First Name</span>
-                    <span className="body-containt-text">Richard</span>
+                    <span className="body-containt-text">
+                      {profileDetail.personalDetail.firstName}
+                    </span>
                   </div>
                 </Col>
                 <Col xs={12} md={2} className="px-0 mb-2 mb-md-2">
                   <div className="d-flex flex-column">
                     <span className="body-containt-title">Middle Name</span>
-                    <span className="body-containt-text">John</span>
+                    <span className="body-containt-text">
+                      {profileDetail.personalDetail.middleName}
+                    </span>
                   </div>
                 </Col>
                 <Col xs={12} md={2} className="px-0 mb-2 mb-md-2">
                   <div className="d-flex flex-column">
                     <span className="body-containt-title">Last Name</span>
-                    <span className="body-containt-text">Jackman</span>
+                    <span className="body-containt-text">
+                      {profileDetail.personalDetail.lastName}
+                    </span>
                   </div>
                 </Col>
                 <Col xs={12} md={2} className="px-0 mb-2 mb-md-2">
                   <div className="d-flex flex-column">
                     <span className="body-containt-title">Country</span>
-                    <span className="body-containt-text">USA</span>
+                    <span className="body-containt-text">
+                      {profileDetail?.personalDetail.country}
+                    </span>
                   </div>
                 </Col>
                 <Col xs={12} md={3} className="px-0 mb-2 mb-md-2">
                   <div className="d-flex flex-column">
                     <span className="body-containt-title">City</span>
-                    <span className="body-containt-text">Orlando City</span>
+                    <span className="body-containt-text">
+                      {profileDetail?.personalDetail.city}
+                    </span>
                   </div>
                 </Col>
                 <Col xs={12} md={3} className="px-0 mb-2 mb-md-2">
                   <div className="d-flex flex-column">
                     <span className="body-containt-title">State</span>
-                    <span className="body-containt-text">Westwind</span>
+                    <span className="body-containt-text">
+                      {profileDetail?.personalDetail.state}
+                    </span>
                   </div>
                 </Col>
                 <Col xs={12} md={2} className="px-0 mb-2 mb-md-2">
                   <div className="d-flex flex-column">
                     <span className="body-containt-title">Zip Code</span>
-                    <span className="body-containt-text">541258</span>
+                    <span className="body-containt-text">
+                      {profileDetail?.personalDetail.zipCode}
+                    </span>
                   </div>
                 </Col>
                 <Col xs={12} md={2} className="px-0 mb-2 mb-md-2">
                   <div className="d-flex flex-column">
                     <span className="body-containt-title">Address Line 1</span>
-                    <span className="body-containt-text">Holland Road</span>
+                    <span className="body-containt-text">
+                      {profileDetail?.personalDetail.addressLine1}
+                    </span>
                   </div>
                 </Col>
                 <Col xs={12} md={2} className="px-0 mb-2 mb-md-2">
                   <div className="d-flex flex-column">
                     <span className="body-containt-title">Address Line 2</span>
-                    <span className="body-containt-text">123 Holland Road</span>
+                    <span className="body-containt-text">
+                      {profileDetail?.personalDetail.addressLine2}
+                    </span>
                   </div>
                 </Col>
               </Row>
 
               {/* <AccordionCustomButton icon={AddCircle} text="Edit" onClick={() => console.log("Edit button clicked")}/> */}
               <div className="mt-3">
-                <CustomButton title="Edit" icon="+" onSelect={() => { setShowPreviewModal(true)}} />
+                <CustomButton
+                  title="Edit"
+                  icon="+"
+                  onSelect={() => {
+                    setShowPreviewModal(true);
+                  }}
+                />
               </div>
             </div>
           </Accordion.Body>
@@ -117,54 +164,77 @@ const ManageProfile = () => {
         <Accordion.Item eventKey="1" className="custom-accordion-item mb-4">
           <Accordion.Header className="headerClass">
             <div className="header-content">
-              <span className="header-icon"><ContactIcon /></span>
+              <span className="header-icon">
+                <ContactIcon />
+              </span>
               <span className="header-text">Account Settings</span>
             </div>
           </Accordion.Header>
           <Accordion.Body className="bodyClass">
             <div className="">
-              <span className="body-header">2 Factor Authentication Settings</span>
+              <span className="body-header">
+                2 Factor Authentication Settings
+              </span>
               <div className="d-flex flex-column">
                 <span className="body-containt-title">Preferred Option</span>
                 <span className="body-containt-text">Email ID</span>
               </div>
               <div className="mt-3">
-                <CustomButton title="Edit" icon="+" onSelect={() => { setModalShow(true)}} />
+                <CustomButton
+                  title="Edit"
+                  icon="+"
+                  onSelect={() => {
+                    setModalShow(true);
+                  }}
+                />
               </div>
             </div>
             <hr className="hrLine" />
             <div className="changePasswordDiv">
               <span className="body-containt-text">Change Password</span>
               <div className="mt-3">
-                <CustomButton title="Change" icon="+" onSelect={() => { setChangePasswordModalShow(true)}} />
+                <CustomButton
+                  title="Change"
+                  icon="+"
+                  onSelect={() => {
+                    setChangePasswordModalShow(true);
+                  }}
+                />
               </div>
             </div>
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
-      {previewModal && <SidePanel
-        position="right"
-        setSidePanelVisibility={() => setShowPreviewModal(false)}
-        sidePanelHeading="Edit Personal Details"
-        size="sm"
-        contentfullHeight
-      >
-        <div className="vh-100 panel-container"><EditProfile/></div>
-      </SidePanel>}
+      {previewModal && (
+        <SidePanel
+          position="right"
+          setSidePanelVisibility={() => setShowPreviewModal(false)}
+          sidePanelHeading="Edit Personal Details"
+          size="sm"
+          contentfullHeight
+        >
+          <div className="vh-100 panel-container">
+            <EditProfile profileData={profileDetail.personalDetail} />
+          </div>
+        </SidePanel>
+      )}
       <MyCustomModal show={modalShow} onHide={() => setModalShow(false)}>
-      <TwoFA
-            onHide={() => setModalShow(false)}
-            onSuccess={() => {}}
-            // showOtp={showOtp}
-            // setShowOtp={setShowOtp}
-          />
-        </MyCustomModal>
-        <MyCustomModal show={changePasswordModalShow} onHide={() => setChangePasswordModalShow(false)}>
-      <ChangePassword
-            onHide={() => setChangePasswordModalShow(false)}
-            onSuccess={() => {}}
-          />
-        </MyCustomModal>
+        <TwoFA
+          onHide={() => setModalShow(false)}
+          onSuccess={() => {}}
+          // showOtp={showOtp}
+          // setShowOtp={setShowOtp}
+        />
+      </MyCustomModal>
+      <MyCustomModal
+        show={changePasswordModalShow}
+        onHide={() => setChangePasswordModalShow(false)}
+      >
+        <ChangePassword
+          onHide={() => setChangePasswordModalShow(false)}
+          onSuccess={() => {}}
+        />
+      </MyCustomModal>
     </div>
   );
 };

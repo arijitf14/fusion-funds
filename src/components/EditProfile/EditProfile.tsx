@@ -1,51 +1,22 @@
 import CustomField from "@components/core/Input/CustomFieldProps";
-import { Formik, Field, Form } from "formik";
-import { Row, Col, Form as BsForm, Accordion } from "react-bootstrap";
+import { Formik, Form } from "formik";
+import { Row, Form as BsForm } from "react-bootstrap";
 import * as Yup from "yup";
 import ReactSelect, { StylesConfig } from "react-select";
 import { customStyles } from "src/customStyles";
 import { TReactSelectOption } from "src/models";
 import "./EditProfile.css";
 import CustomButton from "@components/core/CustomButton/CustomEditButton";
+import { UserData, UserProfile } from "./EditProfileTypes";
 
-interface UserProfile {
-    firstName: string;
-    middleName: string;
-    lastName: string;
-    country: string;
-    city: string;
-    state: string;
-    zipCode: string;
-    addressLine1: string;
-    addressLine2: string
-}
 
-// interface EditProfileProps {
-//     profileData: UserProfile
-// }
-
-const EditProfile = () => {
+const EditProfile = ({ profileData }: UserData) => {
   const options = [
     { value: "chocolate", label: "Chocolate" },
     { value: "strawberry", label: "Strawberry" },
     { value: "vanilla", label: "Vanilla" },
   ];
 
-  // const {profileData} = props
-
-  // const editMode = true
-
-  const mockData: any = {
-    firstName: "John",
-    middleName: "M",
-    lastName: "Doe",
-    country: "chocolate",
-    city: "chocolate",
-    state: "chocolate",
-    zipCode: "10001",
-    addressLine1: "123 Main St",
-    addressLine2: "Apt 4B",
-  };
   const initialValues = {
     firstName: "",
     middleName: "",
@@ -58,13 +29,9 @@ const EditProfile = () => {
     addressLine2: "",
   };
 
-  // const newInitialValues = Object.assign(initialValues, {
-  //     firstName: editMode ? "Arijit" : ""
-  // })
-  const populatedValues = Object.assign({}, initialValues, mockData);
+  const populatedValues = Object.assign({}, initialValues, profileData);
   const handleSubmit = (data: UserProfile) => {
     console.log("Form Data:", data);
-    // setModalShow(true);
   };
 
   const validationSchema = Yup.object().shape({
@@ -265,7 +232,11 @@ const EditProfile = () => {
               <div className="d-flex gap-3 justify-content-end my-4">
                 <div className="d-grid col-md-1 mb-2">
                   <CustomButton
-                    onSelect={() => resetForm()}
+                    onSelect={() =>
+                      resetForm({
+                        values: initialValues,
+                      })
+                    }
                     title=" Reset "
                     containFill={false}
                   />
