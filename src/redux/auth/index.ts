@@ -11,12 +11,12 @@ export interface AuthState {
   merchantID: string;
   twoFaPref: string;
   userName?: string;
-  phoneNumber?: string;
+  mobile?: string;
 }
 export interface SignUpDetailState {
   email: string;
   userName: string;
-  phoneNumber: string;
+  mobile: string;
 }
 
 const initialState: AuthState = {
@@ -29,7 +29,7 @@ const initialState: AuthState = {
   merchantID: "",
   twoFaPref: "",
   userName: "",
-  phoneNumber: "",
+  mobile: "",
 };
 
 const authSlice = createSlice({
@@ -46,7 +46,7 @@ const authSlice = createSlice({
       return {
         ...initialState,
         userName: action.payload.userName,
-        phoneNumber: action.payload.phoneNumber,
+        mobile: action.payload.mobile,
         email: action.payload.email,
       };
     },

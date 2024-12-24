@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Row, Col, Form as BsForm } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,17 +10,18 @@ import "./Login.css";
 import CustomField from "@components/core/Input/CustomFieldProps";
 import { FusionLogo } from "@assets/images";
 import ReCAPTCHA from "react-google-recaptcha";
-
 import CustomButton from "@components/core/CustomButton/CustomEditButton";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { AuthState, save } from "@redux/auth";
+import { showLoader } from "@redux/spinnerLoader";
 
 interface LoginFormValues {
-  email: string;
+  userName: string;
   password: string;
   captcha: string;
   rememberMe?: boolean;
+  email?: string;
 }
 
 const Login = () => {
@@ -30,7 +31,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const initialValues: LoginFormValues = {
-    email: "",
+    userName: "",
     password: "",
     captcha: "",
   };
@@ -38,33 +39,32 @@ const Login = () => {
   const handleSubmit = (values: LoginFormValues) => {
     console.log("Form Submitted with values:", values);
     setModalShow(true);
+    dispatch(showLoader(false))
   };
 
   const validationSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("Invalid email")
-      .required("Please enter the email"),
+    userName: Yup.string().required("Please enter the User Name"),
     password: Yup.string()
       .min(1, "Password must be at least 8 characters")
       .required("Please enter the password"),
     captcha: Yup.string(),
   });
   const userLoginFunc = (values: LoginFormValues) => {
-//here we call cognito api for below data...
+    //here we call cognito api for below data...
     const authData: AuthState = {
-      accessToken: 'fusionFund',
+      accessToken: "fusionFund",
       accessTokenExpiry: 3600,
-      refreshToken: 'refresh-fusionFund',
+      refreshToken: "refresh-fusionFund",
       refreshTokenExpiry: 12000,
       name: "Richard",
       email: values.email,
       merchantID: "Rich1234",
       twoFaPref: "mobile",
     };
-    dispatch(save(authData))
+    dispatch(save(authData));
     toast.success("Login success", { theme: "colored" });
     navigate(ROUTES.DASHBOARD);
-  }
+  };
   return (
     <div className="login-container d-flex justify-content-center align-items-center">
       <Formik
@@ -79,7 +79,7 @@ const Login = () => {
           isValid,
           dirty,
           setFieldValue,
-          values
+          values,
         }) => (
           <div className="rounded-lg p-4 p-md-5 w-100 w-md-50">
             <Row className="w-100 h-100 ms-0">
@@ -89,7 +89,11 @@ const Login = () => {
                 md={6}
                 className="d-flex justify-content-center align-items-center flex-column flex-md-row"
               >
-                <img src={FusionLogo} alt="Side Graphic" className="login-logo" />
+                <img
+                  src={FusionLogo}
+                  alt="Side Graphic"
+                  className="login-logo"
+                />
               </Col>
 
               {/* Right Side: Form */}
@@ -100,15 +104,17 @@ const Login = () => {
               >
                 <div className="login-form-container">
                   <div className="login-form">
-                    <h2 className="text-start text-lg font-semibold mb-3">Login</h2>
+                    <h2 className="text-start text-lg font-semibold mb-3">
+                      Login
+                    </h2>
 
                     <Form>
                       {/* Email Field */}
                       <CustomField
                         type="text"
-                        name="email"
+                        name="userName"
                         label="User Name"
-                        placeholder="Jonh Doe"
+                        placeholder="JonhDoe123"
                         touched={touched}
                         errors={errors}
                         fieldTextSize="fieldTextSize"
@@ -119,6 +125,7 @@ const Login = () => {
                         type="password"
                         name="password"
                         label="Password"
+                        doNotCopyPaste={true}
                         placeholder="At least 8 characters"
                         touched={touched}
                         errors={errors}
@@ -167,7 +174,7 @@ const Login = () => {
                         <div className="d-grid col-md-5 my-2">
                           <CustomButton
                             onSelect={
-                              isValid && dirty ? () => { } : handleSubmit
+                              isValid && dirty ? () => {} : handleSubmit
                             }
                             title="Continue"
                             containFill={true}
@@ -186,7 +193,6 @@ const Login = () => {
                         </span>
                       </div>
                     </Form>
-
                   </div>
                 </div>
               </Col>
@@ -196,8 +202,7 @@ const Login = () => {
                 onHide={() => setModalShow(false)}
                 firstTimeTriggerOtp={true}
                 onSuccess={() => {
-                  userLoginFunc(values)
-
+                  userLoginFunc(values);
                 }}
               />
             </MyCustomModal>

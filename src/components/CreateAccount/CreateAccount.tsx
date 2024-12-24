@@ -20,7 +20,7 @@ import { RootState } from "@redux/store";
 import MobileField from "@components/core/Input/MobileField";
 
 interface CreateAccountFormValues {
-  username: string;
+  userName: string;
   mobile: string;
   email: string;
   firstName: string;
@@ -47,7 +47,7 @@ const CreateAccount = () => {
   ];
 
   const initialValues = {
-    username: "",
+    userName: "",
     mobile: "",
     email: "",
     firstName: "",
@@ -62,8 +62,8 @@ const CreateAccount = () => {
   };
 
   const populatedValues = Object.assign({}, initialValues, {
-    mobile: signUpValues.phoneNumber,
-    username: signUpValues.userName,
+    mobile: signUpValues.mobile,
+    userName: signUpValues.userName,
     email: signUpValues.email,
   });
 
@@ -73,7 +73,7 @@ const CreateAccount = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    username: Yup.string().required("Please enter a username"),
+    userName: Yup.string().required("Please enter a User Name"),
     mobile: Yup.string()
       .required("Please enter a mobile number")
       .matches(/^\d{10}$/, "Mobile number must be exactly 10 digits"),
@@ -93,45 +93,64 @@ const CreateAccount = () => {
     addressLine2: Yup.string().required("Please enter address line 2"),
     // .matches(/^\d{3}-\d{2}-\d{4}$/, 'SSN must be in the format XXX-XX-XXXX'),
   });
+  const twoFaFunc = (values: CreateAccountFormValues) => {
+    navigate(ROUTES.DASHBOARD);
+    const authData: AuthState = {
+      accessToken: "fusionFund",
+      accessTokenExpiry: 3600,
+      refreshToken: "refresh-fusionFund",
+      refreshTokenExpiry: 12000,
+      name: values.firstName,
+      merchantID: "Rich1234",
+      twoFaPref: "mobile",
+    };
+    dispatch(save(authData));
+    dispatch(showNotifyModal(true));
+  };
 
   return (
     <div className="login-container d-flex justify-content-center align-items-center">
-      <div className="rounded-lg p-4 p-md-5 w-100 w-md-50">
-        <Row className="w-100 h-100 ms-0">
-          {/* Left Side: Image */}
-          <Col
-            xs={12}
-            md={6}
-            className="d-flex justify-content-center align-items-center flex-column flex-md-row"
-          >
-            <img src={FusionLogo} alt="Side Graphic" className="login-logo" />
-          </Col>
+      <Formik
+        initialValues={populatedValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {({
+          touched,
+          setFieldValue,
+          errors,
+          handleSubmit,
+          isValid,
+          values,
+          dirty,
+        }) => (
+          <div className="rounded-lg p-4 p-md-5 w-100 w-md-50">
+            <Row className="w-100 h-100 ms-0">
+              {/* Left Side: Image */}
+              <Col
+                xs={12}
+                md={6}
+                className="d-flex justify-content-center align-items-center flex-column flex-md-row"
+              >
+                <img
+                  src={FusionLogo}
+                  alt="Side Graphic"
+                  className="login-logo"
+                />
+              </Col>
 
-          {/* Right Side: Form */}
-          <Col
-            xs={12}
-            md={6}
-            className="d-flex justify-content-center align-items-center"
-          >
-            <div className="signup-form-container">
-              <div className="signup-form">
-                <h2 className="text-start text-lg font-semibold mb-3">
-                  Sign Up
-                </h2>
-                <Formik
-                  initialValues={populatedValues}
-                  validationSchema={validationSchema}
-                  onSubmit={handleSubmit}
-                >
-                  {({
-                    touched,
-                    setFieldValue,
-                    errors,
-                    handleSubmit,
-                    isValid,
-                    values,
-                    dirty,
-                  }) => (
+              {/* Right Side: Form */}
+              <Col
+                xs={12}
+                md={6}
+                className="d-flex justify-content-center align-items-center"
+              >
+                <div className="signup-form-container">
+                  <div className="signup-form">
+                    <h2 className="text-start text-lg font-semibold mb-3">
+                      Sign Up
+                    </h2>
+
                     <Form>
                       <Accordion defaultActiveKey="1">
                         <Accordion.Item eventKey="0" className="mb-4">
@@ -141,7 +160,7 @@ const CreateAccount = () => {
                           <Accordion.Body>
                             <CustomField
                               type="text"
-                              name="username"
+                              name="userName"
                               label="User Name"
                               placeholder="Jonh Doe"
                               touched={touched}
@@ -388,32 +407,19 @@ const CreateAccount = () => {
                         </Accordion.Item>
                       </Accordion>
                     </Form>
-                  )}
-                </Formik>
-              </div>
-            </div>
-          </Col>
-        </Row>
-        <MyCustomModal show={modalShow} onHide={() => setModalShow(false)}>
-          <TwoFA
-            onHide={() => setModalShow(false)}
-            onSuccess={() => {
-              navigate(ROUTES.DASHBOARD);
-              const authData: AuthState = {
-                accessToken: "fusionFund",
-                accessTokenExpiry: 3600,
-                refreshToken: "refresh-fusionFund",
-                refreshTokenExpiry: 12000,
-                name: "Richard",
-                merchantID: "Rich1234",
-                twoFaPref: "mobile",
-              };
-              dispatch(save(authData));
-              dispatch(showNotifyModal(true));
-            }}
-          />
-        </MyCustomModal>
-      </div>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+            <MyCustomModal show={modalShow} onHide={() => setModalShow(false)}>
+              <TwoFA
+                onHide={() => setModalShow(false)}
+                onSuccess={() => twoFaFunc(values)}
+              />
+            </MyCustomModal>
+          </div>
+        )}
+      </Formik>
     </div>
   );
 };

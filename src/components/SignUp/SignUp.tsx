@@ -6,7 +6,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "@utils/Utils";
 import { MyCustomModal } from "@components/core/MyCustomModal/MyCustomModal";
 import { useState } from "react";
-import TwoFA from "@components/TwoFA/TwoFA";
 import CustomField from "@components/core/Input/CustomFieldProps";
 import { FusionLogo } from "@assets/images";
 import OtpVerify from "@components/TwoFA/Otpverify";
@@ -17,7 +16,7 @@ import { useDispatch } from "react-redux";
 import { signUpDetail } from "@redux/auth";
 
 interface SignUpFormValues {
-  name: string;
+  userName: string;
   mobile: string;
   email: string;
   password: string;
@@ -31,7 +30,7 @@ const SignUp = () => {
   const [modalShow, setModalShow] = useState<boolean>(false);
 
   const initialValues = {
-    name: "",
+    userName: "",
     mobile: "",
     email: "",
     password: "",
@@ -40,23 +39,23 @@ const SignUp = () => {
 
   const handleSubmit = (values: SignUpFormValues) => {
     console.log("sign up", values);
-    toast.success("An OTP has been sent to your registered Email/Mobile", { theme: "colored" });
+    toast.success("An OTP has been sent to your registered Email/Mobile", {
+      theme: "colored",
+    });
     console.log("sign up=========>", values);
 
     dispatch(
       signUpDetail({
-        userName: values?.name,
-        phoneNumber: values?.mobile,
+        userName: values?.userName,
+        mobile: values?.mobile,
         email: values?.email,
       })
     );
-
-    // navigate(ROUTES.TwoFA);
     setModalShow(true);
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string()
+    userName: Yup.string()
       .min(1, "Please enter a valid name")
       .required("Name is required"),
     mobile: Yup.string()
@@ -109,7 +108,7 @@ const SignUp = () => {
                     <Form>
                       <CustomField
                         type="text"
-                        name="name"
+                        name="userName"
                         label="User Name"
                         placeholder="Jonh Doe"
                         touched={touched}
