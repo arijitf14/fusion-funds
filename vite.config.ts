@@ -32,6 +32,7 @@ export default defineConfig({
       getAlias("@customHooks", "./src/customHooks"),
       getAlias("@axiosConfig", "./src/axiosConfig"),
       getAlias("src", "./src"),
+      getAlias("@customStyles", "./src/customStyles"),
     ],
   },
 })

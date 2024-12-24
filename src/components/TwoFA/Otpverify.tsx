@@ -74,6 +74,7 @@ const OtpVerify: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
                     type="text"
                     id="code"
                     name="code"
+                    autoComplete="off"
                     className={`form-control ${touched.code && errors.code ? "is-invalid" : ""
                       }`}
                     onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => {

@@ -58,6 +58,7 @@ const CustomField: React.FC<CustomFieldProps> = ({
             <>
               <input
                 {...field}
+                autoComplete="off"
                 type={isPasswordField && showPassword ? "text" : type}
                 id={name}
                 disabled={disabled}

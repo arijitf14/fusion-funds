@@ -73,6 +73,7 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({ onHide, onSuccess }) =>
                                 placeholder="Atleast 8 characters"
                                 touched={touched}
                                 errors={errors}
+                                doNotCopyPaste={true}
                                 fieldTextSize="fieldTextSize"
                             />
                             <CustomField
@@ -82,6 +83,7 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({ onHide, onSuccess }) =>
                                 placeholder="Atleast 8 characters"
                                 touched={touched}
                                 errors={errors}
+                                doNotCopyPaste={true}
                                 fieldTextSize="fieldTextSize"
                             />
 
@@ -92,6 +94,7 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({ onHide, onSuccess }) =>
                                 placeholder="Atleast 8 characters"
                                 touched={touched}
                                 errors={errors}
+                                doNotCopyPaste={true}
                                 fieldTextSize="fieldTextSize"
                             />
 

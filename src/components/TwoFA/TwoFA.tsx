@@ -140,6 +140,7 @@ const TwoFA: React.FC<TwoFAProps> = ({
                     type="number"
                     id="code"
                     name="code"
+                     autoComplete="off"
                     className={`form-control ${touched.code && errors.code ? "is-invalid" : ""
                       }`}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {

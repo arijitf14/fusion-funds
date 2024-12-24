@@ -55,6 +55,7 @@ const MobileField: React.FC<CustomFieldProps> = ({
               <div className="number_extention">+1</div>
               <input
                 {...field}
+                autoComplete="off"
                 type={type ? type : "text"}
                 id={name}
                 disabled={disabled}

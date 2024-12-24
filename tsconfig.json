@@ -32,7 +32,8 @@
       "@firebaseConfig/*":["./src/firebaseConfig/*"],
       "@context/*":["./src/context/*"],
       "@axiosConfig/*":["./src/axiosConfig/*"],
-      "src/*":["./src/*"]
+      "src/*":["./src/*"],
+      "@customStyles/*":["./src/customStyles/*"],
     },
     "types": ["vite-plugin-svgr/client"]
   },
