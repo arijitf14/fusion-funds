@@ -12,6 +12,7 @@ import { FusionLogo } from "@assets/images";
 import OtpVerify from "@components/TwoFA/Otpverify";
 import CustomButton from "@components/core/CustomButton/CustomEditButton";
 import MobileField from "@components/core/Input/MobileField";
+import { toast } from "react-toastify";
 
 interface SignUpFormValues {
   name: string;
@@ -35,6 +36,7 @@ const SignUp = () => {
 
   const handleSubmit = (values: SignUpFormValues) => {
     console.log("sign up", values);
+    toast.success("An OTP has been sent to your registered Email/Mobile", { theme: "colored" });
 
     // navigate(ROUTES.TwoFA);
     setModalShow(true);

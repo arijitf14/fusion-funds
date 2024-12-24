@@ -6,6 +6,7 @@ import "./TwoFA.css";
 import "./Otpverify.css"
 import CustomButton from "@components/core/CustomButton/CustomEditButton";
 import useTimerProps from "@customHooks/useTimerProps";
+import { toast } from "react-toastify";
 interface TwoFAProps {
   onHide: () => void;
   onSuccess: () => void;
@@ -34,7 +35,10 @@ const OtpVerify: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
     onHide();
     onSuccess();
   };
-
+  const resendOtp = () => {
+    toast.success("An OTP has been sent to your registered Email/Mobile", { theme: "colored" });
+    resetTimer();
+  };
   return (
     <>
       <div className="d-flex align-items-center justify-content-between titleContainer">
@@ -100,7 +104,7 @@ const OtpVerify: React.FC<TwoFAProps> = ({ onHide, onSuccess }) => {
                   </div>
 
                   <CustomButton
-                    onSelect={resetTimer}
+                    onSelect={resendOtp}
                     title="Resend Code"
                     containFill={true}
                     buttonDisabled={isButtonDisabled}

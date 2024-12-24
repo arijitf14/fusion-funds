@@ -19,14 +19,15 @@ import ManagePayeeRoute from "@routes/managePayee";
 import ManageSubscriptionRoute from "@routes/manageSubscription";
 import ManageProfileRoute from "@routes/manageProfile";
 import ProtectedRoute from "@components/ProtectedRoute/ProtectedRoute";
+import NonProtectedRoute from "@components/ProtectedRoute/NonProtectedRoute";
 
 const RouterMapping = () => {
   const routes = createBrowserRouter(
     createRoutesFromElements(
       <>
-        <Route path={"/"} element={<LoginRoute />} />
-        <Route path={ROUTES.SIGNUP} element={<SignupRoute />} />
-        <Route path={ROUTES.CREATE_ACCOUNT} element={<CreateAccountRoute />} />
+        <Route path={"/"} element={<NonProtectedRoute><LoginRoute /></NonProtectedRoute>} />
+        <Route path={ROUTES.SIGNUP} element={<NonProtectedRoute><SignupRoute /></NonProtectedRoute>} />
+        <Route path={ROUTES.CREATE_ACCOUNT} element={<NonProtectedRoute><CreateAccountRoute /></NonProtectedRoute>} />
 
         <Route path={ROUTES.DASHBOARD} element={<ProtectedRoute><DashboardRoute /></ProtectedRoute>} />
         <Route path={ROUTES.TRANSACTION} element={<ProtectedRoute><TransactionRoute /></ProtectedRoute>} />

@@ -14,6 +14,16 @@
   width: 400px;
   gap: 10px;
 }
+@media (max-width: 767px) {
+  .search-container.expanded {
+    width: 325px;
+  }
+}
+@media (max-width: 1225px) {
+  .search-container.expanded {
+    width: 315px;
+  }
+}
 
 /* Search icon styles */
 .search-icon {

@@ -12,7 +12,7 @@ import { FusionLogo } from "@assets/images";
 import ReCAPTCHA from "react-google-recaptcha";
 
 import CustomButton from "@components/core/CustomButton/CustomEditButton";
-import {toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { AuthState, save } from "@redux/auth";
 
@@ -37,19 +37,7 @@ const Login = () => {
 
   const handleSubmit = (values: LoginFormValues) => {
     console.log("Form Submitted with values:", values);
-    setModalShow(true); 
-
-    const authData: AuthState = {
-      accessToken: 'fusionFund',
-      accessTokenExpiry: 3600,
-      refreshToken: 'refresh-fusionFund',
-      refreshTokenExpiry: 12000,
-      name: "Richard",
-      email: values.email || "",
-      merchantID: "Rich1234",
-      twoFaPref: "mobile",
-    };
-    dispatch(save(authData))
+    setModalShow(true);
   };
 
   const validationSchema = Yup.object().shape({
@@ -61,42 +49,59 @@ const Login = () => {
       .required("Please enter the password"),
     captcha: Yup.string(),
   });
-
+  const userLoginFunc = (values: LoginFormValues) => {
+//here we call cognito api for below data...
+    const authData: AuthState = {
+      accessToken: 'fusionFund',
+      accessTokenExpiry: 3600,
+      refreshToken: 'refresh-fusionFund',
+      refreshTokenExpiry: 12000,
+      name: "Richard",
+      email: values.email,
+      merchantID: "Rich1234",
+      twoFaPref: "mobile",
+    };
+    dispatch(save(authData))
+    toast.success("Login success", { theme: "colored" });
+    navigate(ROUTES.DASHBOARD);
+  }
   return (
     <div className="login-container d-flex justify-content-center align-items-center">
-      <div className="rounded-lg p-4 p-md-5 w-100 w-md-50">
-        <Row className="w-100 h-100 ms-0">
-          {/* Left Side: Image */}
-          <Col
-            xs={12}
-            md={6}
-            className="d-flex justify-content-center align-items-center flex-column flex-md-row"
-          >
-            <img src={FusionLogo} alt="Side Graphic" className="login-logo" />
-          </Col>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {({
+          touched,
+          errors,
+          handleSubmit,
+          isValid,
+          dirty,
+          setFieldValue,
+          values
+        }) => (
+          <div className="rounded-lg p-4 p-md-5 w-100 w-md-50">
+            <Row className="w-100 h-100 ms-0">
+              {/* Left Side: Image */}
+              <Col
+                xs={12}
+                md={6}
+                className="d-flex justify-content-center align-items-center flex-column flex-md-row"
+              >
+                <img src={FusionLogo} alt="Side Graphic" className="login-logo" />
+              </Col>
 
-          {/* Right Side: Form */}
-          <Col
-            xs={12}
-            md={6}
-            className="d-flex justify-content-center align-items-center"
-          >
-            <div className="login-form-container">
-              <div className="login-form">
-                <h2 className="text-start text-lg font-semibold mb-3">Login</h2>
-                <Formik
-                  initialValues={initialValues}
-                  validationSchema={validationSchema}
-                  onSubmit={handleSubmit}
-                >
-                  {({
-                    touched,
-                    errors,
-                    handleSubmit,
-                    isValid,
-                    dirty,
-                    setFieldValue,
-                  }) => (
+              {/* Right Side: Form */}
+              <Col
+                xs={12}
+                md={6}
+                className="d-flex justify-content-center align-items-center"
+              >
+                <div className="login-form-container">
+                  <div className="login-form">
+                    <h2 className="text-start text-lg font-semibold mb-3">Login</h2>
+
                     <Form>
                       {/* Email Field */}
                       <CustomField
@@ -162,7 +167,7 @@ const Login = () => {
                         <div className="d-grid col-md-5 my-2">
                           <CustomButton
                             onSelect={
-                              isValid && dirty ? () => {} : handleSubmit
+                              isValid && dirty ? () => { } : handleSubmit
                             }
                             title="Continue"
                             containFill={true}
@@ -181,23 +186,24 @@ const Login = () => {
                         </span>
                       </div>
                     </Form>
-                  )}
-                </Formik>
-              </div>
-            </div>
-          </Col>
-        </Row>
-        <MyCustomModal show={modalShow} onHide={() => setModalShow(false)}>
-          <TwoFA
-            onHide={() => setModalShow(false)}
-            firstTimeTriggerOtp={true}
-            onSuccess={() => {
-              toast.success("Login success", {theme: "colored"});
-              navigate(ROUTES.DASHBOARD);
-            }}
-          />
-        </MyCustomModal>
-      </div>
+
+                  </div>
+                </div>
+              </Col>
+            </Row>
+            <MyCustomModal show={modalShow} onHide={() => setModalShow(false)}>
+              <TwoFA
+                onHide={() => setModalShow(false)}
+                firstTimeTriggerOtp={true}
+                onSuccess={() => {
+                  userLoginFunc(values)
+
+                }}
+              />
+            </MyCustomModal>
+          </div>
+        )}
+      </Formik>
     </div>
   );
 };

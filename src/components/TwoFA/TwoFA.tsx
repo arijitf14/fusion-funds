@@ -49,6 +49,7 @@ const TwoFA: React.FC<TwoFAProps> = ({
   useEffect(() => {
     sendOtp(twoFaPref);
   }, [firstTimeTriggerOtp]);
+  
   const resendOtp = () => {
     toast.success(`A new OTP has been sent to your registered ${selectedOption}.`, { theme: "colored" });
     resetTimer();
