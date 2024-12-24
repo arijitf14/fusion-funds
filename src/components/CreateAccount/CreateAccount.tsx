@@ -13,9 +13,11 @@ import CustomField from "@components/core/Input/CustomFieldProps";
 import "./CreateAccount.css";
 import { FusionLogo } from "@assets/images";
 import CustomButton from "@components/core/CustomButton/CustomEditButton";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { showNotifyModal } from "@redux/signUpConfirmation";
 import { AuthState, save } from "@redux/auth";
+import { RootState } from "@redux/store";
+import MobileField from "@components/core/Input/MobileField";
 
 interface CreateAccountFormValues {
   username: string;
@@ -26,21 +28,22 @@ interface CreateAccountFormValues {
   lastName: string;
   country: string;
   city: string;
-  province: string;
+  state: string;
   zipCode: string;
   addressLine1: string;
   addressLine2: string;
 }
 
-
 const CreateAccount = () => {
   const navigate = useNavigate();
   const [modalShow, setModalShow] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const signUpValues = useSelector((state: RootState) => state.authDetails);
   const options = [
     { value: "chocolate", label: "Chocolate" },
     { value: "strawberry", label: "Strawberry" },
     { value: "vanilla", label: "Vanilla" },
+    { value: "usa", label: "USA" },
   ];
 
   const initialValues = {
@@ -52,14 +55,20 @@ const CreateAccount = () => {
     lastName: "",
     country: "",
     city: "",
-    province: "",
+    state: "",
     zipCode: "",
     addressLine1: "",
-    addressLine2: ""
+    addressLine2: "",
   };
 
+  const populatedValues = Object.assign({}, initialValues, {
+    mobile: signUpValues.phoneNumber,
+    username: signUpValues.userName,
+    email: signUpValues.email,
+  });
+
   const handleSubmit = (data: CreateAccountFormValues) => {
-    console.log("Form Data:", data);
+    console.log("Form Data=======================>:", data);
     setModalShow(true);
   };
 
@@ -76,7 +85,7 @@ const CreateAccount = () => {
     lastName: Yup.string().required("Please enter your last name"),
     country: Yup.string().required("Please select a country"),
     city: Yup.string().required("Please enter your city"),
-    province: Yup.string().required("Please enter your province"),
+    state: Yup.string().required("Please enter your province"),
     zipCode: Yup.string()
       .required("Please enter a zip code")
       .matches(/^\d{5}$/, "Zip code must be exactly 5 digits"),
@@ -110,11 +119,19 @@ const CreateAccount = () => {
                   Sign Up
                 </h2>
                 <Formik
-                  initialValues={initialValues}
+                  initialValues={populatedValues}
                   validationSchema={validationSchema}
                   onSubmit={handleSubmit}
                 >
-                  {({ touched, setFieldValue, errors, handleSubmit, isValid, dirty }) => (
+                  {({
+                    touched,
+                    setFieldValue,
+                    errors,
+                    handleSubmit,
+                    isValid,
+                    values,
+                    dirty,
+                  }) => (
                     <Form>
                       <Accordion defaultActiveKey="1">
                         <Accordion.Item eventKey="0" className="mb-4">
@@ -128,17 +145,19 @@ const CreateAccount = () => {
                               label="User Name"
                               placeholder="Jonh Doe"
                               touched={touched}
+                              disabled={true}
                               errors={errors}
                               fieldTextSize="fieldTextSize"
                             />
                             <div className="row">
-                              <CustomField
+                              <MobileField
                                 type="text"
                                 name="mobile"
                                 label="Mobile Number"
                                 placeholder="Enter your mobile no"
                                 className="col-md-6"
                                 touched={touched}
+                                disabled={true}
                                 errors={errors}
                                 fieldTextSize="fieldTextSize"
                               />
@@ -146,6 +165,7 @@ const CreateAccount = () => {
                                 type="email"
                                 name="email"
                                 label="Email"
+                                disabled={true}
                                 placeholder="example@gmail.com"
                                 className="col-md-6"
                                 touched={touched}
@@ -193,26 +213,60 @@ const CreateAccount = () => {
                               />
                             </div>
                             <div className="row">
-                              <CustomField
-                                type="text"
-                                name="country"
-                                label="Country"
-                                placeholder="Country"
-                                className="col-md-6"
-                                touched={touched}
-                                errors={errors}
-                                fieldTextSize="fieldTextSize"
-                              />
+                              <div className="col-md-6 mb-3">
+                                <label htmlFor="city">Country</label>
+                                <ReactSelect
+                                  className={`form-control ${
+                                    touched.country && errors.country
+                                      ? "is-invalid"
+                                      : ""
+                                  } dropdown-field-text`}
+                                  inputId="country"
+                                  value={
+                                    options.find(
+                                      (option) =>
+                                        option.value === values.country
+                                    ) || null
+                                  }
+                                  onChange={(e) => {
+                                    setFieldValue("country", e?.value);
+                                  }}
+                                  options={options}
+                                  hideSelectedOptions={false}
+                                  components={{
+                                    IndicatorSeparator: () => null,
+                                  }}
+                                  styles={
+                                    customStyles as StylesConfig<
+                                      TReactSelectOption,
+                                      false
+                                    >
+                                  }
+                                />
+                                {touched.country && errors.country && (
+                                  <BsForm.Control.Feedback
+                                    className="dropdown-field-text"
+                                    type="invalid"
+                                  >
+                                    {errors.country}
+                                  </BsForm.Control.Feedback>
+                                )}
+                              </div>
 
                               <div className="col-md-6 mb-3">
                                 <label htmlFor="city">City</label>
                                 <ReactSelect
-                                  className={`form-control ${touched.city && errors.city
-                                    ? "is-invalid"
-                                    : ""
-                                    } dropdown-field-text`}
+                                  className={`form-control ${
+                                    touched.city && errors.city
+                                      ? "is-invalid"
+                                      : ""
+                                  } dropdown-field-text`}
                                   inputId="city"
-                                  // value={}
+                                  value={
+                                    options.find(
+                                      (option) => option.value === values.city
+                                    ) || null
+                                  }
                                   onChange={(e) => {
                                     setFieldValue("city", e?.value);
                                   }}
@@ -229,7 +283,10 @@ const CreateAccount = () => {
                                   }
                                 />
                                 {touched.city && errors.city && (
-                                  <BsForm.Control.Feedback type="invalid">
+                                  <BsForm.Control.Feedback
+                                    className="dropdown-field-text"
+                                    type="invalid"
+                                  >
                                     {errors.city}
                                   </BsForm.Control.Feedback>
                                 )}
@@ -237,16 +294,44 @@ const CreateAccount = () => {
                             </div>
 
                             <div className="row">
-                              <CustomField
-                                type="text"
-                                name="province"
-                                label="State"
-                                placeholder="State"
-                                className="col-md-6"
-                                touched={touched}
-                                errors={errors}
-                                fieldTextSize="fieldTextSize"
-                              />
+                              <div className="col-md-6 mb-3">
+                                <label htmlFor="city">State</label>
+                                <ReactSelect
+                                  className={`form-control ${
+                                    touched.state && errors.state
+                                      ? "is-invalid"
+                                      : ""
+                                  } dropdown-field-text`}
+                                  inputId="state"
+                                  value={
+                                    options.find(
+                                      (option) => option.value === values.state
+                                    ) || null
+                                  }
+                                  onChange={(e) => {
+                                    setFieldValue("state", e?.value);
+                                  }}
+                                  options={options}
+                                  hideSelectedOptions={false}
+                                  components={{
+                                    IndicatorSeparator: () => null,
+                                  }}
+                                  styles={
+                                    customStyles as StylesConfig<
+                                      TReactSelectOption,
+                                      false
+                                    >
+                                  }
+                                />
+                                {touched.state && errors.state && (
+                                  <BsForm.Control.Feedback
+                                    className="dropdown-field-text"
+                                    type="invalid"
+                                  >
+                                    {errors.state}
+                                  </BsForm.Control.Feedback>
+                                )}
+                              </div>
                               <CustomField
                                 type="text"
                                 name="zipCode"
@@ -280,7 +365,9 @@ const CreateAccount = () => {
                             <div className="d-flex justify-content-center">
                               <div className="d-grid col-md-5 my-2">
                                 <CustomButton
-                                  onSelect={isValid && dirty ? () => { } : handleSubmit}
+                                  onSelect={
+                                    isValid && dirty ? () => {} : handleSubmit
+                                  }
                                   title="Verify"
                                   containFill={true}
                                   buttonDisabled={!isValid || !dirty}
@@ -313,16 +400,15 @@ const CreateAccount = () => {
             onSuccess={() => {
               navigate(ROUTES.DASHBOARD);
               const authData: AuthState = {
-                accessToken: 'fusionFund',
+                accessToken: "fusionFund",
                 accessTokenExpiry: 3600,
-                refreshToken: 'refresh-fusionFund',
+                refreshToken: "refresh-fusionFund",
                 refreshTokenExpiry: 12000,
                 name: "Richard",
-                email: "",
                 merchantID: "Rich1234",
                 twoFaPref: "mobile",
               };
-              dispatch(save(authData))
+              dispatch(save(authData));
               dispatch(showNotifyModal(true));
             }}
           />

@@ -1,6 +1,6 @@
 import "./SignUp.css";
-import { Row, Col, Form as BsForm } from "react-bootstrap";
-import { Formik, Field, Form } from "formik";
+import { Row, Col } from "react-bootstrap";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "@utils/Utils";
@@ -13,6 +13,8 @@ import OtpVerify from "@components/TwoFA/Otpverify";
 import CustomButton from "@components/core/CustomButton/CustomEditButton";
 import MobileField from "@components/core/Input/MobileField";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { signUpDetail } from "@redux/auth";
 
 interface SignUpFormValues {
   name: string;
@@ -23,6 +25,8 @@ interface SignUpFormValues {
 }
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const [modalShow, setModalShow] = useState<boolean>(false);
 
@@ -37,6 +41,15 @@ const SignUp = () => {
   const handleSubmit = (values: SignUpFormValues) => {
     console.log("sign up", values);
     toast.success("An OTP has been sent to your registered Email/Mobile", { theme: "colored" });
+    console.log("sign up=========>", values);
+
+    dispatch(
+      signUpDetail({
+        userName: values?.name,
+        phoneNumber: values?.mobile,
+        email: values?.email,
+      })
+    );
 
     // navigate(ROUTES.TwoFA);
     setModalShow(true);
@@ -131,6 +144,7 @@ const SignUp = () => {
                         name="password"
                         label="Create Password"
                         placeholder="Atleast 8 characters"
+                        doNotCopyPaste={true}
                         touched={touched}
                         errors={errors}
                         fieldTextSize="fieldTextSize"
@@ -142,6 +156,7 @@ const SignUp = () => {
                         label="Confirm Password"
                         placeholder="Atleast 8 characters"
                         touched={touched}
+                        doNotCopyPaste={true}
                         errors={errors}
                         fieldTextSize="fieldTextSize"
                       />
@@ -154,12 +169,8 @@ const SignUp = () => {
                             }
                             title="Verify"
                             containFill={true}
-                            buttonDisabled={!isValid || !dirty} // Disable button if form is invalid or not modified
+                            buttonDisabled={!isValid || !dirty}
                           />
-
-                          {/* <button type="submit" className="btn btn-primary">
-                            Verify
-                          </button> */}
                         </div>
                       </div>
 

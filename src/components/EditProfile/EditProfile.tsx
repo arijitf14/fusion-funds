@@ -9,7 +9,6 @@ import "./EditProfile.css";
 import CustomButton from "@components/core/CustomButton/CustomEditButton";
 import { UserData, UserProfile } from "./EditProfileTypes";
 
-
 const EditProfile = ({ profileData }: UserData) => {
   const options = [
     { value: "chocolate", label: "Chocolate" },

@@ -12,6 +12,7 @@ interface CustomFieldProps {
   touched: any; // Formik touched object
   errors: any; // Formik errors object
   fieldTextSize?: string;
+  disabled?: boolean;
 }
 
 const MobileField: React.FC<CustomFieldProps> = ({
@@ -23,6 +24,7 @@ const MobileField: React.FC<CustomFieldProps> = ({
   touched,
   errors,
   fieldTextSize = "",
+  disabled=false
 }) => {
   // Check if there's an error and the field has been touched
   const isInvalid = touched[name] && errors[name];
@@ -47,6 +49,7 @@ const MobileField: React.FC<CustomFieldProps> = ({
                 height: "43.5px",
                 display: "flex",
                 flexDirection: "row",
+                backgroundColor:disabled?"#E9ECEF":"none"
               }}
             >
               <div className="number_extention">+1</div>
@@ -54,6 +57,7 @@ const MobileField: React.FC<CustomFieldProps> = ({
                 {...field}
                 type={type ? type : "text"}
                 id={name}
+                disabled={disabled}
                 placeholder={placeholder}
                 className="unstyled-input"
               />
