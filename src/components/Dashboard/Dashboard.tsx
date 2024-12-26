@@ -5,10 +5,13 @@ import { RootState } from "@redux/store";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearShowNotifyModal } from "@redux/signUpConfirmation";
+import { showLoader } from "@redux/spinnerLoader";
 
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch();
-  const { showModal } = useSelector((gs: RootState) => gs.signUpConfirmationDetails)
+  const { showModal } = useSelector(
+    (gs: RootState) => gs.signUpConfirmationDetails
+  );
   const [confirmModalShow, setConfirmModalShow] = useState<boolean>(false);
 
   useEffect(() => {
@@ -16,6 +19,9 @@ const Dashboard: React.FC = () => {
       setConfirmModalShow(true);
       dispatch(clearShowNotifyModal());
     }
+  }, []);
+  useEffect(() => {
+    dispatch(showLoader(true));
   }, []);
 
   return (

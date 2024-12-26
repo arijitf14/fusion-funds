@@ -39,7 +39,7 @@ const Login = () => {
   const handleSubmit = (values: LoginFormValues) => {
     console.log("Form Submitted with values:", values);
     setModalShow(true);
-    dispatch(showLoader(false))
+    dispatch(showLoader(true))
   };
 
   const validationSchema = Yup.object().shape({
